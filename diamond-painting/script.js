@@ -102,8 +102,21 @@ function fetchDiamondData() {
     });
 }
 
-// Auto-init on page load
+function waitForScripts(callback) {
+    const check = () => {
+        if (typeof google !== 'undefined' && google.accounts && typeof gapi !== 'undefined') {
+            callback();
+        } else {
+            setTimeout(check, 100);
+        }
+    };
+    check();
+}
+
 window.addEventListener('load', () => {
-    console.log('🔹 Window loaded, starting GIS -> gapi -> fetch sequence');
-    initGISAndFetch();
+    console.log('🔹 Window loaded, waiting for Google scripts...');
+    waitForScripts(() => {
+        console.log('🟢 Google scripts loaded, starting GIS -> gapi -> fetch sequence');
+        initGISAndFetch();
+    });
 });
