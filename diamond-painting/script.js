@@ -1,12 +1,12 @@
 // =======================
-// diamondPainting/script.js
+// diamond-painting/script.js
 // =======================
 
 // Configuration for this page
 const DP_CONFIG = {
-    SPREADSHEET_ID: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM',   // Replace with your sheet ID
-    SHEET_TAB: 'Diamond Painting',            // Name of the tab
-    SHEET_RANGE: 'A:K'                       // Adjust based on your columns
+    SPREADSHEET_ID: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM', // Sheet ID only
+    SHEET_TAB: 'Diamond Painting',                                  // Name of the tab
+    SHEET_RANGE: 'A:K'                                              // Adjust based on your columns
 };
 
 // ---------------------------
@@ -43,28 +43,41 @@ function initGAPI() {
     });
 }
 
+// ---------------------------
+// Initialize GIS safely
+// ---------------------------
 function initGIS() {
-    tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: CONFIG.CLIENT_ID,
-        scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-        callback: (tokenResponse) => {
-            console.log('✅ OAuth token received');
-            fetchDiamondData();
-        },
-    });
+    // Wait until google.accounts exists
+    function waitForGIS(callback) {
+        if (typeof google !== 'undefined') {
+            callback();
+        } else {
+            setTimeout(() => waitForGIS(callback), 100);
+        }
+    }
 
-    // Automatically request an access token
-    google.accounts.id.initialize({
-        client_id: CONFIG.CLIENT_ID,
-        callback: (response) => {
-            console.log('One Tap credential received', response);
-            // You can use the credential to fetch an access token if needed
-        },
-        auto_select: true, // tries to auto-login if user previously granted permission
-        cancel_on_tap_outside: false // keeps prompt visible until user interacts
-    });
+    waitForGIS(() => {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CONFIG.CLIENT_ID,
+            scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+            callback: (tokenResponse) => {
+                console.log('✅ OAuth token received');
+                fetchDiamondData();
+            },
+        });
 
-    google.accounts.id.prompt(); // shows the One Tap prompt
+        // Automatically request an access token
+        google.accounts.id.initialize({
+            client_id: CONFIG.CLIENT_ID,
+            callback: (response) => {
+                console.log('One Tap credential received', response);
+            },
+            auto_select: true,
+            cancel_on_tap_outside: false
+        });
+
+        google.accounts.id.prompt(); // show One Tap prompt
+    });
 }
 
 // ---------------------------
@@ -79,7 +92,7 @@ function requestAccessToken() {
 function fetchDiamondData() {
     gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: DP_CONFIG.SPREADSHEET_ID,
-        range: DP_CONFIG.SHEET_RANGE
+        range: `${DP_CONFIG.SHEET_TAB}!${DP_CONFIG.SHEET_RANGE}`
     }).then(response => {
         diamondData = processSheetResponse(response);
         if (diamondData.length > 0) {
@@ -102,8 +115,6 @@ window.addEventListener('load', () => {
     // Wait until gapi is loaded before initializing client
     const gapiScript = document.createElement('script');
     gapiScript.src = "https://apis.google.com/js/api.js";
-    gapiScript.onload = () => {
-        initGAPI();
-    };
+    gapiScript.onload = () => initGAPI();
     document.body.appendChild(gapiScript);
 });
