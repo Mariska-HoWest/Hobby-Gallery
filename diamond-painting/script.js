@@ -39,7 +39,20 @@ function initGAPI() {
             discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
         });
         console.log('✅ Google API client initialized');
-        requestAccessToken();
+
+        // Only request access if tokenClient is ready
+        if (tokenClient) {
+            tokenClient.requestAccessToken();
+        } else {
+            console.warn('⚠️ tokenClient not ready yet, waiting for GIS init...');
+            // poll until ready
+            const waitForToken = setInterval(() => {
+                if (tokenClient) {
+                    tokenClient.requestAccessToken();
+                    clearInterval(waitForToken);
+                }
+            }, 100);
+        }
     });
 }
 
