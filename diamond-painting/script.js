@@ -55,33 +55,35 @@ window.addEventListener('load', () => {
     // Step 1: Load GAPI
     const gapiScript = document.createElement('script');
     gapiScript.src = "https://apis.google.com/js/api.js";
-    gapiScript.onload = async () => {
-        // Initialize GAPI client
-        await gapi.client.init({
-            apiKey: CONFIG.API_KEY,
-            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+    gapiScript.onload = () => {
+        // Wait until gapi.client is available
+        gapi.load('client', async () => {
+            await gapi.client.init({
+                apiKey: CONFIG.API_KEY,
+                discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+            });
+            console.log('✅ Google API client initialized');
+
+            // Step 2: Wait for GIS to load
+            const waitForGIS = setInterval(() => {
+                if (typeof google !== 'undefined' && google.accounts) {
+                    clearInterval(waitForGIS);
+
+                    // Initialize GIS token client
+                    tokenClient = google.accounts.oauth2.initTokenClient({
+                        client_id: CONFIG.CLIENT_ID,
+                        scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+                        callback: (tokenResponse) => {
+                            console.log('✅ OAuth token received');
+                            fetchDiamondData();
+                        }
+                    });
+
+                    // Request access token immediately
+                    tokenClient.requestAccessToken();
+                }
+            }, 50);
         });
-        console.log('✅ Google API client initialized');
-
-        // Step 2: Wait for GIS to load
-        const waitForGIS = setInterval(() => {
-            if (typeof google !== 'undefined' && google.accounts) {
-                clearInterval(waitForGIS);
-
-                // Initialize GIS token client
-                tokenClient = google.accounts.oauth2.initTokenClient({
-                    client_id: CONFIG.CLIENT_ID,
-                    scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-                    callback: (tokenResponse) => {
-                        console.log('✅ OAuth token received');
-                        fetchDiamondData();
-                    }
-                });
-
-                // Request access token immediately
-                tokenClient.requestAccessToken();
-            }
-        }, 50);
     };
     document.body.appendChild(gapiScript);
 });
