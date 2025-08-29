@@ -30,76 +30,6 @@ function processSheetResponse(response) {
 }
 
 // ---------------------------
-// Initialize Google API client
-// ---------------------------
-function initGAPI() {
-    gapi.load('client', async () => {
-        await gapi.client.init({
-            apiKey: CONFIG.API_KEY,
-            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
-        });
-        console.log('✅ Google API client initialized');
-
-        // Only request access if tokenClient is ready
-        if (tokenClient) {
-            tokenClient.requestAccessToken();
-        } else {
-            console.warn('⚠️ tokenClient not ready yet, waiting for GIS init...');
-            // poll until ready
-            const waitForToken = setInterval(() => {
-                if (tokenClient) {
-                    tokenClient.requestAccessToken();
-                    clearInterval(waitForToken);
-                }
-            }, 100);
-        }
-    });
-}
-
-// ---------------------------
-// Initialize GIS safely
-// ---------------------------
-function initGIS() {
-    // Wait until google.accounts exists
-    function waitForGIS(callback) {
-        if (typeof google !== 'undefined') {
-            callback();
-        } else {
-            setTimeout(() => waitForGIS(callback), 100);
-        }
-    }
-
-    waitForGIS(() => {
-        tokenClient = google.accounts.oauth2.initTokenClient({
-            client_id: CONFIG.CLIENT_ID,
-            scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-            callback: (tokenResponse) => {
-                console.log('✅ OAuth token received');
-                fetchDiamondData();
-            },
-        });
-
-        // Automatically request an access token
-        google.accounts.id.initialize({
-            client_id: CONFIG.CLIENT_ID,
-            callback: (response) => {
-                console.log('One Tap credential received', response);
-            },
-            auto_select: true,
-            cancel_on_tap_outside: false
-        });
-
-        google.accounts.id.prompt(); // show One Tap prompt
-    });
-}
-
-// ---------------------------
-// Request OAuth access token (triggers login)
-function requestAccessToken() {
-    tokenClient.requestAccessToken();
-}
-
-// ---------------------------
 // Fetch DiamondPainting data
 // ---------------------------
 function fetchDiamondData() {
@@ -122,12 +52,36 @@ function fetchDiamondData() {
 // Auto-init after page load
 // ---------------------------
 window.addEventListener('load', () => {
-    // Initialize GIS token client first
-    initGIS();
-
-    // Wait until gapi is loaded before initializing client
+    // Step 1: Load GAPI
     const gapiScript = document.createElement('script');
     gapiScript.src = "https://apis.google.com/js/api.js";
-    gapiScript.onload = () => initGAPI();
+    gapiScript.onload = async () => {
+        // Initialize GAPI client
+        await gapi.client.init({
+            apiKey: CONFIG.API_KEY,
+            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+        });
+        console.log('✅ Google API client initialized');
+
+        // Step 2: Wait for GIS to load
+        const waitForGIS = setInterval(() => {
+            if (typeof google !== 'undefined' && google.accounts) {
+                clearInterval(waitForGIS);
+
+                // Initialize GIS token client
+                tokenClient = google.accounts.oauth2.initTokenClient({
+                    client_id: CONFIG.CLIENT_ID,
+                    scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+                    callback: (tokenResponse) => {
+                        console.log('✅ OAuth token received');
+                        fetchDiamondData();
+                    }
+                });
+
+                // Request access token immediately
+                tokenClient.requestAccessToken();
+            }
+        }, 50);
+    };
     document.body.appendChild(gapiScript);
 });
