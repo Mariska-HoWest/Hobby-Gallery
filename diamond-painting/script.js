@@ -2,16 +2,12 @@
 // diamond-painting/script.js
 // =======================
 
-// Configuration for this page
 const DP_CONFIG = {
-    SPREADSHEET_ID: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM', // Sheet ID only
-    SHEET_TAB: 'Diamond Painting',                                  // Name of the tab
-    SHEET_RANGE: 'A:K'                                              // Adjust based on your columns
+    SPREADSHEET_ID: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM',
+    SHEET_TAB: 'Diamond Painting',
+    SHEET_RANGE: 'A:K'
 };
 
-// ---------------------------
-// Data storage
-// ---------------------------
 let diamondData = [];
 let tokenClient;
 
@@ -30,43 +26,10 @@ function processSheetResponse(response) {
 }
 
 // ---------------------------
-// Initialize GIS and request token
-// ---------------------------
-function initGISAndFetch() {
-    const waitForGoogle = setInterval(() => {
-        if (typeof google !== 'undefined') {
-            clearInterval(waitForGoogle);
-
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: CONFIG.CLIENT_ID,
-                scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-                callback: async (tokenResponse) => {
-                    console.log('✅ OAuth token received');
-
-                    // Load gapi client AFTER token
-                    gapi.load('client', async () => {
-                        await gapi.client.init({
-                            apiKey: CONFIG.API_KEY,
-                            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
-                        });
-                        console.log('✅ Google API client initialized');
-
-                        // Fetch the sheet data
-                        fetchDiamondData();
-                    });
-                },
-            });
-
-            // Automatically request an access token (user consent popup)
-            tokenClient.requestAccessToken();
-        }
-    }, 100);
-}
-
-// ---------------------------
 // Fetch DiamondPainting data
 // ---------------------------
 function fetchDiamondData() {
+    console.log('⏳ Fetching Diamond Painting data...');
     gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: DP_CONFIG.SPREADSHEET_ID,
         range: `${DP_CONFIG.SHEET_TAB}!${DP_CONFIG.SHEET_RANGE}`
@@ -83,9 +46,54 @@ function fetchDiamondData() {
 }
 
 // ---------------------------
+// Initialize GAPI client
+// ---------------------------
+function initGAPI() {
+    console.log('⏳ Initializing GAPI client...');
+    gapi.load('client', async () => {
+        try {
+            await gapi.client.init({
+                apiKey: CONFIG.API_KEY,
+                discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+            });
+            console.log('✅ Google API client initialized');
+
+            // Once GAPI is ready, fetch the data
+            fetchDiamondData();
+        } catch (err) {
+            console.error('❌ Failed to initialize GAPI client:', err);
+        }
+    });
+}
+
+// ---------------------------
+// Initialize GIS token client and request token
+// ---------------------------
+function initGIS() {
+    const waitForGIS = setInterval(() => {
+        if (window.google && google.accounts && google.accounts.oauth2) {
+            clearInterval(waitForGIS);
+
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CONFIG.CLIENT_ID,
+                scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+                callback: (tokenResponse) => {
+                    console.log('✅ OAuth token received', tokenResponse);
+
+                    // Now initialize GAPI after token is available
+                    initGAPI();
+                }
+            });
+
+            console.log('⏳ Requesting OAuth token...');
+            tokenClient.requestAccessToken(); // triggers consent popup if needed
+        }
+    }, 100);
+}
+
+// ---------------------------
 // Auto-init after page load
 // ---------------------------
 window.addEventListener('load', () => {
-    // Start the GIS -> gapi -> fetch sequence
-    initGISAndFetch();
+    initGIS(); // Start the GIS -> GAPI -> fetch sequence
 });
