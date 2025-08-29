@@ -2,7 +2,7 @@
 // GENERAL APP.JS
 // =======================
 
-const CONFIG = {
+window.CONFIG = {
     CLIENT_ID: '451352190641-gqo0cqlg6urfmourrubdv3lhceg8rd39.apps.googleusercontent.com',
     API_KEY: 'AIzaSyBUtd0nI5kvhy0JjnpeXcSDdFTYYOVvxGM'
 };
