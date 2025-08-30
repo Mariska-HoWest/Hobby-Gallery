@@ -60,7 +60,7 @@ function initGISAndFetch() {
                         });
                         console.log('✅ Google API client initialized');
 
-                        fetchDiamondData();
+                        fetchDiamondData(updateDpDisplay);
                     } catch (err) {
                         console.error('❌ Failed to init gapi.client:', err);
                     }
@@ -85,7 +85,7 @@ function initGISAndFetch() {
 }
 
 // Fetch the Diamond Painting sheet
-function fetchDiamondData() {
+function fetchDiamondData(callback) {
     console.log('🔹 Fetching Diamond Painting data...');
     gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: DP_CONFIG.SPREADSHEET_ID,
@@ -94,6 +94,7 @@ function fetchDiamondData() {
         diamondData = processSheetResponse(response);
         if (diamondData.length > 0) {
             console.log('✅ Diamond Painting data fetched successfully!', diamondData);
+            callback();
         } else {
             console.warn('⚠️ Diamond Painting tab is empty or could not be processed.');
         }
