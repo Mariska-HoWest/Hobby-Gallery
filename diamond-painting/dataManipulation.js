@@ -5,6 +5,6 @@ function updateDpDisplay() {
 
     diamondData.forEach(dp => 
     {
-        dpDisplay.innerHTML += `Hello ${dp.name}<br>`; // Append each name to innerHTML
+        dpDisplay.innerHTML += `Hello ${dp.Name}<br>`; // Append each name to innerHTML
     });
 }
