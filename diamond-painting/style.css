@@ -2,7 +2,7 @@
 {
   display: grid;
   grid-template-rows: auto 1fr 50px;
-  grid-template-columns: 20% 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-areas:
     "navbar navbar"
     "filter cards"
@@ -38,6 +38,7 @@
     display: inline-block;
     text-align: center;
     overflow: hidden;
+    background-color: #9988DF;
 }
 
 .name 

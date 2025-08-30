@@ -1,13 +1,13 @@
 body
 {
-    background-color: #F3F0FF;
+    background-color: #C3B7F1;
     margin:0px
 }
 
 nav
 {
     text-align: center;
-    background-color: #BDADFF;
+    background-color: #6A219C;
     font-size: xx-large;
     width: 100%;
     padding: 0;
@@ -26,7 +26,7 @@ nav ul
 nav li a
 {
     cursor: pointer;
-    background-color: #957CFC;
+    background-color: #9A5AC6;
     padding: 4px 16px;
     border-radius: 8px;
     color:white;
@@ -34,5 +34,5 @@ nav li a
 }
 
 nav li a:hover {
-  background-color: #725AD3;
+  background-color: #B881DD;
 }
