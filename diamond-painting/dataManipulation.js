@@ -1,11 +1,12 @@
 const dpDisplay = document.getElementById("display");
+console.log(dpDisplay);
 
 function updateDpDisplay() {
     dpDisplay.innerHTML = "";
 
     diamondData.forEach(dp => 
     {
-        // dpDisplay.innerHTML += `Hello ${dp.Name}<br>`;
+        dpDisplay.innerHTML += `Hello ${dp.Name}<br>`;
 
         let card = document.createElement("div");
         card.classList.add("card");
@@ -25,8 +26,8 @@ function updateDpDisplay() {
             //Scale image setting
             const scaleFactor = 10;
 
-            img.style.width = `${dp.Width * scaleFactor}px`;
-            img.style.height = `${dp.Height * scaleFactor}px`;
+            img.style.width = `${Number(dp.Width) * scaleFactor}px`;
+            img.style.height = `${Number(dp.Height) * scaleFactor}px`;
         }
 
         dpDisplay.appendChild(card);
