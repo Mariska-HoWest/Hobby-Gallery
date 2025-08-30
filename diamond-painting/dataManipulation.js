@@ -11,7 +11,7 @@ function updateDpDisplay() {
         card.classList.add("card");
 
         let name =document.createElement("div");
-        name.classlist.add("name")
+        name.classList.add("name")
         name.textContent = dp.Name;
         card.appendChild(name)
 
