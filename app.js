@@ -31,9 +31,15 @@ function initGAPIClient(onReadyCallback) {
 // Shared helper: convert Google Drive share link to direct link
 function convertDriveLink(url) {
     try {
-        const id = url.match(/\/d\/(.*?)\//)[1];
-        return `https://drive.google.com/uc?export=view&id=${id}`;
-    } catch {
-        return url; // fallback in case it's already direct
+        const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);  // Adjust regex to correctly capture file ID
+        if (match && match[1]) {
+            const fileId = match[1];
+            return `https://drive.google.com/uc?export=view&id=${fileId}`;  // Correct direct image URL
+        } else {
+            throw new Error("No file ID found");
+        }
+    } catch (error) {
+        console.error("Error converting URL:", error);
+        return url;  // Return original URL if conversion fails
     }
 }
