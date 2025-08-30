@@ -24,7 +24,7 @@ function updateDpDisplay() {
             card.appendChild(img);
 
             //Scale image setting
-            const scaleFactor = 1;
+            const scaleFactor = 10;
 
             img.style.width = `${Number(dp.Width) * scaleFactor}px`;
             img.style.height = `${Number(dp.Height) * scaleFactor}px`;
