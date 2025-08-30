@@ -30,6 +30,7 @@ function updateDpDisplay() {
             img.style.height = `${Number(dp.Height) * scaleFactor}px`;
         }
 
+        console.log(card);
         dpDisplay.appendChild(card);
     });
 }

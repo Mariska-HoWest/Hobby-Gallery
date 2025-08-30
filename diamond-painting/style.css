@@ -2,25 +2,30 @@
 {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    padding: 20px;
+    justify-content: space-around;
 }
 
 .card 
 {
-    background-color: #725AD3;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: center;
 }
 
-.name
+.name 
 {
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.img
+.img 
 {
-    display: block;
+    border-radius: 8px;
 }
