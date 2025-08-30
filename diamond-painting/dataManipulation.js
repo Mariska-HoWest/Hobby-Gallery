@@ -6,8 +6,6 @@ function updateDpDisplay() {
 
     diamondData.forEach(dp => 
     {
-        dpDisplay.innerHTML += `Hello ${dp.Name}<br>`;
-
         let card = document.createElement("div");
         card.classList.add("card");
 
@@ -20,11 +18,13 @@ function updateDpDisplay() {
         {
             let img = document.createElement("img")
             img.classList.add("img")
+
+            const imageUrl = convertDriveLink(dp.Image);
             img.src = dp.Image;
             card.appendChild(img);
 
             //Scale image setting
-            const scaleFactor = 10;
+            const scaleFactor = 1;
 
             img.style.width = `${Number(dp.Width) * scaleFactor}px`;
             img.style.height = `${Number(dp.Height) * scaleFactor}px`;
