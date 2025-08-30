@@ -5,6 +5,30 @@ function updateDpDisplay() {
 
     diamondData.forEach(dp => 
     {
-        dpDisplay.innerHTML += `Hello ${dp.Name}<br>`; // Append each name to innerHTML
+        // dpDisplay.innerHTML += `Hello ${dp.Name}<br>`;
+
+        let card = document.createElement("div");
+        card.classList.add("card");
+
+        let name =document.createElement("div");
+        name.classlist.add("name")
+        name.textContent = dp.Name;
+        card.appendChild(name)
+
+        if (dp.Image)
+        {
+            let img = document.createElement("img")
+            img.classList.add("img")
+            img.src = dp.Image;
+            card.appendChild(img);
+
+            //Scale image setting
+            const scaleFactor = 10;
+
+            img.style.width = `${dp.Width * scaleFactor}px`;
+            img.style.height = `${dp.Height * scaleFactor}px`;
+        }
+
+        dpDisplay.appendChild(card);
     });
 }
