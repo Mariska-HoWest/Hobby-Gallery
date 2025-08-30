@@ -20,7 +20,7 @@ function updateDpDisplay() {
             img.classList.add("img")
 
             const imageUrl = convertDriveLink(dp.Image);
-            img.src = dp.Image;
+            img.src = imageUrl;
             card.appendChild(img);
 
             //Scale image setting
