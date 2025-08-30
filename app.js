@@ -34,7 +34,7 @@ function convertDriveLink(url) {
         const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);  // Adjust regex to correctly capture file ID
         if (match && match[1]) {
             const fileId = match[1];
-            return `https://drive.google.com/uc?export=view&id=${fileId}`;  // Correct direct image URL
+        return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
         } else {
             throw new Error("No file ID found");
         }
