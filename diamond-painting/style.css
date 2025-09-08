@@ -5,7 +5,7 @@
   grid-template-columns: auto 1fr;
   grid-template-areas:
     "navbar navbar"
-    "filter cards"
+    "filter display"
     "footer footer";
   height: 100vh;
 }
@@ -23,7 +23,7 @@
 
 #display
 {
-    grid-area: cards;
+    grid-area: display;
     padding: 20px;
     overflow-y: auto;
 }
