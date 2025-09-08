@@ -7,19 +7,6 @@ window.CONFIG = {
     API_KEY: 'AIzaSyBUtd0nI5kvhy0JjnpeXcSDdFTYYOVvxGM'
 };
 
-//Dynamic Base
-function SetBase()
-{
-    let base = document.createElement("base");
-    
-    if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-        base.href = "/";
-    else
-        base.href = "/Hobby-Gallery";
-
-    document.head.appendChild(base);
-}
-
 // Initialize Google API client
 function initGAPIClient(onReadyCallback) 
 {
