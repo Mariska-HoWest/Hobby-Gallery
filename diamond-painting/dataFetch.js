@@ -60,7 +60,7 @@ function initGISAndFetch() {
                         });
                         console.log('✅ Google API client initialized');
 
-                        fetchDiamondData(updateDpDisplay);
+                        fetchDiamondData(initManipulation);
                     } catch (err) {
                         console.error('❌ Failed to init gapi.client:', err);
                     }
@@ -121,3 +121,9 @@ window.addEventListener('load', () => {
         initGISAndFetch();
     });
 });
+
+function initManipulation()
+{
+    updateDpDisplay();
+    CreateSideBar();
+}

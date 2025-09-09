@@ -1,26 +1,60 @@
 const dpDisplay = document.getElementById("display");
 
-//event Listener for 2s hover
-function addHoverDelay(element, callback, delay = 500)
+//event Listener for hover
+function addHoverDelay(element, callback, delay = 750)
 {
     let timer;
 
     element.addEventListener("mouseenter", () => 
     {
-        timer = setTimeout(() => 
-            {
+        if (!infoToggle.checked)
+        {
+            timer = setTimeout(() => {
                 callback();
             }, delay);
+        }
     });
 
     element.addEventListener("mouseleave", () =>
     {
-        clearTimeout(timer);
+        if (!infoToggle.checked)
+        {
+            clearTimeout(timer);
+            element.querySelector(".card-inner").classList.remove("flipped");
+        }
+    });
+}
+
+function CreateSideBar()
+{
+    document.getElementById("infoToggle").addEventListener("change", (e) => 
+    {
+        const cards = document.querySelectorAll(".card-inner");
+        if (e.target.checked)
+        {
+    cards.forEach((card, index) => {
+    setTimeout(() => {
+        if (e.target.checked) {
+            card.classList.add("flipped");
+        } else {
+            card.classList.remove("flipped");
+        }
+    }, index * 25);
+});
+        }
+        else
+        {
+            cards.forEach(card =>
+            {
+                card.classList.remove("flipped")
+            })
+        }
     })
 }
 
 //card creation
-function updateDpDisplay() {
+function updateDpDisplay() 
+{
     dpDisplay.innerHTML = "";
 
     //default card size
@@ -173,9 +207,13 @@ function updateDpDisplay() {
         });
 
         card.addEventListener("mouseleave", () => 
+    {
+        if (!infoToggle.checked)
         {
-            cardInner.classList.remove("flipped");
-        });
+            clearTimeout(timer);
+            element.querySelector(".card-inner").classList.remove("flipped");
+        }
+    });
 
     });
 }
