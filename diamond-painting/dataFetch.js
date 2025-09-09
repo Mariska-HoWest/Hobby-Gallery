@@ -7,7 +7,7 @@ console.log('🔹 script.js loaded');
 const DP_CONFIG = {
     SPREADSHEET_ID: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM', // Sheet ID only
     SHEET_TAB: 'Diamond Painting',                                  // Name of the tab
-    SHEET_RANGE: 'A:K'                                              // Columns range
+    SHEET_RANGE: 'A:L'                                              // Columns range
 };
 
 let diamondData = [];

@@ -1,8 +1,8 @@
 .grid-container 
 {
   display: grid;
-  grid-template-rows: auto 1fr 50px;
-  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr ;
   grid-template-areas:
     "navbar navbar"
     "filter display"
@@ -13,10 +13,14 @@
 .navigation
 {
     grid-area: navbar;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 #filters
 {
+    background-color: #2A2A3D;
     grid-area: filter;
     padding:20px;
 }
@@ -26,6 +30,7 @@
     grid-area: display;
     padding: 20px;
     overflow-y: auto;
+    background-color: #C3B7F1;
 }
 
 .card 
@@ -82,7 +87,7 @@
 
 .name 
 {
-    color: #FFFFFF;
+    color: #E6E6E6;
     font-size: 20px;
     font-weight: bold;
     margin: 7px;
@@ -100,7 +105,7 @@
 
 .title 
 {
-    color: #FFFFFF;
+    color: #E6E6E6;
     font-size: 15;
     font-weight: bold;
     margin: 10px;
@@ -118,18 +123,18 @@
 .modifier-btn-container 
 {
     display: flex;
-    justify-content: center; /* center horizontally, or flex-start/flex-end */
-    margin-top: auto;        /* push to bottom of card-back */
-    gap: 5px;                /* space between buttons */
+    justify-content: center;
+    margin-top: auto;        
+    gap: 5px;                
 }
 
 .modifier-btn
 {
     display: inline-block;
-    padding: 5px 15px;         /* wider than tall for ellipse shape */
+    padding: 5px 15px;
     margin: 5px;
-    border-radius: 25px / 25px; /* ellipse: horizontal radius / vertical radius */
-    background-color: #9988DF; /* default color */
+    border-radius: 25px / 25px;
+    background-color: #9988DF;
     color: white;
     font-size: 15px;
     font-weight: bold;
@@ -137,8 +142,10 @@
     margin-top: auto;
 }
 
-
 footer
 {
-    grid-area: footer;
+  grid-area: footer;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
