@@ -36,3 +36,12 @@ nav li a
 nav li a:hover {
   background-color: #B881DD;
 }
+
+footer
+{
+    background-color: #2A2A3D;
+    color: #E6E6E6;
+    border: #38005E 1px;
+    text-align: center;
+    padding: 5px;
+}

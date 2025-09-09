@@ -1,36 +1,102 @@
 .grid-container 
 {
   display: grid;
-  grid-template-rows: auto 1fr 50px;
-  grid-template-columns: auto 1fr;
+  grid-template-rows: 100px 1fr 20px;
+  grid-template-columns: 200px 1fr;
   grid-template-areas:
     "navbar navbar"
     "filter display"
     "footer footer";
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 .navigation
 {
     grid-area: navbar;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
 }
 
-#filters
+#filter-panel
 {
+    background-color: #2A2A3D;
     grid-area: filter;
-    padding:20px;
+    position: fixed;
+    top: 100px;
+    bottom: 20px;
+    left: 0;
+    padding: 20px;
+    overflow: hidden;
+    z-index: 11;
+}
+
+.toggles
+{
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap:8px;
+  color: #E6E6E6;
+  text-shadow: 0 0 5px #38005e;
+}
+
+.toggles input
+{
+  display: none;
+}
+
+.toggle-info
+{
+  width: 40px;
+  height: 20px;
+  background-color: #E6E6E6;
+  border-radius: 35;
+  position: relative;
+  transition: background-color 0.4s;
+  border: 1px #38005e;
+}
+
+.toggle-info ::before
+{
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  transition: transform 0.4s;
+}
+
+input:checked + .toggle-info {
+  background-color: #9A5AC6;
+}
+
+input:checked + .toggle-info::before {
+  transform: translateX(20px);
 }
 
 #display
 {
     grid-area: display;
+    position: absolute;
+    top: 100px;
+    bottom: 20px;
+    left: 200px;
+    right: 0;
     padding: 20px;
     overflow-y: auto;
+    background-color: #C3B7F1;
 }
 
 .card 
 {
-    border: 1px solid #38005e;
+    border: 1px solid #005e27;
     border-radius: 8px;
     margin: 10px;
     display: inline-block;
@@ -44,7 +110,7 @@
 .card-inner 
 {
   position: relative;
-  display: inline-block; /* allow it to size to content */
+  display: inline-block;
   transition: transform 0.8s;
   transform-style: preserve-3d;
 }
@@ -82,7 +148,7 @@
 
 .name 
 {
-    color: #FFFFFF;
+    color: #E6E6E6;
     font-size: 20px;
     font-weight: bold;
     margin: 7px;
@@ -100,7 +166,7 @@
 
 .title 
 {
-    color: #FFFFFF;
+    color: #E6E6E6;
     font-size: 15;
     font-weight: bold;
     margin: 10px;
@@ -118,18 +184,18 @@
 .modifier-btn-container 
 {
     display: flex;
-    justify-content: center; /* center horizontally, or flex-start/flex-end */
-    margin-top: auto;        /* push to bottom of card-back */
-    gap: 5px;                /* space between buttons */
+    justify-content: center;
+    margin-top: auto;        
+    gap: 5px;                
 }
 
 .modifier-btn
 {
     display: inline-block;
-    padding: 5px 15px;         /* wider than tall for ellipse shape */
+    padding: 5px 15px;
     margin: 5px;
-    border-radius: 25px / 25px; /* ellipse: horizontal radius / vertical radius */
-    background-color: #9988DF; /* default color */
+    border-radius: 25px / 25px;
+    background-color: #9988DF;
     color: white;
     font-size: 15px;
     font-weight: bold;
@@ -137,8 +203,13 @@
     margin-top: auto;
 }
 
-
 footer
 {
-    grid-area: footer;
+  grid-area: footer;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  z-index: 10;
 }

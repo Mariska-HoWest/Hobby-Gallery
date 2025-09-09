@@ -1,26 +1,60 @@
 const dpDisplay = document.getElementById("display");
 
-//event Listener for 2s hover
-function addHoverDelay(element, callback, delay = 500)
+//event Listener for hover
+function addHoverDelay(element, callback, delay = 750)
 {
     let timer;
 
     element.addEventListener("mouseenter", () => 
     {
-        timer = setTimeout(() => 
-            {
+        if (!infoToggle.checked)
+        {
+            timer = setTimeout(() => {
                 callback();
             }, delay);
+        }
     });
 
     element.addEventListener("mouseleave", () =>
     {
-        clearTimeout(timer);
+        if (!infoToggle.checked)
+        {
+            clearTimeout(timer);
+            element.querySelector(".card-inner").classList.remove("flipped");
+        }
+    });
+}
+
+function CreateSideBar()
+{
+    document.getElementById("infoToggle").addEventListener("change", (e) => 
+    {
+        const cards = document.querySelectorAll(".card-inner");
+        if (e.target.checked)
+        {
+    cards.forEach((card, index) => {
+    setTimeout(() => {
+        if (e.target.checked) {
+            card.classList.add("flipped");
+        } else {
+            card.classList.remove("flipped");
+        }
+    }, index * 25);
+});
+        }
+        else
+        {
+            cards.forEach(card =>
+            {
+                card.classList.remove("flipped")
+            })
+        }
     })
 }
 
 //card creation
-function updateDpDisplay() {
+function updateDpDisplay() 
+{
     dpDisplay.innerHTML = "";
 
     //default card size
@@ -43,12 +77,38 @@ function updateDpDisplay() {
             name.textContent = dp.Name;
             cardFront.appendChild(name)
 
-            if (dp.Image)
+            if (dp.ImgOriginal)
             {
                 let img = document.createElement("img")
                 img.classList.add("img")
 
-                const imageUrl = convertDriveLink(dp.Image);
+                const imageUrl = convertDriveLink(dp.ImgOriginal);
+                img.src = imageUrl;
+                cardFront.appendChild(img);
+
+                //Scale image setting
+                const scaleFactor = 5;
+
+                img.style.width = `${Number(dp.Width) * scaleFactor}px`;
+                img.style.height = `${Number(dp.Height) * scaleFactor}px`;
+                
+                if (dp.Height < 30 || dp.Width < 30) //default card if small image
+                {
+                    cardInner.style.width = `${defaultWidth}px`;
+                    cardInner.style.height = `${defaultHeight}px`;
+                }
+                else
+                {
+                    cardInner.style.width = img.style.width;
+                    cardInner.style.height = `${Number(dp.Height) * scaleFactor + 30}px`;
+                }
+            }
+            else if (dp.ImgFinished)
+            {
+                let img = document.createElement("img")
+                img.classList.add("img")
+
+                const imageUrl = convertDriveLink(dp.ImgFinished);
                 img.src = imageUrl;
                 cardFront.appendChild(img);
 
@@ -147,9 +207,13 @@ function updateDpDisplay() {
         });
 
         card.addEventListener("mouseleave", () => 
+    {
+        if (!infoToggle.checked)
         {
-            cardInner.classList.remove("flipped");
-        });
+            clearTimeout(timer);
+            element.querySelector(".card-inner").classList.remove("flipped");
+        }
+    });
 
     });
 }
