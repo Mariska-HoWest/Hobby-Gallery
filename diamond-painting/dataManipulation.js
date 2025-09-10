@@ -1,5 +1,10 @@
 const dpDisplay = document.getElementById("display");
 
+document.addEventListener("DOMContentLoaded", () => 
+{
+    SetupFilterButtons();
+});
+
 //event Listener for hover
 function addHoverDelay(element, callback, delay = 750)
 {
@@ -52,6 +57,70 @@ function CreateSideBar()
     })
 }
 
+function ShowBeforePictures()
+{
+    const pictures = document.querySelectorAll(".card-front .img");
+
+    pictures.forEach(img =>
+    {
+        if (img.dataset.original) img.src = img.dataset.original;
+    });
+}
+
+function ResetPictures()
+{
+    const pictures = document.querySelectorAll(".card-front .img");
+
+    pictures.forEach(img => 
+    {
+        if (img.dataset.isFinished === "true" && img.dataset.finished) 
+        {
+            img.src = img.dataset.finished;
+        } 
+        else if (img.dataset.original) 
+        {
+            img.src = img.dataset.original;
+        }
+    });
+}
+
+function ShowAfterPictures() 
+{
+    const pictures = document.querySelectorAll(".card-front .img");
+
+    pictures.forEach(img => 
+        {
+        if (img.dataset.finished) img.src = img.dataset.finished;
+    });
+}
+
+// show active button in three segment display
+function SetupFilterButtons() 
+{
+    const btnBefore  = document.querySelector("#btnBefore");
+    const btnDefault = document.querySelector("#btnDefault");
+    const btnAfter   = document.querySelector("#btnAfter");
+
+    const buttons = [btnBefore, btnDefault, btnAfter];
+
+    buttons.forEach(btn => 
+    {
+        btn.addEventListener("click", () => 
+        {
+            buttons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            if(btn.id === "btnBefore") ShowBeforePictures();
+            else if(btn.id === "btnDefault") ResetPictures();
+            else if(btn.id === "btnAfter") ShowAfterPictures();
+        });
+    });
+
+    // Set default button active on page load
+    btnDefault.classList.add("active");
+    ResetPictures();
+}
+
 //card creation
 function updateDpDisplay() 
 {
@@ -84,6 +153,12 @@ function updateDpDisplay()
 
                 const imageUrl = convertDriveLink(dp.ImgOriginal);
                 img.src = imageUrl;
+
+                //store other images + finished? on the img frame
+                if (dp.ImgOriginal) img.dataset.original = convertDriveLink(dp.ImgOriginal);
+                if (dp.ImgFinished) img.dataset.finished = convertDriveLink(dp.ImgFinished);
+                img.dataset.isFinished = dp.Finished === "TRUE" ? "true" : "false";
+
                 cardFront.appendChild(img);
 
                 //Scale image setting
