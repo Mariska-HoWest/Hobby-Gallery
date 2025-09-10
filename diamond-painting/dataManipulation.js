@@ -129,6 +129,8 @@ function updateDpDisplay()
     //default card size
     const defaultWidth = 200;
     const defaultHeight = 150;
+    //Scale image setting
+    const scaleFactor = 5;
 
     diamondData.forEach(dp => 
     {
@@ -146,53 +148,33 @@ function updateDpDisplay()
             name.textContent = dp.Name;
             cardFront.appendChild(name)
 
-            if (dp.ImgOriginal)
+            let imgContainer = document.createElement("div");
+            imgContainer.classList.add("img-container");
+            imgContainer.style.position = "relative";
+     
+            let checkMark = document.createElement("div")
+            checkMark.classList.add("finished-check")
+            checkMark.style.display = dp.Finished === "TRUE" ? "flex" : "none"
+            cardInner.appendChild(checkMark);
+
+            //pictures
+            if (dp.ImgOriginal || dp.ImgFinished)
             {
                 let img = document.createElement("img")
                 img.classList.add("img")
 
-                const imageUrl = convertDriveLink(dp.ImgOriginal);
-                img.src = imageUrl;
+                img.src = dp.ImgOriginal ? convertDriveLink(dp.ImgOriginal) : convertDriveLink(dp.ImgFinished);
 
                 //store other images + finished? on the img frame
                 if (dp.ImgOriginal) img.dataset.original = convertDriveLink(dp.ImgOriginal);
                 if (dp.ImgFinished) img.dataset.finished = convertDriveLink(dp.ImgFinished);
                 img.dataset.isFinished = dp.Finished === "TRUE" ? "true" : "false";
 
-                cardFront.appendChild(img);
-
-                //Scale image setting
-                const scaleFactor = 5;
-
+                imgContainer.appendChild(img);
+                
                 img.style.width = `${Number(dp.Width) * scaleFactor}px`;
                 img.style.height = `${Number(dp.Height) * scaleFactor}px`;
-                
-                if (dp.Height < 30 || dp.Width < 30) //default card if small image
-                {
-                    cardInner.style.width = `${defaultWidth}px`;
-                    cardInner.style.height = `${defaultHeight}px`;
-                }
-                else
-                {
-                    cardInner.style.width = img.style.width;
-                    cardInner.style.height = `${Number(dp.Height) * scaleFactor + 30}px`;
-                }
-            }
-            else if (dp.ImgFinished)
-            {
-                let img = document.createElement("img")
-                img.classList.add("img")
 
-                const imageUrl = convertDriveLink(dp.ImgFinished);
-                img.src = imageUrl;
-                cardFront.appendChild(img);
-
-                //Scale image setting
-                const scaleFactor = 5;
-
-                img.style.width = `${Number(dp.Width) * scaleFactor}px`;
-                img.style.height = `${Number(dp.Height) * scaleFactor}px`;
-                
                 if (dp.Height < 30 || dp.Width < 30) //default card if small image
                 {
                     cardInner.style.width = `${defaultWidth}px`;
@@ -212,6 +194,8 @@ function updateDpDisplay()
                 cardInner.style.width = `${defaultWidth}px`;
                 cardInner.style.height = `${defaultHeight}px`;
             }
+
+                cardFront.appendChild(imgContainer);
 
         let cardBack = document.createElement("div");
         cardBack.classList.add("card-back");
@@ -280,15 +264,5 @@ function updateDpDisplay()
         {
             cardInner.classList.add("flipped");
         });
-
-        card.addEventListener("mouseleave", () => 
-    {
-        if (!infoToggle.checked)
-        {
-            clearTimeout(timer);
-            element.querySelector(".card-inner").classList.remove("flipped");
-        }
-    });
-
-    });
+});
 }
