@@ -25,24 +25,27 @@
 #filter-panel
 {
     background-color: #2A2A3D;
-    grid-area: filter;
     position: fixed;
     top: 100px;
     bottom: 20px;
     left: 0;
+    width: 200px;
     padding: 20px;
     overflow: hidden;
     z-index: 11;
+    box-sizing: border-box;
 }
 
+/* slider section - flip all cards*/
 .toggles
 {
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  gap:8px;
   color: #E6E6E6;
   text-shadow: 0 0 5px #38005e;
+  gap: 10px;
 }
 
 .toggles input
@@ -52,46 +55,95 @@
 
 .toggle-info
 {
-  width: 40px;
-  height: 20px;
-  background-color: #E6E6E6;
-  border-radius: 35;
+  width: 50px;
+  height: 22px;
+  background-color: #ccc;
+  border-radius: 50px;
   position: relative;
   transition: background-color 0.4s;
-  border: 1px #38005e;
+  border: 1px solid #38005e;
+  flex-shrink: 0;
 }
 
-.toggle-info ::before
+.toggle-info::before
 {
   content: "";
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
+  top: 1px;
+  left: 1px;
+  width: 20px;
+  height: 20px;
   background: white;
+  border-radius: 50%;
   transition: transform 0.4s;
 }
 
-input:checked + .toggle-info {
+input:checked + .toggle-info
+{
+  background-color: #6A219C;
+}
+
+input:checked + .toggle-info::before
+{
+  transform: translateX(28px);
+}
+
+/* button section - before, after, reset*/
+.filter-btn {
+  display: flex;
+  margin: 15px 0;
+  border-radius: 25px;
+  overflow: hidden;
+  border: 2px solid #38005e;
+  width: 100%;
+}
+
+.filter-btn button {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background-color: #9988DF;
+  color: #E6E6E6;
+  font-weight: bold;
+  text-shadow: 0 0 2px #38005e;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.filter-btn button:first-child {
+  border-right: 1px solid #38005e;
+}
+
+.filter-btn button:nth-child(2) {
+  border-left: 1px solid #38005e;
+  border-right: 1px solid #38005e;
+}
+
+.filter-btn button:last-child {
+  border-left: 1px solid #38005e;
+}
+
+.filter-btn button:hover {
   background-color: #9A5AC6;
 }
 
-input:checked + .toggle-info::before {
-  transform: translateX(20px);
+.filter-btn button.active {
+  background-color: #6A219C;
+  color: #E6E6E6;
 }
 
 #display
 {
-    grid-area: display;
     position: absolute;
     top: 100px;
     bottom: 20px;
     left: 200px;
-    right: 0;
+    width: calc(100% - 200px);
     padding: 20px;
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: #C3B7F1;
+    box-sizing: border-box;
 }
 
 .card 
