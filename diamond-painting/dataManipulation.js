@@ -1,9 +1,18 @@
 const dpDisplay = document.getElementById("display");
+let dpData = [];
 
 const DEFAULT_WIDTH = 200;
 const DEFAULT_HEIGHT = 150;
 const SCALE_FACTOR = 5;
 const CARD_GAP = 10;
+
+function initManipulation(data) 
+{
+  dpData = Array.isArray(data) ? data : [];
+
+  updateDpDisplay();
+  CreateSideBar();
+}
 
 document.addEventListener("DOMContentLoaded", () =>
 {
@@ -119,7 +128,7 @@ function updateDpDisplay()
 
     const cards = [];
 
-    diamondData.forEach(dp =>
+    dpData.forEach(dp =>
     {
         const card = document.createElement("div");
         card.classList.add("card");
