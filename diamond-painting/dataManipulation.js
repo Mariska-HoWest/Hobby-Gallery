@@ -11,7 +11,7 @@ function initManipulation(data)
   dpData = Array.isArray(data) ? data : [];
 
   updateDpDisplay();
-  CreateSideBar();
+  CreateDpSideBar();
 }
 
 document.addEventListener("DOMContentLoaded", () =>
@@ -44,7 +44,7 @@ function addHoverDelay(element, callback, delay = 750)
     });
 }
 
-function CreateSideBar()
+function CreateDpSideBar()
 {
     document.getElementById("infoToggle").addEventListener("change", (e) =>
     {
