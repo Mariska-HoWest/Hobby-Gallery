@@ -1,15 +1,21 @@
-.grid-container 
+body
 {
-  display: grid;
-  grid-template-rows: 100px 1fr 20px;
-  grid-template-columns: 200px 1fr;
-  grid-template-areas:
-    "navbar navbar"
-    "filter display"
-    "footer footer";
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.grid-container
+{
+    display: grid;
+    grid-template-rows: 100px 1fr 20px;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+        "navbar navbar"
+        "filter display"
+        "footer footer";
+    height: 100vh;
+    width: 100vw;
+    overflow: visible;
 }
 
 .navigation
@@ -36,209 +42,212 @@
     box-sizing: border-box;
 }
 
-/* slider section - flip all cards*/
 .toggles
 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  color: #E6E6E6;
-  text-shadow: 0 0 5px #38005e;
-  gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #E6E6E6;
+    text-shadow: 0 0 5px #38005e;
+    gap: 10px;
 }
 
 .toggles input
 {
-  display: none;
+    display: none;
 }
 
 .toggle-info
 {
-  width: 50px;
-  height: 22px;
-  background-color: #ccc;
-  border-radius: 50px;
-  position: relative;
-  transition: background-color 0.4s;
-  border: 1px solid #38005e;
-  flex-shrink: 0;
+    width: 50px;
+    height: 22px;
+    background-color: #ccc;
+    border-radius: 50px;
+    position: relative;
+    transition: background-color 0.4s;
+    border: 1px solid #38005e;
+    flex-shrink: 0;
 }
 
 .toggle-info::before
 {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  width: 20px;
-  height: 20px;
-  background: white;
-  border-radius: 50%;
-  transition: transform 0.4s;
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
 }
 
 input:checked + .toggle-info
 {
-  background-color: #6A219C;
+    background-color: #6A219C;
 }
 
 input:checked + .toggle-info::before
 {
-  transform: translateX(28px);
+    transform: translateX(28px);
 }
 
-/* button section - before, after, reset*/
-.filter-btn {
-  display: flex;
-  margin: 15px 0;
-  border-radius: 25px;
-  overflow: hidden;
-  border: 2px solid #38005e;
-  width: 100%;
+.filter-btn
+{
+    display: flex;
+    margin: 15px 0;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 2px solid #38005e;
+    width: 100%;
 }
 
-.filter-btn button {
-  flex: 1;
-  padding: 8px 0;
-  border: none;
-  background-color: #9988DF;
-  color: #E6E6E6;
-  font-weight: bold;
-  text-shadow: 0 0 2px #38005e;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.filter-btn button
+{
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background-color: #9988DF;
+    color: #E6E6E6;
+    font-weight: bold;
+    text-shadow: 0 0 2px #38005e;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-.filter-btn button:first-child {
-  border-right: 1px solid #38005e;
+.filter-btn button:first-child
+{
+    border-right: 1px solid #38005e;
 }
 
-.filter-btn button:nth-child(2) {
-  border-left: 1px solid #38005e;
-  border-right: 1px solid #38005e;
+.filter-btn button:nth-child(2)
+{
+    border-left: 1px solid #38005e;
+    border-right: 1px solid #38005e;
 }
 
-.filter-btn button:last-child {
-  border-left: 1px solid #38005e;
+.filter-btn button:last-child
+{
+    border-left: 1px solid #38005e;
 }
 
-.filter-btn button:hover {
-  background-color: #9A5AC6;
+.filter-btn button:hover
+{
+    background-color: #9A5AC6;
 }
 
-.filter-btn button.active {
-  background-color: #6A219C;
-  color: #E6E6E6;
+.filter-btn button.active
+{
+    background-color: #6A219C;
+    color: #E6E6E6;
 }
 
 #display
 {
-    position: absolute;
-    top: 100px;
-    bottom: 20px;
-    left: 200px;
-    width: calc(100% - 200px);
+    grid-area: display;
     padding: 20px;
     overflow-y: auto;
-    overflow-x: hidden;
     background-color: #C3B7F1;
     box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 10px; /* keep tiny rows for masonry JS to calculate spans */
+    gap: 10px;
 }
 
-.card 
+.card
 {
+    display: block;
+    width: auto;
     border: 1px solid #005e27;
     border-radius: 8px;
-    margin: 10px;
-    display: inline-block;
-    text-align: center;
     overflow: hidden;
     background-color: #9988DF;
-
     perspective: 1000px;
 }
 
-.card-inner 
+.card-inner
 {
-  position: relative;
-  display: inline-block;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
+    position: relative;
+    display: block;
+    width: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 }
 
-.card-inner.flipped 
+.card-inner.flipped
 {
     transform: rotateY(180deg);
 }
 
-.card-front, .card-back 
+.card-front, .card-back
 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+    position: absolute;  /* restore absolute for flipping */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;       /* restore full height */
+    backface-visibility: hidden;
 }
 
-.card-back 
+.card-back
 {
     transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
 }
 
-.card-front.no-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 10px;
-  box-sizing: border-box;
+.card-front.no-image
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-.name 
+.name
 {
     color: #E6E6E6;
     font-size: 20px;
     font-weight: bold;
     margin: 7px;
-
     text-shadow: 0 0 5px #38005e;
 }
 
-.img 
+.img
 {
-    width:100%;
+    width: 100%;
     height: auto;
-    object-fit:cover;
+    object-fit: cover;
     border-radius: 8px;
 }
 
-.title 
+.title
 {
     color: #E6E6E6;
     font-size: 15;
     font-weight: bold;
     margin: 10px;
-
     text-shadow: 0 0 2px #38005e;
 }
 
 .card-info
 {
-  font-size: 15px;
-  text-align: left;
-  padding: 20px;
+    font-size: 15px;
+    text-align: left;
+    padding: 20px;
 }
 
-.modifier-btn-container 
+.modifier-btn-container
 {
     display: flex;
     justify-content: center;
-    margin-top: auto;        
-    gap: 5px;                
+    margin-top: auto;
+    gap: 5px;
 }
 
 .modifier-btn
@@ -255,7 +264,6 @@ input:checked + .toggle-info::before
     margin-top: auto;
 }
 
-/* Check Marks */
 .finished-check
 {
     position: absolute;
@@ -265,7 +273,7 @@ input:checked + .toggle-info::before
     height: 20px;
     background-color: #28a745;
     border-radius: 50%;
-    display: flex; /* will be toggled on/off via JS */
+    display: flex;
     justify-content: center;
     align-items: center;
     color: white;
@@ -282,11 +290,22 @@ input:checked + .toggle-info::before
 
 footer
 {
-  grid-area: footer;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 20px;
-  z-index: 10;
+    grid-area: footer;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    z-index: 10;
+}
+
+.display::-webkit-scrollbar
+{
+    width: 8px;
+}
+
+.display::-webkit-scrollbar-thumb
+{
+    background: #444;
+    border-radius: 10px;
 }

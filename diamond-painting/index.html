@@ -10,16 +10,19 @@
     <link rel="stylesheet" href="/Hobby-Gallery/diamond-painting/style.css">
 
     <!-- JS -->
-    <!-- Load GIS client first -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Load GIS client -->
+    <script src="https://accounts.google.com/gsi/client" defer></script>
 
-    <!-- Load Google API client for Sheets -->
-    <script src="https://apis.google.com/js/api.js"></script>
+    <!-- Load Google API client -->
+    <script src="https://apis.google.com/js/api.js" defer></script>
 
-    <!-- App config -->
+    <!-- General app config -->
     <script src="/Hobby-Gallery/app.js" defer></script>
 
-    <!-- Page-specific script -->
+    <!-- Shared Sheets service -->
+    <script src="/Hobby-Gallery/sheetsService.js" defer></script>
+
+    <!-- Page-specific -->
     <script src="/Hobby-Gallery/diamond-painting/dataFetch.js" defer></script>
     <script src="/Hobby-Gallery/diamond-painting/dataManipulation.js" defer></script>
 </head>
