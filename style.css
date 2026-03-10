@@ -71,6 +71,25 @@ footer
     background: rgba(0, 0, 0, 0.25);
 }
 
+.name-big
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 2;
+    color: #E6E6E6;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding: 12px 10px 8px;
+    text-shadow: 0 0 5px #38005e;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.25);
+}
+
 /* flip card support */
 .card-inner
 {
@@ -110,16 +129,6 @@ footer
     flex-direction: column;
 }
 
-.card-front.no-image
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
 .card-info
 {
     font-size: 15px;
@@ -130,7 +139,11 @@ footer
 .img-container
 {
     width: 100%;
+    height: 100%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .img

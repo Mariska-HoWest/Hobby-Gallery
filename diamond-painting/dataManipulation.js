@@ -155,14 +155,27 @@ function updateDpDisplay()
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("img-container");
 
+    // Calculate scaled image size
     const imgWidth = dp.Width ? dp.Width * SCALE_FACTOR : DEFAULT_WIDTH;
     const imgHeight = dp.Height ? dp.Height * SCALE_FACTOR : DEFAULT_HEIGHT;
 
-    const cardWidth = Math.max(imgWidth, DEFAULT_WIDTH);
-    const cardHeight = Math.max(imgHeight, DEFAULT_HEIGHT);
+    const isSmall = imgWidth < DEFAULT_WIDTH || imgHeight < DEFAULT_HEIGHT;
 
-    card.style.width = `${cardWidth}px`;
-    card.style.height = `${cardHeight}px`;
+    if (isSmall) 
+        {
+        // Small card → use defaults, add class
+        card.style.width = `${DEFAULT_WIDTH}px`;
+        card.style.height = `${DEFAULT_HEIGHT}px`;
+
+        name.classList.add("small-card");
+        }
+        else 
+        {
+        // Big card → use scaled size
+        card.style.width = `${imgWidth}px`;
+        card.style.height = `${imgHeight}px`;
+        name.classList.replace("name", "name-big")
+        }
 
     if (dp.ImgOriginal || dp.ImgFinished)
     {
