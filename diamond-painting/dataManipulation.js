@@ -1,16 +1,26 @@
 const dpDisplay = document.getElementById("display");
 let dpData = [];
 
-const DEFAULT_WIDTH = 200;
-const DEFAULT_HEIGHT = 150;
 const SCALE_FACTOR = 5;
-const CARD_GAP = 10;
+const MASONRY_UNIT = 10;
+const MASONRY_GAP = 10;
+
+const DEFAULT_WIDTH = 30*SCALE_FACTOR;
+const DEFAULT_HEIGHT = 30*SCALE_FACTOR;
 
 function initManipulation(data) 
 {
   dpData = Array.isArray(data) ? data : [];
+dpData.sort((a, b) =>
+{
+    const areaDiff = (b.Width * b.Height) - (a.Width * a.Height);
+    if (Math.abs(areaDiff) < 50)
+        return Math.random() - 0.5;
+    return areaDiff;
+});
 
   updateDpDisplay();
+  requestAnimationFrame(applyMasonryLayout);
   CreateDpSideBar();
 }
 
@@ -126,8 +136,6 @@ function updateDpDisplay()
 {
     dpDisplay.innerHTML = "";
 
-    const cards = [];
-
     dpData.forEach(dp =>
     {
         const card = document.createElement("div");
@@ -144,27 +152,53 @@ function updateDpDisplay()
         name.textContent = dp.Name;
         cardFront.appendChild(name);
 
-        const imgContainer = document.createElement("div");
-        imgContainer.classList.add("img-container");
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("img-container");
 
-        if (dp.ImgOriginal || dp.ImgFinished)
+    // Calculate scaled image size
+    const imgWidth = dp.Width ? dp.Width * SCALE_FACTOR : DEFAULT_WIDTH;
+    const imgHeight = dp.Height ? dp.Height * SCALE_FACTOR : DEFAULT_HEIGHT;
+
+    const isSmall = imgWidth < DEFAULT_WIDTH || imgHeight < DEFAULT_HEIGHT;
+
+    if (isSmall) 
         {
-            const img = document.createElement("img");
-            img.classList.add("img");
-            img.src = dp.ImgOriginal ? convertDriveLink(dp.ImgOriginal) : convertDriveLink(dp.ImgFinished);
-            if (dp.ImgOriginal) img.dataset.original = convertDriveLink(dp.ImgOriginal);
-            if (dp.ImgFinished) img.dataset.finished = convertDriveLink(dp.ImgFinished);
+        // Small card → use defaults, add class
+        card.style.width = `${DEFAULT_WIDTH}px`;
+        card.style.height = `${DEFAULT_HEIGHT}px`;
 
-            imgContainer.appendChild(img);
-
-            img.style.width = dp.Width ? `${dp.Width * SCALE_FACTOR}px` : `${DEFAULT_WIDTH}px`;
-            img.style.height = dp.Height ? `${dp.Height * SCALE_FACTOR}px` : `${DEFAULT_HEIGHT}px`;
+        name.classList.add("small-card");
         }
-        else
+        else 
         {
-            cardFront.classList.add("no-image");
-            imgContainer.style.height = `${DEFAULT_HEIGHT}px`;
+        // Big card → use scaled size
+        card.style.width = `${imgWidth}px`;
+        card.style.height = `${imgHeight}px`;
+        name.classList.replace("name", "name-big")
         }
+
+    if (dp.ImgOriginal || dp.ImgFinished)
+    {
+        const img = document.createElement("img");
+        img.classList.add("img");
+
+        img.src = dp.ImgOriginal
+            ? convertDriveLink(dp.ImgOriginal)
+            : convertDriveLink(dp.ImgFinished);
+
+        if (dp.ImgOriginal) img.dataset.original = convertDriveLink(dp.ImgOriginal);
+        if (dp.ImgFinished) img.dataset.finished = convertDriveLink(dp.ImgFinished);
+
+        imgContainer.appendChild(img);
+
+        img.style.width = `${imgWidth}px`;
+        img.style.height = `${imgHeight}px`;
+    }
+    else
+    {
+        cardFront.classList.add("no-image");
+        imgContainer.style.height = `${DEFAULT_HEIGHT}px`;
+    }
 
         cardFront.appendChild(imgContainer);
         cardInner.appendChild(cardFront);
@@ -186,23 +220,11 @@ function updateDpDisplay()
         cardInner.appendChild(cardBack);
         card.appendChild(cardInner);
         dpDisplay.appendChild(card);
-        cards.push(card);
 
         addHoverDelay(card, () => cardInner.classList.add("flipped"));
     });
 
-    const allImages = dpDisplay.querySelectorAll("img");
-    const promises = Array.from(allImages).map(img =>
-        img.complete ? Promise.resolve() : new Promise(resolve => img.onload = resolve)
-    );
-
-    Promise.all(promises).then(() =>
-    {
-        setTimeout(() =>
-        {
-            applyMasonryLayout();
-        }, 50);
-    });
+    applyMasonryLayout();
 }
 
 function applyMasonryLayout()
@@ -210,19 +232,30 @@ function applyMasonryLayout()
     const cards = Array.from(dpDisplay.querySelectorAll(".card"));
     if (!cards.length) return;
 
-    const rowHeight = 10;
-    const rowGap = 10;
-
     cards.forEach(card =>
     {
-        card.style.gridRowEnd = "span 1"; // reset
+        const resize = () =>
+        {
+            const w = card.offsetWidth;
+            const h = card.offsetHeight;
 
-        // force browser to compute height
-        const cardHeight = card.scrollHeight;
+            const colSpan = Math.ceil((w + MASONRY_GAP) / (MASONRY_UNIT + MASONRY_GAP));
+            const rowSpan = Math.ceil((h + MASONRY_GAP) / (MASONRY_UNIT + MASONRY_GAP));
 
-        const rowSpan = Math.ceil((cardHeight + rowGap) / (rowHeight + rowGap));
-        card.style.gridRowEnd = `span ${rowSpan}`;
+            card.style.gridColumnEnd = `span ${colSpan}`;
+            card.style.gridRowEnd = `span ${rowSpan}`;
+        };
+
+        const img = card.querySelector("img");
+
+        if (img && !img.complete)
+        {
+            img.onload = resize;
+        }
+        else
+        {
+            resize();
+        }
     });
 }
-
 

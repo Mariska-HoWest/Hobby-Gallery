@@ -44,11 +44,9 @@ body
 
 #display
 {
-    grid-area: display;
     padding: 20px;
     margin-top: 100px;
     margin-bottom: 20px;
-    background-color: #C3B7F1;
     box-sizing: border-box;
 
     display: grid;
@@ -69,16 +67,8 @@ body
     flex: 1;
 }
 
-.card .img
+.img
 {
     height: 100%;
-}
-
-.card-back
-{
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60px;
+    border-radius: 8px 8px 0 0;
 }
