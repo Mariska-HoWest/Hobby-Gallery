@@ -1,3 +1,7 @@
+// =======================
+// /Hobby-Gallery/diamond-painting/dataManipulation.js
+// =======================
+
 const dpDisplay = document.getElementById("display");
 let dpData = [];
 
@@ -163,18 +167,16 @@ function updateDpDisplay()
 
     if (isSmall) 
         {
-        // Small card → use defaults, add class
+        // Small card → use defaults
         card.style.width = `${DEFAULT_WIDTH}px`;
         card.style.height = `${DEFAULT_HEIGHT}px`;
-
-        name.classList.add("small-card");
         }
         else 
         {
         // Big card → use scaled size
         card.style.width = `${imgWidth}px`;
         card.style.height = `${imgHeight}px`;
-        name.classList.replace("name", "name-big")
+        name.classList.replace("name", "name-overlap")
         }
 
     if (dp.ImgOriginal || dp.ImgFinished)

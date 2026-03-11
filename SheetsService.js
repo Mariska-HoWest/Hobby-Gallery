@@ -1,5 +1,5 @@
 // =======================
-// Hobby-Gallery/sheetsService.js
+// /Hobby-Gallery/sheetsService.js
 // =======================
 
 (function () 

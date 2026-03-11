@@ -1,4 +1,7 @@
+// =======================
 // /Hobby-Gallery/kaarsen/dataManipulation.js
+// =======================
+
 window.initCandleManipulation = function (data) 
 {
   console.log('🟢 initCandleManipulation received:', Array.isArray(data) ? data.length : 0, 'rows');

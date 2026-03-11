@@ -1,101 +1,231 @@
-body
+/* ======================================================
+   ROOT VARIABLES
+====================================================== */
+:root
 {
-    background-color: #C3B7F1;
-    margin: 0;
+    /* Typography */
+    --font-main: Arial, sans-serif;
+
+    /* Colors */
+    --color-bg-main: #C3B7F1;
+    --color-nav-bg: #6A219C;
+    --color-nav-button: #9A5AC6;
+    --color-nav-button-hover: #B881DD;
+
+    --color-card-bg: #9988DF;
+    --color-card-border: #005e27;
+
+    --color-text-light: #E6E6E6;
+
+    --color-footer-bg: #2A2A3D;
+    --color-accent-dark: #38005E;
+
+    /* Filter toggle colors */
+    --toggle-bg-inactive: #ccc;
+    --toggle-bg-active: var(--color-nav-bg);
+    --toggle-thumb: white;
+
+    /* Filter button colors */
+    --filter-btn-inactive: var(--color-card-bg);
+    --filter-btn-active: var(--color-nav-bg);
+    --filter-btn-hover: var(--color-nav-button);
 }
 
+/* ======================================================
+   GLOBAL PAGE STYLING
+====================================================== */
+body
+{
+    margin: 0;
+    font-family: var(--font-main);
+    background-color: var(--color-bg-main);
+}
+
+/* ======================================================
+   NAVIGATION
+====================================================== */
 nav
 {
-    text-align: center;
-    background-color: #6A219C;
-    font-size: xx-large;
     width: 100%;
-    padding: 0;
     margin: 0;
+    padding: 0;
+
+    text-align: center;
+    font-size: xx-large;
+
+    background-color: var(--color-nav-bg);
+}
+
+.navigation
+{
+    grid-area: navbar;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 nav ul
 {
-    list-style: none;
-    color: white;
     display: inline-flex;
-    padding: 0;
     gap: 15px;
+
+    padding: 0;
+    list-style: none;
+
+    color: var(--color-text-light);
 }
 
 nav li a
 {
     cursor: pointer;
-    background-color: #9A5AC6;
+
     padding: 4px 16px;
     border-radius: 8px;
-    color:white;
+
     text-decoration: none;
+    color: var(--color-text-light);
+
+    background-color: var(--color-nav-button);
 }
 
-nav li a:hover {
-  background-color: #B881DD;
+nav li a:hover
+{
+    background-color: var(--color-nav-button-hover);
 }
 
+
+/* ======================================================
+   Main Grid layout
+====================================================== */
+.grid-container
+{
+    display: grid;
+    grid-template-rows: 100px 1fr 20px;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+        "navbar navbar"
+        "filter display"
+        "footer footer";
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ======================================================
+   FOOTER
+====================================================== */
 footer
 {
-    background-color: #2A2A3D;
-    color: #E6E6E6;
-    border: #38005E 1px;
-    text-align: center;
+    grid-area: footer;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 20px;
+
     padding: 5px;
+    text-align: center;
+
+    color: var(--color-text-light);
+    background-color: var(--color-footer-bg);
+
+    border: 1px solid var(--color-accent-dark);
+    z-index: 10;
 }
 
-/* card css */
-
+/* ======================================================
+   CARD - BASE STRUCTURE
+====================================================== */
 .card
 {
     position: relative;
-    border: 1px solid #005e27;
-    border-radius: 8px;
+
     overflow: hidden;
-    background-color: #9988DF;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
+
+    background-color: var(--color-card-bg);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* ======================================================
+   CARD - TITLES / TEXT
+====================================================== */
 .card .title,
-.card .name
+.card .name,
+.name-big
 {
-    color: #E6E6E6;
-    font-size: 20px;
-    font-weight: bold;
     margin: 0;
     padding: 12px 10px 8px;
-    text-shadow: 0 0 5px #38005e;
+
+    font-size: 20px;
+    font-weight: bold;
     text-align: center;
+
+    color: var(--color-text-light);
+    text-shadow: 0 0 5px var(--color-accent-dark);
+
     background: rgba(0, 0, 0, 0.25);
 }
 
-.name-big
+.name-overlap
 {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+
     width: 100%;
     box-sizing: border-box;
+
     z-index: 2;
-    color: #E6E6E6;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-    padding: 12px 10px 8px;
-    text-shadow: 0 0 5px #38005e;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.25);
 }
 
-/* flip card support */
+.card-info
+{
+    padding: 20px;
+
+    font-size: 15px;
+    text-align: left;
+}
+
+/* ======================================================
+   CARD - IMAGE
+====================================================== */
+.img-container
+{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.img
+{
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: cover;
+}
+
+/* ======================================================
+   CARD - FLIP BEHAVIOR
+====================================================== */
 .card-inner
 {
     position: relative;
     display: block;
     width: 100%;
+
     transition: transform 0.8s;
     transform-style: preserve-3d;
 }
@@ -111,8 +241,10 @@ footer
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
+
     backface-visibility: hidden;
 }
 
@@ -124,32 +256,126 @@ footer
 
 .card-back
 {
-    transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
+
+    transform: rotateY(180deg);
 }
 
-.card-info
+/* ======================================================
+   FILTER PANEL - GLOBAL STYLING
+====================================================== */
+#filter-panel
 {
-    font-size: 15px;
-    text-align: left;
+    grid-area: filter;
+    background-color: var(--color-footer-bg);
     padding: 20px;
-}
-
-.img-container
-{
-    width: 100%;
-    height: 100%;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-sizing: border-box;
+    z-index: 11;
 }
 
-.img
+/* Toggle switches */
+.toggles
 {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--color-text-light);
+    text-shadow: 0 0 5px var(--color-accent-dark);
+    gap: 10px;
+}
+
+.toggles input
+{
+    display: none;
+}
+
+.toggle-info
+{
+    width: 50px;
+    height: 22px;
+    background-color: var(--toggle-bg-inactive);
+    border-radius: 50px;
+    position: relative;
+    transition: background-color 0.4s;
+    border: 1px solid var(--color-accent-dark);
+    flex-shrink: 0;
+}
+
+.toggle-info::before
+{
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
+    background: var(--toggle-thumb);
+    border-radius: 50%;
+    transition: transform 0.4s;
+}
+
+input:checked + .toggle-info
+{
+    background-color: var(--toggle-bg-active);
+}
+
+input:checked + .toggle-info::before
+{
+    transform: translateX(28px);
+}
+
+/* ======================================================
+   FILTER BUTTONS - GLOBAL STYLING
+====================================================== */
+.filter-btn
+{
+    display: flex;
+    margin: 15px 0;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 2px solid var(--color-accent-dark);
     width: 100%;
-    height: auto;
-    object-fit: cover;
+}
+
+.filter-btn button
+{
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background-color: var(--filter-btn-inactive);
+    color: var(--color-text-light);
+    font-weight: bold;
+    text-shadow: 0 0 2px var(--color-accent-dark);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.filter-btn button:first-child
+{
+    border-right: 1px solid var(--color-accent-dark);
+}
+
+.filter-btn button:nth-child(2)
+{
+    border-left: 1px solid var(--color-accent-dark);
+    border-right: 1px solid var(--color-accent-dark);
+}
+
+.filter-btn button:last-child
+{
+    border-left: 1px solid var(--color-accent-dark);
+}
+
+.filter-btn button:hover
+{
+    background-color: var(--filter-btn-hover);
+}
+
+.filter-btn button.active
+{
+    background-color: var(--filter-btn-active);
+    color: var(--color-text-light);
 }
