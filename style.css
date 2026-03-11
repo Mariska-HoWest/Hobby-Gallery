@@ -155,11 +155,14 @@ footer
    CARD - TITLES / TEXT
 ====================================================== */
 .card .title,
-.card .name,
-.name-overlap
+.card .name
 {
-    margin: 0;
-    padding: 12px 10px 8px;
+    position: absolute;
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 10px;
+    top: 0;
+    left: 0;
 
     font-size: 20px;
     font-weight: bold;
@@ -171,17 +174,9 @@ footer
     background: rgba(0, 0, 0, 0.25);
 }
 
-.name-overlap
+.card .title
 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-
-    width: 100%;
-    box-sizing: border-box;
-
-    z-index: 2;
+    position: relative;
 }
 
 .card-info
@@ -202,9 +197,14 @@ footer
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 
+    margin-top: auto;
     overflow: hidden;
+
+    display: flex;
+    flex-grow: 1;
+    align-items: flex-end;
 }
 
 .img
@@ -213,8 +213,6 @@ footer
 
     width: 100%;
     height: auto;
-
-    object-fit: cover;
 }
 
 /* ======================================================
@@ -225,6 +223,7 @@ footer
     position: relative;
     display: block;
     width: 100%;
+    height: 100%;
 
     transition: transform 0.8s;
     transform-style: preserve-3d;
@@ -252,6 +251,14 @@ footer
 {
     position: relative;
     overflow: hidden;
+}
+
+.card-front.name-default
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
 }
 
 .card-back

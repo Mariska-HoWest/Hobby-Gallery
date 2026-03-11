@@ -9,4 +9,5 @@
     grid-auto-flow: dense;
     gap: 10px;
     justify-content: start;
+    overflow-x: hidden;
 }

@@ -170,13 +170,13 @@ function updateDpDisplay()
         // Small card → use defaults
         card.style.width = `${DEFAULT_WIDTH}px`;
         card.style.height = `${DEFAULT_HEIGHT}px`;
+        cardFront.classList.add("name-default")
         }
         else 
         {
         // Big card → use scaled size
         card.style.width = `${imgWidth}px`;
         card.style.height = `${imgHeight}px`;
-        name.classList.replace("name", "name-overlap")
         }
 
     if (dp.ImgOriginal || dp.ImgFinished)
