@@ -156,7 +156,7 @@ footer
 ====================================================== */
 .card .title,
 .card .name,
-.name-big
+.name-overlap
 {
     margin: 0;
     padding: 12px 10px 8px;
@@ -263,6 +263,37 @@ footer
 }
 
 /* ======================================================
+   CARD - FINISHED CHECKMARK
+====================================================== */
+.finished-check
+{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+
+    width: 20px;
+    height: 20px;
+
+    background-color: #28a745;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+
+    z-index: 5;
+}
+
+.finished-check::after
+{
+    content: "✓";
+}
+
+/* ======================================================
    FILTER PANEL - GLOBAL STYLING
 ====================================================== */
 #filter-panel
@@ -270,9 +301,9 @@ footer
     grid-area: filter;
     background-color: var(--color-footer-bg);
     padding: 20px;
+    height: fill;
     overflow: hidden;
     box-sizing: border-box;
-    z-index: 11;
 }
 
 /* Toggle switches */

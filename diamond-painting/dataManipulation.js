@@ -223,6 +223,13 @@ function updateDpDisplay()
         card.appendChild(cardInner);
         dpDisplay.appendChild(card);
 
+        if (dp.Finished === "TRUE")
+        {
+            const checkMark = document.createElement("div");
+            checkMark.classList.add("finished-check");
+            cardFront.appendChild(checkMark);
+        }
+
         addHoverDelay(card, () => cardInner.classList.add("flipped"));
     });
 
