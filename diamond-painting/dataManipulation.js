@@ -1,3 +1,7 @@
+// =======================
+// /Hobby-Gallery/diamond-painting/dataManipulation.js
+// =======================
+
 const dpDisplay = document.getElementById("display");
 let dpData = [];
 

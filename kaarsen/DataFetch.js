@@ -1,4 +1,7 @@
+// =======================
 // /Hobby-Gallery/kaarsen/dataFetch.js
+// =======================
+
 console.log('🕯️ Candles dataFetch.js loaded');
 
 const CANDLE_SHEET = {

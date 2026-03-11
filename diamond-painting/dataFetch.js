@@ -1,5 +1,5 @@
 // =======================
-// diamond-painting/dataFetch.js
+// /Hobby-Gallery/diamond-painting/dataFetch.js
 // =======================
 
 console.log('🔹 DP dataFetch.js loaded');
