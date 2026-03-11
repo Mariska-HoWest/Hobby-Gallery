@@ -95,6 +95,23 @@ nav li a:hover
     background-color: var(--color-nav-button-hover);
 }
 
+
+/* ======================================================
+   Main Grid layout
+====================================================== */
+.grid-container
+{
+    display: grid;
+    grid-template-rows: 100px 1fr 20px;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+        "navbar navbar"
+        "filter display"
+        "footer footer";
+    height: 100vh;
+    width: 100vw;
+}
+
 /* ======================================================
    FOOTER
 ====================================================== */
