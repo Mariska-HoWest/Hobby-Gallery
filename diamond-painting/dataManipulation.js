@@ -58,6 +58,8 @@ function addHoverDelay(element, callback, delay = 750)
     });
 }
 
+//#region Filter-Area
+
 function CreateDpSideBar()
 {
     document.getElementById("infoToggle").addEventListener("change", (e) =>
@@ -135,6 +137,8 @@ function SetupDPFilterButtons()
     btnDefault.classList.add("active");
     ResetPictures();
 }
+
+//#endregion
 
 function updateDpDisplay()
 {

@@ -439,12 +439,15 @@ input:checked + .toggle-info::before
     overflow: hidden;
     border: 2px solid var(--color-accent-dark);
     background-color: var(--filter-btn-inactive);
-    transition: background-color 0.3s ease-in-out;
 }
 
-.sort-controls.is-active 
+.sort-controls.is-active
 {
     background-color: var(--filter-btn-active);
+    .sort-dropdown
+    {
+        background-color: var(--filter-btn-active);
+    }
 }
 
 .dropdown 
@@ -461,9 +464,10 @@ input:checked + .toggle-info::before
     width: 100%;
     padding: 8px 35px 8px 15px;
     border: none;
-    background-color: transparent; 
+    background-color: var(--filter-btn-inactive);
     color: var(--color-text-light);
     text-shadow: 0 0 2px var(--color-accent-dark);
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
     -webkit-appearance: none;
@@ -493,10 +497,4 @@ input:checked + .toggle-info::before
     text-shadow: 0 0 2px var(--color-accent-dark);
     cursor: pointer;
     padding: 0;
-    transition: color 0.2s ease;
-}
-
-.sort-controls:hover 
-{
-    background-color: var(--filter-btn-hover);
 }
