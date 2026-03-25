@@ -313,6 +313,60 @@ footer
     box-sizing: border-box;
 }
 
+/* ======================================================
+   FILTER BUTTONS - GLOBAL STYLING
+====================================================== */
+/* Picture Status switch */
+.SwapPicBtn
+{
+    display: flex;
+    margin: 15px 0;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 2px solid var(--color-accent-dark);
+    width: 100%;
+}
+
+.SwapPicBtn button
+{
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background-color: var(--filter-btn-inactive);
+    color: var(--color-text-light);
+    font-weight: bold;
+    text-shadow: 0 0 2px var(--color-accent-dark);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.SwapPicBtn button:first-child
+{
+    border-right: 1px solid var(--color-accent-dark);
+}
+
+.SwapPicBtn button:nth-child(2)
+{
+    border-left: 1px solid var(--color-accent-dark);
+    border-right: 1px solid var(--color-accent-dark);
+}
+
+.SwapPicBtnn button:last-child
+{
+    border-left: 1px solid var(--color-accent-dark);
+}
+
+.SwapPicBtn button:hover
+{
+    background-color: var(--filter-btn-hover);
+}
+
+.SwapPicBtn button.active
+{
+    background-color: var(--filter-btn-active);
+    color: var(--color-text-light);
+}
+
 /* Toggle switches */
 .toggles
 {
@@ -365,55 +419,87 @@ input:checked + .toggle-info::before
     transform: translateX(28px);
 }
 
-/* ======================================================
-   FILTER BUTTONS - GLOBAL STYLING
-====================================================== */
-.filter-btn
+/* Sort CSS */
+.Sorters 
 {
     display: flex;
-    margin: 15px 0;
+    flex-direction: column;
+    gap: 8px;
+    margin: 20px 0;
+    color: var(--color-text-light);
+    text-shadow: 0 0 5px var(--color-accent-dark);
+}
+
+.sort-controls 
+{
+    display: flex;
+    width: 100%;
     border-radius: 25px;
     overflow: hidden;
     border: 2px solid var(--color-accent-dark);
-    width: 100%;
-}
 
-.filter-btn button
-{
-    flex: 1;
-    padding: 8px 0;
-    border: none;
+    /* Default state: Inactive color */
     background-color: var(--filter-btn-inactive);
-    color: var(--color-text-light);
-    font-weight: bold;
-    text-shadow: 0 0 2px var(--color-accent-dark);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.filter-btn button:first-child
-{
-    border-right: 1px solid var(--color-accent-dark);
-}
-
-.filter-btn button:nth-child(2)
-{
-    border-left: 1px solid var(--color-accent-dark);
-    border-right: 1px solid var(--color-accent-dark);
-}
-
-.filter-btn button:last-child
-{
-    border-left: 1px solid var(--color-accent-dark);
-}
-
-.filter-btn button:hover
-{
-    background-color: var(--filter-btn-hover);
-}
-
-.filter-btn button.active
+/* State Change: Applied via JS when selection is NOT "Default" */
+.sort-controls.is-active 
 {
     background-color: var(--filter-btn-active);
+}
+
+.sort-dropdown 
+{
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-right: 1px solid var(--color-accent-dark);
+    background-color: transparent; 
+    
     color: var(--color-text-light);
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-appearance: none;
+    text-align: center;
+
+    /* Custom dropdown arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.direction-btn 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 40px;
+    border: none;
+    
+    background-color: transparent;
+    
+    color: var(--color-text-light);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.sort-icon 
+{
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+[data-order="desc"] .sort-icon 
+{
+    transform: rotate(180deg);
+}
+
+.sort-controls:hover 
+{
+    background-color: var(--filter-btn-hover);
 }

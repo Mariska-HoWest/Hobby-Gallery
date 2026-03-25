@@ -40,6 +40,23 @@
 
     <div id="filter-panel">
 
+      <div class="Sorters">
+          <label for="sort-attribute">Sort by:</label>
+          <div id="sort-wrapper" class="sort-controls">
+              <select id="sort-attribute" class="sort-dropdown">
+                  <option value="Default">Default</option>
+                  <option value="name">Name</option>
+                  <option value="weight">Weight</option>
+              </select>
+
+              <button id="sort-direction" class="direction-btn" data-order="asc">
+                  <svg class="sort-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M11 20V7.825l-5.6 5.6L4 12l8-8 8 8-1.4 1.425-5.6-5.6V20h-2Z"/>
+                  </svg>
+              </button>
+          </div>
+      </div>
+
     </div>
     
     <div id="display">

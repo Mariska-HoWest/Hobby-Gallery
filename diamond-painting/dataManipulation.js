@@ -14,8 +14,8 @@ const DEFAULT_HEIGHT = 30*SCALE_FACTOR;
 
 function initManipulation(data) 
 {
-  dpData = Array.isArray(data) ? data : [];
-dpData.sort((a, b) =>
+    dpData = Array.isArray(data) ? data : [];
+    dpData.sort((a, b) =>
 {
     const areaDiff = (b.Width * b.Height) - (a.Width * a.Height);
     if (Math.abs(areaDiff) < 50)
