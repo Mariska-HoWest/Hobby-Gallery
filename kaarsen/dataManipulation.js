@@ -2,14 +2,33 @@
 // /Hobby-Gallery/kaarsen/dataManipulation.js
 // =======================
 
+let candleData = [];
+
 window.initCandleManipulation = function (data) 
 {
   console.log('🟢 initCandleManipulation received:', Array.isArray(data) ? data.length : 0, 'rows');
+  let candleData = Array.isArray(data) ? data : [];
 
-  UpdateCandleDisplay(data);
+  UpdateCandleDisplay();
+  CreateCandleSideBar();
 };
 
-function UpdateCandleDisplay(data)
+document.addEventListener("DOMContentLoaded", () =>
+{
+    SetupCandleFilterButtons();
+});
+
+function SetupCandleFilterButtons()
+{
+  
+}
+
+function CreateCandleSideBar()
+{
+
+}
+
+function UpdateCandleDisplay()
 {
   const display = document.getElementById('display');
 
@@ -35,3 +54,4 @@ function UpdateCandleDisplay(data)
       display.appendChild(card);
     }));
 }
+

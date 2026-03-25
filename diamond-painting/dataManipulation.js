@@ -30,7 +30,7 @@ function initManipulation(data)
 
 document.addEventListener("DOMContentLoaded", () =>
 {
-    SetupFilterButtons();
+    SetupDPFilterButtons();
 });
 
 function addHoverDelay(element, callback, delay = 750)
@@ -111,7 +111,7 @@ function ShowAfterPictures()
     });
 }
 
-function SetupFilterButtons()
+function SetupDPFilterButtons()
 {
     const btnBefore = document.querySelector("#btnBefore");
     const btnDefault = document.querySelector("#btnDefault");

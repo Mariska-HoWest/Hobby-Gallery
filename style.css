@@ -388,7 +388,7 @@ footer
 {
     width: 50px;
     height: 22px;
-    background-color: var(--toggle-bg-inactive);
+    background-color: var(--filter-btn-inactive);
     border-radius: 50px;
     position: relative;
     transition: background-color 0.4s;
@@ -404,7 +404,7 @@ footer
     left: 1px;
     width: 20px;
     height: 20px;
-    background: var(--toggle-thumb);
+    background: var(--filter-btn-active);
     border-radius: 50%;
     transition: transform 0.4s;
 }
@@ -417,6 +417,7 @@ input:checked + .toggle-info
 input:checked + .toggle-info::before
 {
     transform: translateX(28px);
+    background: var(--filter-btn-inactive);
 }
 
 /* Sort CSS */
@@ -437,37 +438,46 @@ input:checked + .toggle-info::before
     border-radius: 25px;
     overflow: hidden;
     border: 2px solid var(--color-accent-dark);
-
-    /* Default state: Inactive color */
     background-color: var(--filter-btn-inactive);
     transition: background-color 0.3s ease-in-out;
 }
 
-/* State Change: Applied via JS when selection is NOT "Default" */
 .sort-controls.is-active 
 {
     background-color: var(--filter-btn-active);
 }
 
+.dropdown 
+{
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--color-accent-dark);
+}
+
 .sort-dropdown 
 {
-    flex: 1;
-    padding: 8px 12px;
+    width: 100%;
+    padding: 8px 35px 8px 15px;
     border: none;
-    border-right: 1px solid var(--color-accent-dark);
     background-color: transparent; 
-    
     color: var(--color-text-light);
+    text-shadow: 0 0 2px var(--color-accent-dark);
     font-weight: bold;
     cursor: pointer;
     -webkit-appearance: none;
-    text-align: center;
+    -moz-appearance: none;
+    appearance: none;
+}
 
-    /* Custom dropdown arrow */
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 30px;
+.dropdown .fa-angle-down 
+{
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    color: var(--color-text-light);
+    font-size: 0.9rem;
 }
 
 .direction-btn 
@@ -478,25 +488,12 @@ input:checked + .toggle-info::before
     width: 45px;
     height: 40px;
     border: none;
-    
     background-color: transparent;
-    
     color: var(--color-text-light);
+    text-shadow: 0 0 2px var(--color-accent-dark);
     cursor: pointer;
     padding: 0;
     transition: color 0.2s ease;
-}
-
-.sort-icon 
-{
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease-in-out;
-}
-
-[data-order="desc"] .sort-icon 
-{
-    transform: rotate(180deg);
 }
 
 .sort-controls:hover 
