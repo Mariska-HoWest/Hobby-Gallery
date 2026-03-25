@@ -2,15 +2,10 @@
 // GENERAL APP.JS
 // =======================
 
-window.CONFIG = {
-    CLIENT_ID: '451352190641-gqo0cqlg6urfmourrubdv3lhceg8rd39.apps.googleusercontent.com',
-    API_KEY: 'AIzaSyBUtd0nI5kvhy0JjnpeXcSDdFTYYOVvxGM'
-};
-
 window.CONFIG = 
 {
-  CLIENT_ID: '451352190641-gqo0cqlg6urfmourrubdv3lhceg8rd39.apps.googleusercontent.com',
-  API_KEY: 'AIzaSyBUtd0nI5kvhy0JjnpeXcSDdFTYYOVvxGM'
+    CLIENT_ID: '451352190641-gqo0cqlg6urfmourrubdv3lhceg8rd39.apps.googleusercontent.com',
+    API_KEY: 'AIzaSyBUtd0nI5kvhy0JjnpeXcSDdFTYYOVvxGM'
 };
 
 // Shared helper: convert Google Drive share link to direct link

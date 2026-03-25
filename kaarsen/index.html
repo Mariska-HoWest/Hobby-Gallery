@@ -6,6 +6,7 @@
     <title>Kaarsen</title>
 
     <!-- CSS -->
+    <script src="https://kit.fontawesome.com/e592878f22.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/Hobby-Gallery/style.css">
     <link rel="stylesheet" href="/Hobby-Gallery/kaarsen/style.css">
 
@@ -39,6 +40,27 @@
     </nav>
 
     <div id="filter-panel">
+
+      <div class="Sorters">
+          <label for="sort-attribute">Sort by:</label>
+          <div id="sort-wrapper" class="sort-controls">
+              
+            <div class="dropdown">
+                <select id="sort-attribute" class="sort-dropdown">
+                  <option value="default">Default</option>
+                  <option value="name">Name</option>
+                  <option value="weight">Weight</option>
+              </select>
+
+              <i class="fa-solid fa-angle-down"></i>
+            </div>
+
+
+            <button id="sort-direction" class="direction-btn" data-order="asc">
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+          </div>
+      </div>
 
     </div>
     

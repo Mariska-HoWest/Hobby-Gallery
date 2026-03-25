@@ -14,8 +14,8 @@ const DEFAULT_HEIGHT = 30*SCALE_FACTOR;
 
 function initManipulation(data) 
 {
-  dpData = Array.isArray(data) ? data : [];
-dpData.sort((a, b) =>
+    dpData = Array.isArray(data) ? data : [];
+    dpData.sort((a, b) =>
 {
     const areaDiff = (b.Width * b.Height) - (a.Width * a.Height);
     if (Math.abs(areaDiff) < 50)
@@ -30,7 +30,7 @@ dpData.sort((a, b) =>
 
 document.addEventListener("DOMContentLoaded", () =>
 {
-    SetupFilterButtons();
+    SetupDPFilterButtons();
 });
 
 function addHoverDelay(element, callback, delay = 750)
@@ -57,6 +57,8 @@ function addHoverDelay(element, callback, delay = 750)
         }
     });
 }
+
+//#region Filter-Area
 
 function CreateDpSideBar()
 {
@@ -111,7 +113,7 @@ function ShowAfterPictures()
     });
 }
 
-function SetupFilterButtons()
+function SetupDPFilterButtons()
 {
     const btnBefore = document.querySelector("#btnBefore");
     const btnDefault = document.querySelector("#btnDefault");
@@ -135,6 +137,8 @@ function SetupFilterButtons()
     btnDefault.classList.add("active");
     ResetPictures();
 }
+
+//#endregion
 
 function updateDpDisplay()
 {

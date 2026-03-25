@@ -313,6 +313,60 @@ footer
     box-sizing: border-box;
 }
 
+/* ======================================================
+   FILTER BUTTONS - GLOBAL STYLING
+====================================================== */
+/* Picture Status switch */
+.SwapPicBtn
+{
+    display: flex;
+    margin: 15px 0;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 2px solid var(--color-accent-dark);
+    width: 100%;
+}
+
+.SwapPicBtn button
+{
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background-color: var(--filter-btn-inactive);
+    color: var(--color-text-light);
+    font-weight: bold;
+    text-shadow: 0 0 2px var(--color-accent-dark);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.SwapPicBtn button:first-child
+{
+    border-right: 1px solid var(--color-accent-dark);
+}
+
+.SwapPicBtn button:nth-child(2)
+{
+    border-left: 1px solid var(--color-accent-dark);
+    border-right: 1px solid var(--color-accent-dark);
+}
+
+.SwapPicBtnn button:last-child
+{
+    border-left: 1px solid var(--color-accent-dark);
+}
+
+.SwapPicBtn button:hover
+{
+    background-color: var(--filter-btn-hover);
+}
+
+.SwapPicBtn button.active
+{
+    background-color: var(--filter-btn-active);
+    color: var(--color-text-light);
+}
+
 /* Toggle switches */
 .toggles
 {
@@ -334,7 +388,7 @@ footer
 {
     width: 50px;
     height: 22px;
-    background-color: var(--toggle-bg-inactive);
+    background-color: var(--filter-btn-inactive);
     border-radius: 50px;
     position: relative;
     transition: background-color 0.4s;
@@ -350,7 +404,7 @@ footer
     left: 1px;
     width: 20px;
     height: 20px;
-    background: var(--toggle-thumb);
+    background: var(--filter-btn-active);
     border-radius: 50%;
     transition: transform 0.4s;
 }
@@ -363,57 +417,84 @@ input:checked + .toggle-info
 input:checked + .toggle-info::before
 {
     transform: translateX(28px);
+    background: var(--filter-btn-inactive);
 }
 
-/* ======================================================
-   FILTER BUTTONS - GLOBAL STYLING
-====================================================== */
-.filter-btn
+/* Sort CSS */
+.Sorters 
 {
     display: flex;
-    margin: 15px 0;
+    flex-direction: column;
+    gap: 8px;
+    margin: 20px 0;
+    color: var(--color-text-light);
+    text-shadow: 0 0 5px var(--color-accent-dark);
+}
+
+.sort-controls 
+{
+    display: flex;
+    width: 100%;
     border-radius: 25px;
     overflow: hidden;
     border: 2px solid var(--color-accent-dark);
-    width: 100%;
+    background-color: var(--filter-btn-inactive);
 }
 
-.filter-btn button
+.sort-controls.is-active
 {
+    background-color: var(--filter-btn-active);
+    .sort-dropdown
+    {
+        background-color: var(--filter-btn-active);
+    }
+}
+
+.dropdown 
+{
+    position: relative;
     flex: 1;
-    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--color-accent-dark);
+}
+
+.sort-dropdown 
+{
+    width: 100%;
+    padding: 8px 35px 8px 15px;
     border: none;
     background-color: var(--filter-btn-inactive);
     color: var(--color-text-light);
+    text-shadow: 0 0 2px var(--color-accent-dark);
+    font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.dropdown .fa-angle-down 
+{
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.direction-btn 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-light);
     text-shadow: 0 0 2px var(--color-accent-dark);
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.filter-btn button:first-child
-{
-    border-right: 1px solid var(--color-accent-dark);
-}
-
-.filter-btn button:nth-child(2)
-{
-    border-left: 1px solid var(--color-accent-dark);
-    border-right: 1px solid var(--color-accent-dark);
-}
-
-.filter-btn button:last-child
-{
-    border-left: 1px solid var(--color-accent-dark);
-}
-
-.filter-btn button:hover
-{
-    background-color: var(--filter-btn-hover);
-}
-
-.filter-btn button.active
-{
-    background-color: var(--filter-btn-active);
-    color: var(--color-text-light);
+    padding: 0;
 }
