@@ -23,7 +23,7 @@ window.addEventListener('load', async () => {
       ttlMs: 10 * 60 * 1000,
     });
 
-    console.log(`✅ Candles fetched: ${data.length} rows`);
+    console.table(data);
     initCandleManipulation(data);
   } catch (err) {
     console.error('❌ Failed to fetch Candles:', err);

@@ -6,7 +6,6 @@ let candleData = [];
 
 window.initCandleManipulation = function (data) 
 {
-  console.log('🟢 initCandleManipulation received:', Array.isArray(data) ? data.length : 0, 'rows');
   candleData = Array.isArray(data) ? data : [];
 
   ApplySorting();
