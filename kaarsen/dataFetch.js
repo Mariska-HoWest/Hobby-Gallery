@@ -4,7 +4,8 @@
 
 console.log('🕯️ Candles dataFetch.js loaded');
 
-const CANDLE_SHEET = {
+const CANDLE_SHEET = 
+{
   spreadsheetId: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM',
   tab: 'Candles',
   range: 'A:F',
@@ -29,3 +30,4 @@ window.addEventListener('load', async () => {
     initCandleManipulation([]); // still initialize safely
   }
 });
+

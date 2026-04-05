@@ -70,8 +70,8 @@ function ApplySorting()
 
         if (attribute === "default") 
         {
-            const idA = a.Number;
-            const idB = b.Number;
+            const idA = a.ID;
+            const idB = b.ID;
 
             // Check if numbers
             const isNumA = !isNaN(parseFloat(idA)) && isFinite(idA);
