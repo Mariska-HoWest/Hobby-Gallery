@@ -10,4 +10,6 @@
     gap: 10px;
     justify-content: start;
     overflow-x: hidden;
+
+    background-image: url(/Hobby-Gallery/Assets/black-brick-wall.jpg);
 }
