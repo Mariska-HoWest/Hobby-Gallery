@@ -7,7 +7,7 @@ console.log('🔹 DP dataFetch.js loaded');
 const DP_SHEET = {
   spreadsheetId: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM',
   tab: 'Diamond Painting',
-  range: 'A:L',
+  range: 'A:K',
 };
 
 const SHEETS_READ_SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
