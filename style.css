@@ -29,6 +29,9 @@
     --filter-btn-inactive: var(--color-card-bg);
     --filter-btn-active: var(--color-nav-bg);
     --filter-btn-hover: var(--color-nav-button);
+
+    /* Dropdown search colors */
+    --color-dropdown-hover: var(--color-nav-button-hover);
 }
 
 /* ======================================================
@@ -317,17 +320,19 @@ footer
    FILTER BUTTONS - GLOBAL STYLING
 ====================================================== */
 /* Picture Status switch */
-.SwapPicBtn
+.SwapPicBtn,
+.ToggleStateBtn
 {
     display: flex;
-    margin: 15px 0;
+    margin: 5px;
     border-radius: 25px;
     overflow: hidden;
     border: 2px solid var(--color-accent-dark);
     width: 100%;
 }
 
-.SwapPicBtn button
+.SwapPicBtn button,
+.ToggleStateBtn button
 {
     flex: 1;
     padding: 8px 0;
@@ -340,35 +345,40 @@ footer
     transition: all 0.2s ease-in-out;
 }
 
-.SwapPicBtn button:first-child
+.SwapPicBtn button:first-child,
+.ToggleStateBtn button:first-child
 {
     border-right: 1px solid var(--color-accent-dark);
 }
 
-.SwapPicBtn button:nth-child(2)
+.SwapPicBtn button:nth-child(2),
+.ToggleStateBtn button:nth-child(2)
 {
     border-left: 1px solid var(--color-accent-dark);
     border-right: 1px solid var(--color-accent-dark);
 }
 
-.SwapPicBtnn button:last-child
+.SwapPicBtnn button:last-child,
+.ToggleStateBtn button:last-child
 {
     border-left: 1px solid var(--color-accent-dark);
 }
 
-.SwapPicBtn button:hover
+.SwapPicBtn button:hover,
+.ToggleStateBtn button:hover
 {
     background-color: var(--filter-btn-hover);
 }
 
-.SwapPicBtn button.active
+.SwapPicBtn button.active,
+.ToggleStateBtn button.active
 {
     background-color: var(--filter-btn-active);
     color: var(--color-text-light);
 }
 
 /* Toggle switches */
-.toggles
+.filterlbl
 {
     display: flex;
     justify-content: space-between;
@@ -377,9 +387,11 @@ footer
     color: var(--color-text-light);
     text-shadow: 0 0 5px var(--color-accent-dark);
     gap: 10px;
+
+    padding-top: 15px;
 }
 
-.toggles input
+.filterlbl input
 {
     display: none;
 }
@@ -497,4 +509,106 @@ input:checked + .toggle-info::before
     text-shadow: 0 0 2px var(--color-accent-dark);
     cursor: pointer;
     padding: 0;
+}
+
+/* ======================================================
+   Search/Dropdown Box
+====================================================== */
+.nameFilter
+{
+    position: relative;
+    width: 100%;
+    margin-top: 15px;
+
+    border-radius: 25px;
+}
+
+.nameFilter-input
+{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid var(--color-accent-dark);
+
+    background-color: var(--filter-btn-inactive);
+
+    color: var(--color-text-light);
+    font-weight: bold;
+
+    text-shadow: 0 0 2px var(--color-accent-dark);
+
+    box-sizing: border-box;
+}
+
+.nameFilter-input::placeholder
+{
+    color: var(--color-text-light);
+    opacity: 0.7;
+    text-shadow: 0 0 2px var(--color-accent-dark);
+}
+
+.nameFilter.is-active .nameFilter-input
+{
+    background-color: var(--filter-btn-active);
+    border-color: var(--color-nav-bg);
+}
+
+.nameFilter-input:focus
+{
+    background-color: var(--filter-btn-active);
+}
+
+.nameFilter-list 
+{
+    position: absolute;
+    width: 100%;
+    margin-top: 6px;
+    padding: 5px 0;
+
+    list-style: none;
+
+    background: var(--color-footer-bg);
+    border: 2px solid var(--color-accent-dark);
+    border-radius: 12px;
+
+    max-height: 180px;
+    overflow-y: auto;
+
+    z-index: 10;
+}
+
+.nameFilter.is-active .nameFilter-list
+{
+    background: var(--filter-btn-active);
+}
+
+.nameFilter-list li
+{
+    padding: 8px 12px;
+
+    cursor: pointer;
+
+    color: var(--color-text-light);
+    font-weight: bold;
+
+    text-shadow: 0 0 2px var(--color-accent-dark);
+
+    transition: background-color 0.2s ease-in-out;
+}
+
+.nameFilter-list li:hover,
+.nameFilter-list li.active 
+{
+    background: var(--color-dropdown-hover);
+}
+
+.nameFilter-list li strong
+{
+    color: var(--color-accent-dark);
+    text-shadow: none;
+}
+
+.hidden 
+{
+    display: none;
 }
