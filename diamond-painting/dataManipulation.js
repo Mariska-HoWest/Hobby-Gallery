@@ -14,8 +14,11 @@ const DEFAULT_HEIGHT = 30*SCALE_FACTOR;
 
 //states
 let dpData = [];
+
 let currentOwnerFilter = null;
 let currentFinishedFilter = null;
+let currentABFilter = false;
+let currentFDFilter = false;
 
 //#region Init Flow
 function initManipulation(data) 
@@ -43,6 +46,7 @@ function SetUpDpFilters()
     SetupPictureToggle();
     SetupFinishedFilter();
     SetupOwnerFilter();
+    SetupModifierFilter();
 }
 
 function SetupInfoToggle()
@@ -231,6 +235,26 @@ function SetupOwnerFilter()
     });
 }
 
+function SetupModifierFilter()
+{
+    const btnAB = document.querySelector("#filterAB");
+    const btnFD = document.querySelector("#filterFD");
+
+    btnAB.addEventListener("click", () =>
+    {
+        currentABFilter = !currentABFilter;
+        btnAB.classList.toggle("active", currentABFilter);
+        applyAllFilters();
+    });
+
+    btnFD.addEventListener("click", () =>
+    {
+        currentFDFilter = !currentFDFilter;
+        btnFD.classList.toggle("active", currentFDFilter);
+        applyAllFilters();
+    });
+}
+
 function SetupPictureToggle()
 {
     const btnBefore = document.querySelector("#btnBefore");
@@ -304,17 +328,31 @@ function applyAllFilters()
     dpData.forEach(dp =>
     {
         const matchesFinished =
-        currentFinishedFilter === null
-        ? true
-        : (dp.Finished === "TRUE") === currentFinishedFilter;
+            currentFinishedFilter === null
+                ? true
+                : (dp.Finished === "TRUE") === currentFinishedFilter;
 
         const matchesOwner =
             !currentOwnerFilter
                 ? true
                 : dp.Owner === currentOwnerFilter;
 
-        dp.__visible = matchesFinished && matchesOwner;
-    });
+        const matchesAB =
+            !currentABFilter
+                ? true
+                : isTrue(dp.AB);
+
+        const matchesFD =
+            !currentFDFilter
+                ? true
+                : isTrue(dp.FD);
+
+        dp.__visible =
+        matchesFinished &&
+        matchesOwner &&
+        matchesAB &&
+        matchesFD;
+            });
 
     updateDpDisplay();
     applyMasonryLayout();
@@ -347,6 +385,11 @@ function addHoverDelay(element, callback, delay = 750)
     });
 }
 
+function isTrue(value)
+{
+    return String(value).trim().toLowerCase() === "true"
+        || String(value).trim().toLowerCase() === "waar";
+}
 //#endregion
 
 //#region Rendering Engine
