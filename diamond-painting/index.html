@@ -40,23 +40,36 @@
     </nav>
         
     <div id="filter-panel">
-      <label class="toggles">Show all info
+      <label class="filterlbl">Show all info
           <input type="checkbox" id="infoToggle">
           <span class="toggle-info" title="Press to display all info cards!"></span>
       </label>
 
+      <label class="filterlbl">Image State Toggle</label>
       <div class="SwapPicBtn">
           <button id="btnBefore">Show Before</button>
           <button id="btnDefault">Default</button>
           <button id="btnAfter">Show After</button>
       </div>
 
-      <div class="filters">
-
+      <label class="filterlbl">Completeness Filter</label>
+      <div class="ToggleStateBtn">
+          <button id="btnUnFinished">WIP</button>
+          <button id="btnAll">Show All</button>
+          <button id="btnFinished">Complete</button>
       </div>
-      <div class="sorters">
 
+      <label class="filterlbl">Filter by Owner</label>
+        <div class="nameFilter">
+          <input type="text" class="nameFilter-input" placeholder="Select owner..." autocomplete="off">
+          <ul class="nameFilter-list hidden"></ul>
+        </div>
+
+      <div class="modifierFilters">
+        <div id="filterAB" class="modifier">AB</div>
+        <div id="filterFD" class="modifier">FD</div>
       </div>
+
     </div>
 
     <div id="display">

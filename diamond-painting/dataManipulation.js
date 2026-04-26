@@ -2,8 +2,8 @@
 // /Hobby-Gallery/diamond-painting/dataManipulation.js
 // =======================
 
+//config
 const dpDisplay = document.getElementById("display");
-let dpData = [];
 
 const SCALE_FACTOR = 5;
 const MASONRY_UNIT = 10;
@@ -12,6 +12,15 @@ const MASONRY_GAP = 10;
 const DEFAULT_WIDTH = 30*SCALE_FACTOR;
 const DEFAULT_HEIGHT = 30*SCALE_FACTOR;
 
+//states
+let dpData = [];
+
+let currentOwnerFilter = null;
+let currentFinishedFilter = null;
+let currentABFilter = false;
+let currentFDFilter = false;
+
+//#region Init Flow
 function initManipulation(data) 
 {
     dpData = Array.isArray(data) ? data : [];
@@ -23,48 +32,29 @@ function initManipulation(data)
     return areaDiff;
 });
 
-  updateDpDisplay();
-  requestAnimationFrame(applyMasonryLayout);
-  CreateDpSideBar();
+    dpData.forEach(dp => dp.__visible = true);
+    updateDpDisplay();
+    requestAnimationFrame(applyMasonryLayout);
+    SetUpDpFilters();
+}
+//#endregion
+
+//#region View Transforms
+function SetUpDpFilters()
+{
+    SetupInfoToggle();
+    SetupPictureToggle();
+    SetupFinishedFilter();
+    SetupOwnerFilter();
+    SetupModifierFilter();
 }
 
-document.addEventListener("DOMContentLoaded", () =>
-{
-    SetupDPFilterButtons();
-});
-
-function addHoverDelay(element, callback, delay = 750)
-{
-    let timer;
-
-    element.addEventListener("mouseenter", () =>
-    {
-        if (!infoToggle.checked)
-        {
-            timer = setTimeout(() =>
-            {
-                callback();
-            }, delay);
-        }
-    });
-
-    element.addEventListener("mouseleave", () =>
-    {
-        if (!infoToggle.checked)
-        {
-            clearTimeout(timer);
-            element.querySelector(".card-inner").classList.remove("flipped");
-        }
-    });
-}
-
-//#region Filter-Area
-
-function CreateDpSideBar()
+function SetupInfoToggle()
 {
     document.getElementById("infoToggle").addEventListener("change", (e) =>
     {
         const cards = document.querySelectorAll(".card-inner");
+
         cards.forEach((card, index) =>
         {
             setTimeout(() =>
@@ -80,6 +70,214 @@ function CreateDpSideBar()
             }, index * 25);
         });
     });
+}
+
+function SetupFinishedFilter()
+{
+    const btnUnFinished = document.querySelector("#btnUnFinished");
+    const btnAll = document.querySelector("#btnAll");
+    const btnFinished = document.querySelector("#btnFinished");
+
+    const buttons = [btnUnFinished, btnAll, btnFinished];
+
+    buttons.forEach(btn =>
+    {
+        btn.addEventListener("click", () =>
+        {
+            buttons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            if (btn === btnUnFinished)
+            {
+                applyFinishedFilter(false);
+            }
+            else if (btn === btnFinished)
+            {
+                applyFinishedFilter(true);
+            }
+            else //show all
+            {
+                applyFinishedFilter(null);
+            }
+        });
+    });
+
+    btnAll.classList.add("active");
+    applyFinishedFilter(null);
+}
+
+function SetupOwnerFilter()
+{
+    const container = document.querySelector(".nameFilter");
+    const input = container.querySelector(".nameFilter-input");
+    const list = container.querySelector(".nameFilter-list");
+
+    const allOption = "All";
+
+    const owners = [...new Set(dpData.map(d => d.Owner).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b));
+
+    let filtered = [];
+    let activeIndex = -1;
+
+    function render()
+    {
+        const displayList = [allOption, ...filtered];
+
+        list.innerHTML = "";
+
+        if (!displayList.length)
+        {
+            list.classList.add("hidden");
+            return;
+        }
+
+        displayList.forEach((name, i) =>
+        {
+            const li = document.createElement("li");
+            li.textContent = name;
+
+            if (i === activeIndex) li.classList.add("active");
+
+            li.addEventListener("click", () =>
+            {
+                input.value = name;
+                list.classList.add("hidden");
+
+                if (name === allOption)
+                {
+                    container.classList.remove("is-active");
+                    input.value = "";
+                    applyOwnerFilter(null);
+                }
+                else
+                {
+                    container.classList.add("is-active");
+                    applyOwnerFilter(name);
+                }
+            });
+
+            list.appendChild(li);
+        });
+
+        list.classList.remove("hidden");
+    }
+
+    input.addEventListener("input", () =>
+    {
+        const val = input.value.toLowerCase();
+
+        filtered = owners.filter(o =>
+            o.toLowerCase().includes(val)
+        );
+
+        activeIndex = -1;
+        render();
+    });
+
+    input.addEventListener("keydown", (e) =>
+    {
+        const displayList = [allOption, ...filtered];
+
+        if (!displayList.length) return;
+
+        if (e.key === "ArrowDown")
+        {
+            activeIndex = (activeIndex + 1) % displayList.length;
+            render();
+        }
+
+        if (e.key === "ArrowUp")
+        {
+            activeIndex = (activeIndex - 1 + displayList.length) % displayList.length;
+            render();
+        }
+
+        if (e.key === "Enter" && displayList[activeIndex])
+        {
+            const name = displayList[activeIndex];
+
+            input.value = name;
+            list.classList.add("hidden");
+
+            if (name === allOption)
+            {
+                container.classList.remove("is-active");
+                input.value = "";
+                applyOwnerFilter(null);
+            }
+            else
+            {
+                container.classList.add("is-active");
+                applyOwnerFilter(name);
+            }
+        }
+
+        if (e.key === "Escape")
+        {
+            list.classList.add("hidden");
+        }
+    });
+
+    input.addEventListener("focus", () =>
+    {
+        filtered = [...owners];
+        activeIndex = -1;
+        render();
+    });
+
+    document.addEventListener("click", (e) =>
+    {
+        if (!container.contains(e.target))
+        {
+            list.classList.add("hidden");
+        }
+    });
+}
+
+function SetupModifierFilter()
+{
+    const btnAB = document.querySelector("#filterAB");
+    const btnFD = document.querySelector("#filterFD");
+
+    btnAB.addEventListener("click", () =>
+    {
+        currentABFilter = !currentABFilter;
+        btnAB.classList.toggle("active", currentABFilter);
+        applyAllFilters();
+    });
+
+    btnFD.addEventListener("click", () =>
+    {
+        currentFDFilter = !currentFDFilter;
+        btnFD.classList.toggle("active", currentFDFilter);
+        applyAllFilters();
+    });
+}
+
+function SetupPictureToggle()
+{
+    const btnBefore = document.querySelector("#btnBefore");
+    const btnDefault = document.querySelector("#btnDefault");
+    const btnAfter = document.querySelector("#btnAfter");
+
+    const buttons = [btnBefore, btnDefault, btnAfter];
+
+    buttons.forEach(btn =>
+    {
+        btn.addEventListener("click", () =>
+        {
+            buttons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            if (btn.id === "btnBefore") ShowBeforePictures();
+            else if (btn.id === "btnDefault") ResetPictures();
+            else if (btn.id === "btnAfter") ShowAfterPictures();
+        });
+    });
+
+    btnDefault.classList.add("active");
+    ResetPictures();
 }
 
 function ShowBeforePictures()
@@ -113,38 +311,93 @@ function ShowAfterPictures()
     });
 }
 
-function SetupDPFilterButtons()
+function applyFinishedFilter(state)
 {
-    const btnBefore = document.querySelector("#btnBefore");
-    const btnDefault = document.querySelector("#btnDefault");
-    const btnAfter = document.querySelector("#btnAfter");
-
-    const buttons = [btnBefore, btnDefault, btnAfter];
-
-    buttons.forEach(btn =>
-    {
-        btn.addEventListener("click", () =>
-        {
-            buttons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            if (btn.id === "btnBefore") ShowBeforePictures();
-            else if (btn.id === "btnDefault") ResetPictures();
-            else if (btn.id === "btnAfter") ShowAfterPictures();
-        });
-    });
-
-    btnDefault.classList.add("active");
-    ResetPictures();
+    currentFinishedFilter = state;
+    applyAllFilters();
 }
 
+function applyOwnerFilter(owner)
+{
+    currentOwnerFilter = owner;
+    applyAllFilters();
+}
+
+function applyAllFilters()
+{
+    dpData.forEach(dp =>
+    {
+        const matchesFinished =
+            currentFinishedFilter === null
+                ? true
+                : (dp.Finished === "TRUE") === currentFinishedFilter;
+
+        const matchesOwner =
+            !currentOwnerFilter
+                ? true
+                : dp.Owner === currentOwnerFilter;
+
+        const matchesAB =
+            !currentABFilter
+                ? true
+                : isTrue(dp.AB);
+
+        const matchesFD =
+            !currentFDFilter
+                ? true
+                : isTrue(dp.FD);
+
+        dp.__visible =
+        matchesFinished &&
+        matchesOwner &&
+        matchesAB &&
+        matchesFD;
+            });
+
+    updateDpDisplay();
+    applyMasonryLayout();
+}
 //#endregion
 
+//#region Interact Helpers
+function addHoverDelay(element, callback, delay = 750)
+{
+    let timer;
+
+    element.addEventListener("mouseenter", () =>
+    {
+        if (!infoToggle.checked)
+        {
+            timer = setTimeout(() =>
+            {
+                callback();
+            }, delay);
+        }
+    });
+
+    element.addEventListener("mouseleave", () =>
+    {
+        if (!infoToggle.checked)
+        {
+            clearTimeout(timer);
+            element.querySelector(".card-inner").classList.remove("flipped");
+        }
+    });
+}
+
+function isTrue(value)
+{
+    return String(value).trim().toLowerCase() === "true"
+        || String(value).trim().toLowerCase() === "waar";
+}
+//#endregion
+
+//#region Rendering Engine
 function updateDpDisplay()
 {
     dpDisplay.innerHTML = "";
 
-    dpData.forEach(dp =>
+    dpData.filter(dp => dp.__visible !== false).forEach(dp =>
     {
         const card = document.createElement("div");
         card.classList.add("card");
@@ -239,7 +492,9 @@ function updateDpDisplay()
 
     applyMasonryLayout();
 }
+//#endregion
 
+//#region Lay-out Engine
 function applyMasonryLayout()
 {
     const cards = Array.from(dpDisplay.querySelectorAll(".card"));
@@ -271,4 +526,4 @@ function applyMasonryLayout()
         }
     });
 }
-
+//#endregion
