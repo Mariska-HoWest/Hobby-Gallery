@@ -2,22 +2,26 @@
 // /Hobby-Gallery/kaarsen/dataManipulation.js
 // =======================
 
+//Config
+const candleDisplay = document.getElementById("display");
+
+//States
 let candleData = [];
 
+
+//#region Init Flow
 window.initCandleManipulation = function (data) 
 {
-  console.log('🟢 initCandleManipulation received:', Array.isArray(data) ? data.length : 0, 'rows');
-  candleData = Array.isArray(data) ? data : [];
+    console.log('🟢 initCandleManipulation received:', Array.isArray(data) ? data.length : 0, 'rows');
+    candleData = Array.isArray(data) ? data : [];
 
-  ApplySorting();
+    SetUpCandleSorting();
+    ApplySorting();
 };
+//#endregion
 
-document.addEventListener("DOMContentLoaded", () =>
-{
-    SetupCandleFilterButtons();
-});
-
-function SetupCandleFilterButtons()
+//#region View Transforms
+function SetUpCandleSorting()
 {
     const sortWrapper = document.getElementById("sort-wrapper");
     const sortAttr = document.getElementById("sort-attribute");
@@ -113,11 +117,12 @@ function ApplySorting()
 
     UpdateCandleDisplay();
 }
+//#endregion
 
+//#region Rendering Engine
 function UpdateCandleDisplay()
 {
-  const display = document.getElementById('display');
-  display.innerHTML = "";
+  candleDisplay.innerHTML = "";
 
   //Card creation
   candleData.forEach((candle =>
@@ -138,7 +143,7 @@ function UpdateCandleDisplay()
       imgContainer.appendChild(img);
       card.appendChild(imgContainer);
 
-      display.appendChild(card);
+      candleDisplay.appendChild(card);
     }));
 }
-
+//#endregion

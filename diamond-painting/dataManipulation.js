@@ -2,7 +2,7 @@
 // /Hobby-Gallery/diamond-painting/dataManipulation.js
 // =======================
 
-//config
+//Config
 const dpDisplay = document.getElementById("display");
 
 const SCALE_FACTOR = 5;
@@ -12,7 +12,7 @@ const MASONRY_GAP = 10;
 const DEFAULT_WIDTH = 30*SCALE_FACTOR;
 const DEFAULT_HEIGHT = 30*SCALE_FACTOR;
 
-//states
+//States
 let dpData = [];
 
 let currentOwnerFilter = null;
