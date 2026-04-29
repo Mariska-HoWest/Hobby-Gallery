@@ -11,3 +11,207 @@
     gap: 20px;
     justify-content: start;
 }
+
+/* ======================================================
+   CANDLE MODAL VARIABLES
+====================================================== */
+:root
+{
+    --modal-bg: var(--color-footer-bg);
+    --modal-border: var(--color-accent-dark);
+    --modal-overlay: rgba(0, 0, 0, 0.65);
+    --modal-header-bg: rgba(255, 255, 255, 0.06);
+    --modal-section-bg: rgba(255, 255, 255, 0.04);
+    --modal-accent-soft: rgba(106, 33, 156, 0.25);
+    --modal-arrow-bg: rgba(0, 0, 0, 0.4);
+    --modal-arrow-hover: rgba(0, 0, 0, 0.7);
+}
+
+/* ======================================================
+   MODAL BASE
+====================================================== */
+.modal
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden
+{
+    display: none;
+}
+
+.modal-overlay
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--modal-overlay);
+    backdrop-filter: blur(6px);
+}
+
+
+/* ======================================================
+   CONTENT
+====================================================== */
+.modal-content
+{
+    position: relative;
+    width: 850px;
+    max-width: 90%;
+    padding: 22px;
+    border-radius: 14px;
+    border: 1px solid var(--modal-border);
+    background: var(--modal-bg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 12px var(--modal-accent-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1;
+}
+
+
+/* ======================================================
+   HEADER
+====================================================== */
+.modal-header
+{
+    position: relative;
+    padding: 12px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--color-text-light);
+    background: var(--modal-header-bg);
+    border-radius: 10px;
+}
+
+.modal-id
+{
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.modal-close
+{
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 1.4rem;
+    border: none;
+    background: none;
+    color: var(--color-text-light);
+    cursor: pointer;
+}
+
+.modal-close:hover
+{
+    color: var(--color-nav-button-hover);
+}
+
+
+/* ======================================================
+   BODY
+====================================================== */
+.modal-body
+{
+    display: flex;
+    gap: 20px;
+}
+
+.modal-left img
+{
+    width: 300px;
+    border-radius: 12px;
+    border: 1px solid var(--modal-border);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-right
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-right .info-group
+{
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--modal-section-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--color-text-light);
+    font-size: 14px;
+}
+
+
+/* ======================================================
+    Buttons
+====================================================== */
+.modal-buttons
+{
+  display: flex;
+  height: 100%;
+}
+
+.primary-btn, .secondary-btn
+{
+    background-color: var(--filter-btn-active);
+    color: var(--color-text-light);
+    text-shadow: 0 0 2px var(--color-accent-dark);
+    cursor: pointer;
+    
+    margin: 5px;
+    border-radius: 15px;
+    flex: 1 1;
+    justify-content: center;
+}
+
+.primary-btn:hover, .secondary-btn:hover
+{
+      background-color: var(--filter-btn-hover);
+}
+
+
+/* ======================================================
+   NAV ARROWS
+====================================================== */
+.modal-arrow
+{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    padding: 10px;
+    border-radius: 50%;
+    border: none;
+    background: var(--modal-arrow-bg);
+    color: var(--color-text-light);
+    cursor: pointer;
+}
+
+.modal-arrow.left
+{
+    left: -50px;
+}
+
+.modal-arrow.right
+{
+    right: -50px;
+}
+
+.modal-arrow:hover
+{
+    background: var(--modal-arrow-hover);
+}

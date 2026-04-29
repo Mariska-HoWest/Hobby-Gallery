@@ -67,6 +67,66 @@
     <div id="display">
 
     </div>
+
+<!-- Candle Modal -->
+<div id="candleModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+
+  <div class="modal-content">
+
+    <!-- Close -->
+    <button id="modalClose" class="modal-close">&times;</button>
+
+    <!-- Arrows -->
+    <button id="modalPrev" class="modal-arrow left">&#10094;</button>
+    <button id="modalNext" class="modal-arrow right">&#10095;</button>
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h2 id="modalName">Candle Name</h2>
+      <span id="modalId" class="modal-id">#001</span>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <div class="modal-left">
+        <img id="modalImg" src="" alt="">
+      </div>
+
+      <div class="modal-right">
+
+        <div class="info-group">
+          <p><strong>Weight:</strong> <span id="modalWeight"></span></p>
+        </div>
+
+        <div class="info-group">
+          <p><strong>Dimensions:</strong> <span id="modalDimensions"></span></p>
+        </div>
+
+
+
+        <div class="info-group">
+          <p><strong>Moulds:</strong> <span id="modalMoulds"></span></p>
+        </div>
+
+        <div class="info-group">
+          <p><strong>Material Cost:</strong> <span id="modalCost"></span></p>
+        </div>
+
+        <div class="modal-buttons">
+          <button id="addToSession" class="primary-btn">Add to Session</button>
+          <button id="createNew" class="secondary-btn">Create New Candle</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
   </div>
 
 
