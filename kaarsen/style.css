@@ -64,8 +64,7 @@
 .modal-content
 {
     position: relative;
-    width: 850px;
-    max-width: 90%;
+    width: 600px;
     padding: 22px;
     border-radius: 14px;
     border: 1px solid var(--modal-border);
@@ -83,30 +82,33 @@
 ====================================================== */
 .modal-header
 {
-    position: relative;
-    padding: 12px;
     text-align: center;
     font-size: 22px;
     font-weight: bold;
     color: var(--color-text-light);
-    background: var(--modal-header-bg);
-    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.modal-id,
+.modal-close
+{
+    position: absolute;
+    top: 12px;
+    display: flex;
+    align-items: center;
 }
 
 .modal-id
 {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    font-size: 0.75rem;
-    opacity: 0.6;
+    left: 15px;
+    font-size: 1.0rem;
+    opacity: 0.7;
+    top: 18px;
 }
 
 .modal-close
 {
-    position: absolute;
-    top: 10px;
-    left: 15px;
+    right: 15px;
     font-size: 1.4rem;
     border: none;
     background: none;
@@ -132,9 +134,11 @@
 .modal-left img
 {
     width: 300px;
+    height: 325px;
     border-radius: 12px;
     border: 1px solid var(--modal-border);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
 }
 
 .modal-right
@@ -153,6 +157,61 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     color: var(--color-text-light);
     font-size: 14px;
+}
+
+/* ======================================================
+   INFO LAYOUT
+====================================================== */
+.modal-right .info-group
+{
+    position: relative;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--modal-section-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--color-text-light);
+}
+
+.info-row
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 18px;
+}
+
+.info-label
+{
+    font-size: 12px;
+    opacity: 0.55;
+    letter-spacing: 0.5px;
+}
+
+.info-value
+{
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ======================================================
+   SUBTLE SEPARATORS
+====================================================== */
+.modal-right .info-group::after
+{
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: -6px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-right .info-group:last-child::after
+{
+    display: none;
 }
 
 
@@ -214,4 +273,95 @@
 .modal-arrow:hover
 {
     background: var(--modal-arrow-hover);
+}
+
+/* ======================================================
+   MODAL OPEN ANIMATION
+====================================================== */
+.modal-content
+{
+    animation: modalIn 0.18s ease-in;
+}
+
+@keyframes modalIn
+{
+    from
+    {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to
+    {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* ======================================================
+   IMAGE HOVER
+====================================================== */
+.modal-left img
+{
+    transition: transform 0.2s ease;
+}
+
+.modal-left img:hover
+{
+    transform: scale(1.03);
+}
+
+
+/* ======================================================
+   BUTTON FEEDBACK
+====================================================== */
+.primary-btn,
+.secondary-btn
+{
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover
+{
+    transform: translateY(-1px);
+}
+
+.primary-btn:active,
+.secondary-btn:active
+{
+    transform: translateY(0);
+}
+
+
+/* ======================================================
+   ARROW FEEDBACK
+====================================================== */
+.modal-arrow
+{
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.modal-arrow:hover
+{
+    transform: translateY(-50%) scale(1.08);
+}
+
+.modal-arrow:active
+{
+    transform: translateY(-50%) scale(1);
+}
+
+
+/* ======================================================
+   INFO GROUP HOVER
+====================================================== */
+.modal-right .info-group
+{
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.modal-right .info-group:hover
+{
+    background: rgba(255, 255, 255, 0.06);
 }

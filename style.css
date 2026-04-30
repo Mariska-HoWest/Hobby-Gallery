@@ -44,6 +44,11 @@ body
     background-color: var(--color-bg-main);
 }
 
+*
+{
+    cursor: default;
+}
+
 /* ======================================================
    NAVIGATION
 ====================================================== */
@@ -216,6 +221,7 @@ footer
 
     width: 100%;
     height: auto;
+
 }
 
 /* ======================================================
@@ -383,11 +389,9 @@ footer
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
     color: var(--color-text-light);
     text-shadow: 0 0 5px var(--color-accent-dark);
     gap: 10px;
-
     padding-top: 15px;
 }
 
@@ -406,6 +410,7 @@ footer
     transition: background-color 0.4s;
     border: 1px solid var(--color-accent-dark);
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .toggle-info::before
@@ -511,6 +516,11 @@ input:checked + .toggle-info::before
     padding: 0;
 }
 
+.fa-arrow-up, .fa-arrow-down
+{
+    cursor: pointer;
+}
+
 /* ======================================================
    Search/Dropdown Box
 ====================================================== */
@@ -556,6 +566,11 @@ input:checked + .toggle-info::before
 .nameFilter-input:focus
 {
     background-color: var(--filter-btn-active);
+}
+
+.nameFilter-input:hover
+{
+    cursor: text;
 }
 
 .nameFilter-list 

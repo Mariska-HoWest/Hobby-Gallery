@@ -15,7 +15,6 @@ const candleDisplay = document.getElementById("display");
 let candleData = [];
 let currentCandleIndex = 0;
 
-
 //#region Init Flow
 window.initCandleManipulation = function (data) 
 {

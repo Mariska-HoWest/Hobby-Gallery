@@ -95,29 +95,53 @@
       </div>
 
       <div class="modal-right">
-
+        <!-- PRIMARY -->
         <div class="info-group">
-          <p><strong>Weight:</strong> <span id="modalWeight"></span></p>
+          <div class="info-row">
+            <span class="info-label">Gewicht</span>
+            <span id="modalWeight" class="info-value"></span>
+          </div>
         </div>
 
+        <!-- Wick Size -->
         <div class="info-group">
-          <p><strong>Dimensions:</strong> <span id="modalDimensions"></span></p>
+          <div class="info-row">
+            <span class="info-label">Lont</span>
+            <span id="modalWick" class="info-value"></span>
+          </div>
         </div>
 
-
-
+        <!-- DIMENSIONS -->
         <div class="info-group">
-          <p><strong>Moulds:</strong> <span id="modalMoulds"></span></p>
+          <div class="info-row">
+            <span class="info-label">Grootte</span>
+            <span id="modalDimensions" class="info-value"></span>
+          </div>
         </div>
 
+        <!-- COST -->
         <div class="info-group">
-          <p><strong>Material Cost:</strong> <span id="modalCost"></span></p>
+          <div class="info-row">
+            <span class="info-label">Kost Materiaal</span>
+            <span id="modalCost" class="info-value"></span>
+          </div>
         </div>
 
+        <!-- STOCK -->
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">In Vooraad:</span>
+            <span id="modalStock" class="info-value">—</span>
+          </div>
+        </div>
+
+        <!-- BUTTONS -->
         <div class="modal-buttons">
-          <button id="addToSession" class="primary-btn">Add to Session</button>
-          <button id="createNew" class="secondary-btn">Create New Candle</button>
+          <button id="addToSession" class="primary-btn">Naar Planning</button>
+          <button id="createNew" class="secondary-btn">Naar Voorraad</button>
         </div>
+
+    </div>
 
       </div>
     </div>
