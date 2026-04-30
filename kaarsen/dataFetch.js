@@ -8,7 +8,7 @@ const CANDLE_SHEET =
 {
   spreadsheetId: '103CRnO-NKddx5BnUqerR3dWxvaQwZa2fNLVcbh2ysZM',
   tab: 'Candles',
-  range: 'A:F',
+  range: 'A:G',
 };
 
 const SHEETS_READ_SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';

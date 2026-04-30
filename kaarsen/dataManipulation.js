@@ -5,9 +5,15 @@
 //Config
 const candleDisplay = document.getElementById("display");
 
+    //Modal
+    const modal = document.getElementById("candleModal");
+    const modalClose = document.getElementById("modalClose");
+    const modalPrev = document.getElementById("modalPrev");
+    const modalNext = document.getElementById("modalNext");
+
 //States
 let candleData = [];
-
+let currentCandleIndex = 0;
 
 //#region Init Flow
 window.initCandleManipulation = function (data) 
@@ -119,31 +125,112 @@ function ApplySorting()
 }
 //#endregion
 
+//#region Interact Helpers
+function openCandleModal(index)
+{
+    currentCandleIndex = index;
+    modal.classList.remove("hidden");
+    renderModal();
+}
+
+function showNext()
+{
+    currentCandleIndex = (currentCandleIndex + 1) % candleData.length;
+    renderModal();
+}
+
+function showPrev()
+{
+    currentCandleIndex =
+        (currentCandleIndex - 1 + candleData.length) % candleData.length;
+    renderModal();
+}
+
+function closeModal()
+{
+    modal.classList.add("hidden");
+}
+
+// ===== Events =====
+modalClose.addEventListener("click", closeModal);
+modal.querySelector(".modal-overlay").addEventListener("click", closeModal);
+
+modalNext.addEventListener("click", showNext);
+modalPrev.addEventListener("click", showPrev);
+
+// Keyboard support
+document.addEventListener("keydown", (e) =>
+{
+    if (modal.classList.contains("hidden")) return;
+
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowRight") showNext();
+    if (e.key === "ArrowLeft") showPrev();
+});
+//#endregion
+
 //#region Rendering Engine
 function UpdateCandleDisplay()
 {
-  candleDisplay.innerHTML = "";
+    candleDisplay.innerHTML = "";
 
-  //Card creation
-  candleData.forEach((candle =>
+    candleData.forEach((candle, index) =>
     {
-      const card = document.createElement('div');
-      card.classList.add('card');
+        const card = document.createElement('div');
+        card.classList.add('card');
 
-      const title = document.createElement('div');
-      title.classList.add('title');
-      title.textContent = candle.Name;
-      card.appendChild(title);
+        const title = document.createElement('div');
+        title.classList.add('title');
+        title.textContent = candle.Name;
+        card.appendChild(title);
 
-      const imgContainer = document.createElement('div');
-      imgContainer.classList.add('img-container');
-      const img = document.createElement('img');
-      img.classList.add('img');
-      img.src = convertDriveLink(candle.Img);
-      imgContainer.appendChild(img);
-      card.appendChild(imgContainer);
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('img-container');
 
-      candleDisplay.appendChild(card);
-    }));
+        const img = document.createElement('img');
+        img.classList.add('img');
+        img.src = convertDriveLink(candle.Img);
+
+        imgContainer.appendChild(img);
+        card.appendChild(imgContainer);
+
+        // ✅ attach modal here
+        card.addEventListener("click", () =>
+        {
+            openCandleModal(index);
+        });
+
+        candleDisplay.appendChild(card);
+    });
+}
+
+function renderModal()
+{
+    const candle = candleData[currentCandleIndex];
+    if (!candle) return;
+
+    document.getElementById("modalName").textContent = candle.Name;
+    document.getElementById("modalId").textContent = `#${candle.ID || "??"}`;
+    document.getElementById("modalImg").src = convertDriveLink(candle.Img);
+
+    document.getElementById("modalWeight").textContent = `${candle.TotalWeight || 0}g`;
+    document.getElementById("modalCost").textContent = `${candle.MaterialCost || 0}`;
+    document.getElementById("modalMoulds").textContent = candle.Moulds || 0;
+
+    document.getElementById("modalDimensions").textContent =
+        `${candle.Height}cm x ${candle.Diameter}cm (Wick: ${candle.Wick || "?"})`;
+
+    const extrasList = document.getElementById("modalExtras");
+    extrasList.innerHTML = "";
+
+    if (candle.Extras)
+    {
+        candle.Extras.split(",").forEach(extra =>
+        {
+            const li = document.createElement("li");
+            li.textContent = extra.trim();
+            extrasList.appendChild(li);
+        });
+    }
 }
 //#endregion
