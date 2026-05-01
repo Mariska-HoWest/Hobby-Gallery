@@ -194,18 +194,18 @@ footer
 .modifier-btn-container 
 {
     display: flex;
-    justify-content: center; /* center horizontally, or flex-start/flex-end */
-    margin-top: auto;        /* push to bottom of card-back */
-    gap: 5px;                /* space between buttons */
+    justify-content: center;
+    margin-top: auto;
+    gap: 5px;
 }
 
 .modifier-btn
 {
     display: inline-block;
-    padding: 5px 15px;         /* wider than tall for ellipse shape */
+    padding: 5px 15px;
     margin: 5px;
-    border-radius: 25px / 25px; /* ellipse: horizontal radius / vertical radius */
-    background-color: #9988DF; /* default color */
+    border-radius: 25px / 25px;
+    background-color: #9988DF;
     color: white;
     font-size: 15px;
     font-weight: bold;
