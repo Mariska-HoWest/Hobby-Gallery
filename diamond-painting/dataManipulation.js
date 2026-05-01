@@ -480,12 +480,17 @@ function updateDpDisplay()
         card.appendChild(cardInner);
         dpDisplay.appendChild(card);
 
-        if (dp.Finished === "TRUE")
-        {
-            const checkMark = document.createElement("div");
-            checkMark.classList.add("finished-check");
-            cardFront.appendChild(checkMark);
-        }
+    if (dp.Finished === "TRUE")
+    {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("finished-check");
+
+        const icon = document.createElement("i");
+        icon.classList.add("fa-regular", "fa-square-check");
+
+        wrapper.appendChild(icon);
+        cardFront.appendChild(wrapper);
+    }
 
         addHoverDelay(card, () => cardInner.classList.add("flipped"));
     });

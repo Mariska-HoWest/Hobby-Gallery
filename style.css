@@ -281,28 +281,9 @@ footer
     bottom: 5px;
     right: 5px;
 
-    width: 20px;
-    height: 20px;
-
-    background-color: #28a745;
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-
-    z-index: 5;
+    font-size: 20px;
+    color: var(--color-bg-main);
 }
-
-.finished-check::after
-{
-    content: "✓";
-}
-
 /* ======================================================
    FILTER PANEL - GLOBAL STYLING
 ====================================================== */
