@@ -195,6 +195,29 @@ footer
     text-align: left;
 }
 
+
+.modifier-btn-container 
+{
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    gap: 5px;
+}
+
+.modifier-btn
+{
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 5px;
+    border-radius: 25px / 25px;
+    background-color: #9988DF;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: auto;
+}
+
 /* ======================================================
    CARD - IMAGE
 ====================================================== */
@@ -287,28 +310,9 @@ footer
     bottom: 5px;
     right: 5px;
 
-    width: 20px;
-    height: 20px;
-
-    background-color: #28a745;
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-
-    z-index: 5;
+    font-size: 20px;
+    color: var(--color-bg-main);
 }
-
-.finished-check::after
-{
-    content: "✓";
-}
-
 /* ======================================================
    FILTER PANEL - GLOBAL STYLING
 ====================================================== */

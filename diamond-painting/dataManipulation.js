@@ -476,16 +476,58 @@ function updateDpDisplay()
         infoPanel.style.whiteSpace = "pre-wrap";
         cardBack.appendChild(infoPanel);
 
+                    let modifierContainer = document.createElement("div");
+            modifierContainer.classList.add("modifier-btn-container");
+
+                let modifierAB = document.createElement("div");
+                modifierAB.classList.add("modifier-btn");
+                modifierAB.textContent = "AB";
+
+                    if(dp.AB === "TRUE") 
+                    {
+                        modifierAB.style.backgroundColor = "#38005e"; // active color
+                        modifierAB.style.color = "white";
+                    }
+                    else 
+                    {
+                        modifierAB.style.backgroundColor = "#ccc";     // inactive color
+                        modifierAB.style.color = "#666";
+                    }
+                modifierContainer.appendChild(modifierAB);
+
+                let modifierFD = document.createElement("div");
+                modifierFD.classList.add("modifier-btn");
+                modifierFD.textContent = "FD";
+
+                    if(dp.FD === "TRUE") 
+                    {
+                        modifierFD.style.backgroundColor = "#38005e"; // active color
+                        modifierFD.style.color = "white";
+                    }
+                    else 
+                    {
+                        modifierFD.style.backgroundColor = "#ccc";     // inactive color
+                        modifierFD.style.color = "#666";
+                    }
+                modifierContainer.appendChild(modifierFD);
+
+            cardBack.appendChild(modifierContainer);
+
         cardInner.appendChild(cardBack);
         card.appendChild(cardInner);
         dpDisplay.appendChild(card);
 
-        if (dp.Finished === "TRUE")
-        {
-            const checkMark = document.createElement("div");
-            checkMark.classList.add("finished-check");
-            cardFront.appendChild(checkMark);
-        }
+    if (dp.Finished === "TRUE")
+    {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("finished-check");
+
+        const icon = document.createElement("i");
+        icon.classList.add("fa-regular", "fa-square-check");
+
+        wrapper.appendChild(icon);
+        cardFront.appendChild(wrapper);
+    }
 
         addHoverDelay(card, () => cardInner.classList.add("flipped"));
     });
