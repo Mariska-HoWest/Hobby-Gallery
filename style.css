@@ -190,6 +190,29 @@ footer
     text-align: left;
 }
 
+
+.modifier-btn-container 
+{
+    display: flex;
+    justify-content: center; /* center horizontally, or flex-start/flex-end */
+    margin-top: auto;        /* push to bottom of card-back */
+    gap: 5px;                /* space between buttons */
+}
+
+.modifier-btn
+{
+    display: inline-block;
+    padding: 5px 15px;         /* wider than tall for ellipse shape */
+    margin: 5px;
+    border-radius: 25px / 25px; /* ellipse: horizontal radius / vertical radius */
+    background-color: #9988DF; /* default color */
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: auto;
+}
+
 /* ======================================================
    CARD - IMAGE
 ====================================================== */
