@@ -541,7 +541,7 @@ function updateDpDisplay()
         wrapper.classList.add("finished-check");
 
         const icon = document.createElement("i");
-        icon.classList.add("fa-regular", "fa-square-check");
+        icon.classList.add("fa-solid", "fa-square-check");
 
         wrapper.appendChild(icon);
         cardFront.appendChild(wrapper);

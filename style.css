@@ -320,7 +320,11 @@ footer
     right: 5px;
 
     font-size: 20px;
+
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
     color: var(--color-bg-main);
+
 }
 /* ======================================================
    FILTER PANEL - GLOBAL STYLING
