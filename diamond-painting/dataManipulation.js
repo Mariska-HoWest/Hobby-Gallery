@@ -455,8 +455,26 @@ function updateDpDisplay()
     }
     else
     {
-        cardFront.classList.add("no-image");
-        imgContainer.style.height = `${DEFAULT_HEIGHT}px`;
+        const img = document.createElement("img");
+        img.classList.add("img-default");
+
+        const placeholders = 
+        [
+            "/Hobby-Gallery/Assets/DP_placeholderPuzzle1.png",
+            "/Hobby-Gallery/Assets/DP_placeholderPuzzle2.png",
+            "/Hobby-Gallery/Assets/DP_placeholderPuzzle3.png",
+            "/Hobby-Gallery/Assets/DP_placeholderPuzzle4.png",
+            "/Hobby-Gallery/Assets/DP_placeholderPuzzle5.png",
+            "/Hobby-Gallery/Assets/DP_placeholderPuzzle5.png"
+        ];
+
+        const randomIndex = Math.floor(Math.random() * placeholders.length);
+        img.src = placeholders[randomIndex];
+
+        img.style.width = `${imgWidth}px`;
+        img.style.height = `${imgHeight}px`;
+
+        imgContainer.appendChild(img);
     }
 
         cardFront.appendChild(imgContainer);
