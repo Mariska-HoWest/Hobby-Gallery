@@ -44,6 +44,11 @@ body
     background-color: var(--color-bg-main);
 }
 
+*
+{
+    cursor: default;
+}
+
 /* ======================================================
    NAVIGATION
 ====================================================== */
@@ -190,6 +195,29 @@ footer
     text-align: left;
 }
 
+
+.modifier-btn-container 
+{
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    gap: 5px;
+}
+
+.modifier-btn
+{
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 5px;
+    border-radius: 25px / 25px;
+    background-color: #9988DF;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: auto;
+}
+
 /* ======================================================
    CARD - IMAGE
 ====================================================== */
@@ -216,6 +244,7 @@ footer
 
     width: 100%;
     height: auto;
+
 }
 
 .img-default
@@ -290,28 +319,9 @@ footer
     bottom: 5px;
     right: 5px;
 
-    width: 20px;
-    height: 20px;
-
-    background-color: #28a745;
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-
-    z-index: 5;
+    font-size: 20px;
+    color: var(--color-bg-main);
 }
-
-.finished-check::after
-{
-    content: "✓";
-}
-
 /* ======================================================
    FILTER PANEL - GLOBAL STYLING
 ====================================================== */
@@ -392,11 +402,9 @@ footer
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
     color: var(--color-text-light);
     text-shadow: 0 0 5px var(--color-accent-dark);
     gap: 10px;
-
     padding-top: 15px;
 }
 
@@ -415,6 +423,7 @@ footer
     transition: background-color 0.4s;
     border: 1px solid var(--color-accent-dark);
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .toggle-info::before
@@ -520,6 +529,11 @@ input:checked + .toggle-info::before
     padding: 0;
 }
 
+.fa-arrow-up, .fa-arrow-down
+{
+    cursor: pointer;
+}
+
 /* ======================================================
    Search/Dropdown Box
 ====================================================== */
@@ -565,6 +579,11 @@ input:checked + .toggle-info::before
 .nameFilter-input:focus
 {
     background-color: var(--filter-btn-active);
+}
+
+.nameFilter-input:hover
+{
+    cursor: text;
 }
 
 .nameFilter-list 

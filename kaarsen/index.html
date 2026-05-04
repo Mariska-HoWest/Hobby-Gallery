@@ -67,6 +67,90 @@
     <div id="display">
 
     </div>
+
+<!-- Candle Modal -->
+<div id="candleModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+
+  <div class="modal-content">
+
+    <!-- Close -->
+    <button id="modalClose" class="modal-close">&times;</button>
+
+    <!-- Arrows -->
+    <button id="modalPrev" class="modal-arrow left">&#10094;</button>
+    <button id="modalNext" class="modal-arrow right">&#10095;</button>
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h2 id="modalName">Candle Name</h2>
+      <span id="modalId" class="modal-id">#001</span>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <div class="modal-left">
+        <img id="modalImg" src="" alt="">
+      </div>
+
+      <div class="modal-right">
+        <!-- PRIMARY -->
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Gewicht</span>
+            <span id="modalWeight" class="info-value"></span>
+          </div>
+        </div>
+
+        <!-- Wick Size -->
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Lont</span>
+            <span id="modalWick" class="info-value"></span>
+          </div>
+        </div>
+
+        <!-- DIMENSIONS -->
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Grootte</span>
+            <span id="modalDimensions" class="info-value"></span>
+          </div>
+        </div>
+
+        <!-- COST -->
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Kost Materiaal</span>
+            <span id="modalCost" class="info-value"></span>
+          </div>
+        </div>
+
+        <!-- STOCK -->
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">In Vooraad:</span>
+            <span id="modalStock" class="info-value">—</span>
+          </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="modal-buttons">
+          <button id="addToSession" class="primary-btn">Naar Planning</button>
+          <button id="createNew" class="secondary-btn">Naar Voorraad</button>
+        </div>
+
+    </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
   </div>
 
 
