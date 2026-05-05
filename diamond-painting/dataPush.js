@@ -2,52 +2,56 @@
 // /Hobby-Gallery/diamond-painting/dataPush.js
 // =======================
 
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydoJrx-yyU52QAAUr-MFB38oNL8jslRgAtNwzohQ7vG6uM-gxzKMdW3xUJTrudxs3u/exec";
+
 const modal = document.getElementById("dp-modal");
 
 let isSubmitting = false;
-let owners = [];
 
 //#region Init
 window.addEventListener("load", () =>
 {
-    initPush();
+    initModalEvents();
+    initDropdowns();
 });
 
-function initPush()
-{
-    initOwners();
-    initDropdowns();
-    initModalEvents();
-}
-//#endregion
-
-//#region Data Init
-function initOwners()
-{
-    owners = [...new Set(dpData.map(d => d.Owner).filter(Boolean))];
-}
-//#endregion
-
-//#region Modal Control
 function initModalEvents()
 {
     const btn = document.querySelector(".editDPbtn");
 
-    btn.addEventListener("click", () =>
-    {
-        openModal();
-    });
+    btn.addEventListener("click", openModal);
 }
 
+function initDropdowns()
+{
+    const ownerSource = () => dpData.map(d => d.Owner).filter(Boolean);
+
+    createDropdown(
+    {
+        input: "owner_input",
+        list: "owner_list",
+        source: ownerSource
+    });
+
+    createDropdown(
+    {
+        input: "edit_owner_input",
+        list: "edit_owner_list",
+        source: ownerSource
+    });
+}
+//#endregion
+
+//#region Modal Control
 function openModal()
 {
-    modal.classList.add("active");
+    modal.classList.remove("hidden");
     showAdd();
 }
 
 function closeModal()
 {
-    modal.classList.remove("active");
+    modal.classList.add("hidden");
     hideAll();
 }
 
@@ -70,26 +74,27 @@ function showEditSelect()
     hideAll();
     document.getElementById("dp-edit-select").classList.remove("hidden");
 }
-//#endregion
 
-//#region Dropdowns
-function initDropdowns()
+function loadPainting()
 {
-    createDropdown(
-    {
-        inputId: "owner_input",
-        listId: "owner_list",
-        sourceArray: owners,
-        allowNewValues: true
-    });
+    const id = document.getElementById("edit_select_dropdown").value;
+    if (!id) return;
 
-    createDropdown(
-    {
-        inputId: "edit_owner_input",
-        listId: "edit_owner_list",
-        sourceArray: owners,
-        allowNewValues: true
-    });
+    const dp = dpData.find(p => String(p.ID) === String(id));
+    if (!dp) return;
+
+    document.getElementById("edit_name").value = dp.Name || "";
+    document.getElementById("edit_width").value = dp.Width || "";
+    document.getElementById("edit_height").value = dp.Height || "";
+    document.getElementById("edit_owner_input").value = dp.Owner || "";
+    document.getElementById("edit_comment").value = dp.Comment || "";
+    document.getElementById("edit_imgoriginal").value = dp.ImgOriginal || "";
+    document.getElementById("edit_imgfinished").value = dp.ImgFinished || "";
+    document.getElementById("edit_ab").checked = isTrue(dp.AB);
+    document.getElementById("edit_fd").checked = isTrue(dp.FD);
+
+    hideAll();
+    document.getElementById("dp-edit").classList.remove("hidden");
 }
 //#endregion
 
