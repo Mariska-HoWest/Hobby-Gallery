@@ -41,7 +41,7 @@ function initManipulation(data)
 function SetUpUI()
 {
     SetUpDpFilters();
-    setupEditButton();
+    populatePaintingDropdown();
 }
 //#endregion
 
@@ -391,16 +391,22 @@ function addHoverDelay(element, callback, delay = 750)
     });
 }
 
-function setupEditButton()
+function populatePaintingDropdown() 
 {
-    const btn = document.querySelector(".editDPbtn");
+  const dropdown = document.getElementById("edit_select_dropdown");
 
-    if (!btn) return;
+  dropdown.innerHTML = `<option value="">Select a painting...</option>`;
 
-    btn.addEventListener("click", () =>
-    {
-        window.location.href = "./edit.html";
-    });
+  dpData.forEach(p => {
+
+    const option = document.createElement("option");
+
+    option.value = p.ID;
+
+    option.textContent = `${p.ID} - ${p.Name}`;
+
+    dropdown.appendChild(option);
+  });
 }
 
 function isTrue(value)

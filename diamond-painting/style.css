@@ -7,32 +7,172 @@
     grid-template-columns: repeat(auto-fill, 10px);
     grid-auto-rows: 10px;
     grid-auto-flow: dense;
+
     gap: 10px;
     justify-content: start;
+
     overflow-x: hidden;
 }
 
+/* ======================================================
+   FLOATING ACTION BUTTON
+====================================================== */
+
 .editDPbtn
 {
-  position: fixed;
-  right: 0px;
-  top: 50%;
-  width: 40px;
-  height: 50px;
+    position: fixed;
+    right: 0;
+    top: 50%;
 
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  background-color: var(--color-nav-bg);
-  color: var(--color-text-light);
+    width: 40px;
+    height: 50px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 25px;
-  cursor: pointer;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+
+    background-color: var(--color-nav-bg);
+    color: var(--color-text-light);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+
+    cursor: pointer;
+    z-index: 9999;
 }
 
 .fa-plus
 {
-  cursor: pointer;
+    cursor: pointer;
+}
+
+/* ======================================================
+   MODAL BACKDROP
+====================================================== */
+
+.dp-modal
+{
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,0.6);
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.dp-modal:not(.hidden)
+{
+    display: flex;
+}
+
+/* ======================================================
+   MODAL CONTAINER
+====================================================== */
+
+.dp-modal-box
+{
+    width: 420px;
+    padding: 20px;
+
+    background: var(--color-card-bg);
+    color: var(--color-text-light);
+
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ======================================================
+   FORM SECTIONS
+====================================================== */
+
+.dp-section
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dp-section.hidden
+{
+    display: none;
+}
+
+/* ======================================================
+   INPUTS
+====================================================== */
+
+.dp-section input
+{
+    width: 100%;
+    padding: 8px;
+
+    border-radius: 6px;
+    border: 2px solid var(--color-accent-dark);
+
+    background: var(--filter-btn-inactive);
+    color: var(--color-text-light);
+
+    font-weight: bold;
+}
+
+/* ======================================================
+   BUTTONS
+====================================================== */
+
+.dp-section button
+{
+    padding: 10px;
+
+    background: var(--color-nav-bg);
+    color: var(--color-text-light);
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ======================================================
+   TOAST
+====================================================== */
+
+.toast
+{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    background: var(--color-nav-bg);
+    color: var(--color-text-light);
+
+    padding: 12px 16px;
+    border-radius: 10px;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.25s ease;
+
+    z-index: 10000;
+}
+
+.toast.show
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hidden
+{
+    display: none;
 }

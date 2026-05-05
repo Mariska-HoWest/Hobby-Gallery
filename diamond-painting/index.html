@@ -26,6 +26,7 @@
     <!-- Page-specific -->
     <script src="/Hobby-Gallery/diamond-painting/dataFetch.js" defer></script>
     <script src="/Hobby-Gallery/diamond-painting/dataManipulation.js" defer></script>
+    <script src="/Hobby-Gallery/diamond-painting/dataPush.js" defer></script>
 </head>
 
 <body>
@@ -83,6 +84,84 @@
 
     </div>
     </div>
+
+<div id="dp-modal" class="dp-modal hidden">
+
+  <div class="dp-modal-box">
+
+    <div class="dp-modal-header">
+      <button onclick="closeModal()">✖</button>
+    </div>
+
+    <div class="dp-mode">
+      <button onclick="showAdd()">➕ Add</button>
+      <button onclick="showEditSelect()">✏️ Edit</button>
+    </div>
+
+    <div id="dp-add" class="dp-section hidden">
+
+      <h2>Add Painting</h2>
+
+      <input id="add_name" placeholder="Name">
+      <input id="add_width" type="number" placeholder="Width">
+      <input id="add_height" type="number" placeholder="Height">
+
+      <div class="ownerFilter">
+        <input type="text" id="owner_input" class="ownerFilter-input" placeholder="Owner..." autocomplete="off">
+        <ul id="owner_list" class="ownerFilter-list hidden"></ul>
+      </div>
+
+      <input id="add_comment" placeholder="Comment">
+      <input id="add_imgoriginal" placeholder="Original Image URL">
+      <input id="add_imgfinished" placeholder="Finished Image URL">
+
+      <label><input id="add_ab" type="checkbox"> AB</label>
+      <label><input id="add_fd" type="checkbox"> FD</label>
+
+      <button onclick="paintingAdd()">Save</button>
+    </div>
+
+    <div id="dp-edit-select" class="dp-section hidden">
+
+      <h2>Edit Painting</h2>
+
+    <select id="edit_select_dropdown">
+      <option value="">Select a painting...</option>
+    </select>
+
+    <button onclick="loadPainting()">Load</button>
+
+    </div>
+
+    <div id="dp-edit" class="dp-section hidden">
+
+      <h2>Edit Painting</h2>
+
+      <input id="edit_name" placeholder="Name">
+      <input id="edit_width" type="number" placeholder="Width">
+      <input id="edit_height" type="number" placeholder="Height">
+
+      <div class="ownerFilter">
+        <input type="text" id="edit_owner_input" class="ownerFilter-input" placeholder="Owner..." autocomplete="off">
+        <ul id="edit_owner_list" class="ownerFilter-list hidden"></ul>
+      </div>
+
+      <input id="edit_comment" placeholder="Comment">
+      <input id="edit_imgoriginal" placeholder="Original Image URL">
+      <input id="edit_imgfinished" placeholder="Finished Image URL">
+
+      <label><input id="edit_ab" type="checkbox"> AB</label>
+      <label><input id="edit_fd" type="checkbox"> FD</label>
+
+      <button onclick="paintingEdit()">Save Changes</button>
+
+    </div>
+
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
 </body>
 
 <footer> Project By Dee </footer>
