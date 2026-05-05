@@ -35,7 +35,13 @@ function initManipulation(data)
     dpData.forEach(dp => dp.__visible = true);
     updateDpDisplay();
     requestAnimationFrame(applyMasonryLayout);
+    SetUpUI();
+}
+
+function SetUpUI()
+{
     SetUpDpFilters();
+    setupEditButton();
 }
 //#endregion
 
@@ -382,6 +388,18 @@ function addHoverDelay(element, callback, delay = 750)
             clearTimeout(timer);
             element.querySelector(".card-inner").classList.remove("flipped");
         }
+    });
+}
+
+function setupEditButton()
+{
+    const btn = document.querySelector(".editDPbtn");
+
+    if (!btn) return;
+
+    btn.addEventListener("click", () =>
+    {
+        window.location.href = "./edit.html";
     });
 }
 
