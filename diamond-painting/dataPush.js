@@ -13,6 +13,7 @@ window.addEventListener("load", () =>
 {
     initModalEvents();
     initDropdowns();
+    initToggles();
 });
 
 function initModalEvents()
@@ -38,6 +39,17 @@ function initDropdowns()
         input: "edit_owner_input",
         list: "edit_owner_list",
         source: ownerSource
+    });
+}
+
+function initToggles()
+{
+    document.querySelectorAll(".neonToggle").forEach(toggle =>
+    {
+        toggle.addEventListener("click", () =>
+        {
+            toggle.classList.toggle("active");
+        });
     });
 }
 //#endregion
@@ -68,6 +80,9 @@ function showAdd()
     hideAll();
     document.getElementById("dp-add").classList.remove("hidden");
 
+    setToggle("add_ab", false);
+    setToggle("add_fd", false);
+
     document.querySelectorAll(".dp-mode button").forEach(b => b.classList.remove("active"));
     document.querySelector(".dp-mode button:nth-child(1)").classList.add("active");
 }
@@ -96,8 +111,9 @@ function loadPainting()
     document.getElementById("edit_comment").value = dp.Comment || "";
     document.getElementById("edit_imgoriginal").value = dp.ImgOriginal || "";
     document.getElementById("edit_imgfinished").value = dp.ImgFinished || "";
-    document.getElementById("edit_ab").checked = isTrue(dp.AB);
-    document.getElementById("edit_fd").checked = isTrue(dp.FD);
+
+    setToggle("edit_ab", isTrue(dp.AB));
+    setToggle("edit_fd", isTrue(dp.FD));
 
     hideAll();
     document.getElementById("dp-edit").classList.remove("hidden");
@@ -123,8 +139,8 @@ async function paintingAdd()
         height: h,
         owner: document.getElementById("owner_input").value,
         sizem2: w * h,
-        ab: document.getElementById("add_ab").checked,
-        fd: document.getElementById("add_fd").checked,
+        ab: document.getElementById("add_ab").classList.contains("active"),
+        fd: document.getElementById("add_fd").classList.contains("active"),
         comment: document.getElementById("add_comment").value,
         imgoriginal: document.getElementById("add_imgoriginal").value,
         imgfinished: document.getElementById("add_imgfinished").value
@@ -171,8 +187,8 @@ async function paintingEdit()
         height: h,
         owner: document.getElementById("edit_owner_input").value,
         sizem2: w * h,
-        ab: document.getElementById("edit_ab").checked,
-        fd: document.getElementById("edit_fd").checked,
+        ab: document.getElementById("edit_ab").classList.contains("active"),
+        fd: document.getElementById("edit_fd").classList.contains("active"),
         comment: document.getElementById("edit_comment").value,
         imgoriginal: document.getElementById("edit_imgoriginal").value,
         imgfinished: document.getElementById("edit_imgfinished").value
@@ -246,3 +262,13 @@ function unlockForm()
     });
 }
 //#endregion
+
+function setToggle(id, state)
+{
+    const el = document.getElementById(id);
+
+    if (state)
+        el.classList.add("active");
+    else
+        el.classList.remove("active");
+}

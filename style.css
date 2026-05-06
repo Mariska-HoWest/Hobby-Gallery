@@ -653,7 +653,7 @@ input:checked + .toggle-info::before
 /* ======================================================
    Modifier "Hollywood Letters" Filter
 ====================================================== */
-.modifierFilters
+.modifierFilters, .abfdGroup
 {
     display: flex;
     justify-content: space-between;
@@ -661,14 +661,15 @@ input:checked + .toggle-info::before
     margin-top: 15px;
 }
 
-.modifier
+.modifier, .neonToggle
 {
     flex: 1;
     text-align: center;
 
     font-size: 30px;
-    font-weight: 900;
-    letter-spacing: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    letter-spacing: 2px;
 
     padding: 12px 0;
 
@@ -678,7 +679,7 @@ input:checked + .toggle-info::before
     position: relative;
     overflow: hidden;
 
-    color: #f3e9ff;
+    color: #F6E7C1;
 
     text-shadow:
         0 0 6px rgba(184,129,221,0.4),
@@ -696,7 +697,7 @@ input:checked + .toggle-info::before
 }
 
 /* neon sweep light (like cinema signage reflection) */
-.modifier::before
+.modifier::before, .neonToggle::before
 {
     content: "";
 
@@ -719,13 +720,13 @@ input:checked + .toggle-info::before
     transition: 0.6s ease;
 }
 
-.modifier:hover::before
+.modifier:hover::before, .neonToggle:hover::before
 {
     left: 140%;
 }
 
 /* hover glow boost */
-.modifier:hover
+.modifier:hover, .neonToggle:hover
 {
     transform: translateY(-2px) scale(1.02);
 
@@ -737,28 +738,28 @@ input:checked + .toggle-info::before
 }
 
 /* ACTIVE = neon sign fully powered */
-.modifier.active
+.modifier.active, .neonToggle.active
 {
-    color: #ffffff;
-
     background: linear-gradient(145deg, #9A5AC6, #6A219C);
 
-    border-color: rgba(255,255,255,0.5);
+    color: #E9D7FF; /* light “lit tube” purple */
 
     text-shadow:
-        0 0 4px #fff,
-        0 0 10px #B881DD,
-        0 0 18px #6A219C,
-        0 0 30px rgba(184,129,221,0.8);
+        0 0 2px rgba(255,255,255,0.6),      /* edge definition */
+        0 0 6px rgba(184,129,221,0.9),      /* inner glow */
+        0 0 14px rgba(106,33,156,0.9),      /* main glow */
+        0 0 28px rgba(106,33,156,0.7),      /* outer glow */
+        0 0 48px rgba(106,33,156,0.5);      /* ambient bloom */
 
     box-shadow:
-        0 0 15px rgba(184,129,221,0.4),
-        0 0 35px rgba(106,33,156,0.35),
-        inset 0 0 10px rgba(255,255,255,0.1);
+        0 0 15px rgba(106,33,156,0.35),
+        0 0 35px rgba(106,33,156,0.25);
 
-    -webkit-text-stroke: 0.4px rgba(255,255,255,0.6);
+    border-color: rgba(184,129,221,0.6);
 
-    animation: neonPulse 2.8s ease-in-out infinite;
+    -webkit-text-stroke: 0.4px rgba(255,255,255,0.4);
+
+    animation: neonPulse 3.2s ease-in-out infinite;
 }
 
 /* subtle flicker like real neon tubing */
@@ -768,16 +769,16 @@ input:checked + .toggle-info::before
     {
         filter: brightness(1);
         text-shadow:
-            0 0 5px #fff,
-            0 0 10px #B881DD,
-            0 0 18px #6A219C;
+            0 0 2px #fff,
+            0 0 6px #B881DD,
+            0 0 10px #6A219C;
     }
     50%
     {
-        filter: brightness(1.15);
+        filter: brightness(1.05);
         text-shadow:
-            0 0 8px #fff,
-            0 0 16px #B881DD,
-            0 0 28px #6A219C;
+            0 0 3px #fff,
+            0 0 8px #B881DD,
+            0 0 14px #6A219C;
     }
 }

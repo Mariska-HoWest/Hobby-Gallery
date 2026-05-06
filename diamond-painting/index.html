@@ -7,6 +7,7 @@
 
     <!-- CSS -->
     <script src="https://kit.fontawesome.com/e592878f22.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Hobby-Gallery/style.css">
     <link rel="stylesheet" href="/Hobby-Gallery/diamond-painting/style.css">
 
@@ -116,15 +117,8 @@
       <input id="add_imgfinished" placeholder="Finished Image URL">
 
       <div class="abfdGroup">
-      <div class="neonToggle">
-          <input id="add_ab" type="checkbox">
-          <label for="add_ab">AB</label>
-      </div>
-      </div>
-
-      <div class="neonToggle">
-          <input id="add_fd" type="checkbox">
-          <label for="add_fd">FD</label>
+        <div id="add_ab" class="neonToggle">AB</div>
+        <div id="add_fd" class="neonToggle">FD</div>
       </div>
 
       <button onclick="paintingAdd()">Save</button>
@@ -160,15 +154,8 @@
       <input id="edit_imgfinished" placeholder="Finished Image URL">
 
       <div class="abfdGroup">
-      <div class="neonToggle">
-          <input id="edit_ab" type="checkbox">
-          <label for="edit_ab">AB</label>
-      </div>
-      </div>
-
-      <div class="neonToggle">
-          <input id="edit_fd" type="checkbox">
-          <label for="edit_fd">FD</label>
+        <div id="edit_ab" class="neonToggle">AB</div>
+        <div id="edit_fd" class="neonToggle">FD</div>
       </div>
 
       <button onclick="paintingEdit()">Save Changes</button>
