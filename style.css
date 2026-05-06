@@ -653,12 +653,11 @@ input:checked + .toggle-info::before
 /* ======================================================
    Modifier "Hollywood Letters" Filter
 ====================================================== */
-
 .modifierFilters
 {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12px;
     margin-top: 15px;
 }
 
@@ -667,38 +666,118 @@ input:checked + .toggle-info::before
     flex: 1;
     text-align: center;
 
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 900;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
 
-    padding: 10px 0;
+    padding: 12px 0;
 
     cursor: pointer;
     user-select: none;
 
-    color: var(--color-text-light);
-    text-shadow: 0 0 4px var(--color-accent-dark);
+    position: relative;
+    overflow: hidden;
 
-    border: 2px solid transparent;
-    border-radius: 8px;
-
-    transition: all 0.2s ease-in-out;
-}
-
-.modifier:hover
-{
-    background-color: var(--filter-btn-hover);
-}
-
-.modifier.active
-{
-    color: var(--filter-btn-active);
-
-    -webkit-text-stroke: 0.2px var(--color-text-light);
+    color: #f3e9ff;
 
     text-shadow:
-        0 0 2px var(--color-text-light),
-        0 0 5px var(--color-text-light);
+        0 0 6px rgba(184,129,221,0.4),
+        0 0 12px rgba(106,33,156,0.6),
+        0 0 22px rgba(106,33,156,0.4);
 
-    border-color: var(--filter-btn-active);
+    border: 2px solid rgba(184,129,221,0.25);
+    border-radius: 10px;
+
+    background: linear-gradient(145deg, rgba(42,42,61,0.4), rgba(20,20,32,0.7));
+
+    backdrop-filter: blur(6px);
+
+    transition: all 0.25s ease-in-out;
+}
+
+/* neon sweep light (like cinema signage reflection) */
+.modifier::before
+{
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    transition: 0.6s ease;
+}
+
+.modifier:hover::before
+{
+    left: 140%;
+}
+
+/* hover glow boost */
+.modifier:hover
+{
+    transform: translateY(-2px) scale(1.02);
+
+    border-color: rgba(184,129,221,0.6);
+
+    box-shadow:
+        0 0 10px rgba(184,129,221,0.3),
+        0 0 25px rgba(106,33,156,0.25);
+}
+
+/* ACTIVE = neon sign fully powered */
+.modifier.active
+{
+    color: #ffffff;
+
+    background: linear-gradient(145deg, #9A5AC6, #6A219C);
+
+    border-color: rgba(255,255,255,0.5);
+
+    text-shadow:
+        0 0 4px #fff,
+        0 0 10px #B881DD,
+        0 0 18px #6A219C,
+        0 0 30px rgba(184,129,221,0.8);
+
+    box-shadow:
+        0 0 15px rgba(184,129,221,0.4),
+        0 0 35px rgba(106,33,156,0.35),
+        inset 0 0 10px rgba(255,255,255,0.1);
+
+    -webkit-text-stroke: 0.4px rgba(255,255,255,0.6);
+
+    animation: neonPulse 2.8s ease-in-out infinite;
+}
+
+/* subtle flicker like real neon tubing */
+@keyframes neonPulse
+{
+    0%, 100%
+    {
+        filter: brightness(1);
+        text-shadow:
+            0 0 5px #fff,
+            0 0 10px #B881DD,
+            0 0 18px #6A219C;
+    }
+    50%
+    {
+        filter: brightness(1.15);
+        text-shadow:
+            0 0 8px #fff,
+            0 0 16px #B881DD,
+            0 0 28px #6A219C;
+    }
 }

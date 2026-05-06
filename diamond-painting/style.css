@@ -1,3 +1,17 @@
+/* ======================================================
+   GLOBAL FIX
+====================================================== */
+*,
+*::before,
+*::after
+{
+    box-sizing: border-box;
+}
+
+
+/* ======================================================
+   DISPLAY GRID
+====================================================== */
 #display
 {
     grid-area: display;
@@ -14,10 +28,10 @@
     overflow-x: hidden;
 }
 
+
 /* ======================================================
    FLOATING ACTION BUTTON
 ====================================================== */
-
 .editDPbtn
 {
     position: fixed;
@@ -43,114 +57,342 @@
     z-index: 9999;
 }
 
-.fa-plus
-{
-    cursor: pointer;
-}
 
 /* ======================================================
-   MODAL BACKDROP
+   MODAL BACKDROP (PORTAL SAFE)
 ====================================================== */
-
 .dp-modal
 {
     position: fixed;
     inset: 0;
 
-    background: rgba(0,0,0,0.6);
-
     display: none;
-
     justify-content: center;
     align-items: center;
 
+    background: radial-gradient(circle at center, rgba(106,33,156,0.35), rgba(0,0,0,0.92));
+
     z-index: 9999;
+
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
 }
 
 .dp-modal:not(.hidden)
 {
     display: flex;
+    animation: modalBackdropIn 0.25s ease-out forwards;
 }
 
-/* ======================================================
-   MODAL CONTAINER
-====================================================== */
+@keyframes modalBackdropIn
+{
+    from
+    {
+        backdrop-filter: blur(0px);
+    }
+    to
+    {
+        backdrop-filter: blur(10px);
+    }
+}
 
+
+/* ======================================================
+   MODAL BOX (PORTAL STYLE)
+====================================================== */
 .dp-modal-box
 {
-    width: 420px;
-    padding: 20px;
+    width: 560px;
+    padding: 32px;
 
-    background: var(--color-card-bg);
-    color: var(--color-text-light);
+    border-radius: 26px;
 
-    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(42,42,61,0.92), rgba(20,20,32,0.95));
+    border: 1px solid rgba(184,129,221,0.4);
 
+    box-shadow:
+        0 0 40px rgba(154,90,198,0.25),
+        0 0 80px rgba(0,94,39,0.08),
+        inset 0 0 25px rgba(255,255,255,0.05);
+
+    position: relative;
+    overflow: hidden;
+
+    transform: scale(0.85) translateY(20px);
+    opacity: 0;
+
+    animation: modalBoxIn 0.35s ease-out forwards;
+}
+
+@keyframes modalBoxIn
+{
+    0%
+    {
+        transform: scale(0.75) translateY(40px) rotateX(10deg);
+        opacity: 0;
+        filter: blur(6px);
+    }
+    100%
+    {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+
+/* portal glow border */
+.dp-modal-box::before
+{
+    content: "";
+    position: absolute;
+    inset: -2px;
+
+    border-radius: 28px;
+
+    background: linear-gradient(120deg, #9A5AC6, #005e27, #B881DD, #6A219C);
+    background-size: 300% 300%;
+
+    animation: gradientMove 8s ease infinite;
+
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.35;
+}
+
+@keyframes gradientMove
+{
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* ======================================================
+   MODAL HEADER
+====================================================== */
+.dp-modal-header
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dp-modal-header button
+{
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+
+    background: radial-gradient(circle at 30% 30%, #B881DD, #6A219C);
+
+    color: white;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 12px rgba(154,90,198,0.5);
+}
+
+.dp-modal-header button:hover
+{
+    transform: rotate(15deg) scale(1.1);
+}
+
+
+/* ======================================================
+   MODE SWITCH
+====================================================== */
+.dp-mode
+{
+    display: flex;
+    gap: 6px;
+
+    background: rgba(255,255,255,0.04);
+    padding: 6px;
+    border-radius: 14px;
+}
+
+.dp-mode button
+{
+    flex: 1;
+
+    border-radius: 10px;
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.dp-mode button.active
+{
+    background: linear-gradient(145deg, #9A5AC6, #6A219C);
+}
+
+
+/* ======================================================
+   FORM SECTION
+====================================================== */
+.dp-section
+{
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* ======================================================
-   FORM SECTIONS
-====================================================== */
 
-.dp-section
+/* inputs */
+.dp-section input,
+.dp-section select
 {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    padding: 10px;
+
+    border-radius: 14px;
+
+    background: rgba(106,33,156,0.25);
+    border: 1px solid rgba(184,129,221,0.3);
+
+    color: var(--color-text-light);
 }
 
-.dp-section.hidden
+.dp-section input:focus,
+.dp-section select:focus
+{
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(184,129,221,0.25),
+        0 0 18px rgba(154,90,198,0.4);
+}
+
+
+/* ======================================================
+   OWNER DROPDOWN
+====================================================== */
+.ownerFilter
+{
+    position: relative;
+}
+
+.ownerFilter-list
+{
+    position: absolute;
+    width: 100%;
+
+    background: rgba(20,20,32,0.95);
+    backdrop-filter: blur(12px);
+
+    border-radius: 10px;
+
+    max-height: 150px;
+    overflow-y: auto;
+
+    z-index: 10;
+}
+
+
+/* ======================================================
+   AB / FD NEON TOGGLES (UNIFIED + CLEAN)
+====================================================== */
+.abfdGroup
+{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.neonToggle
+{
+    display: inline-flex;
+}
+
+.neonToggle input
 {
     display: none;
 }
 
-/* ======================================================
-   INPUTS
-====================================================== */
-
-.dp-section input
+.neonToggle label
 {
-    width: 100%;
-    padding: 8px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
 
-    border-radius: 6px;
-    border: 2px solid var(--color-accent-dark);
+    padding: 10px 16px;
 
-    background: var(--filter-btn-inactive);
-    color: var(--color-text-light);
-
-    font-weight: bold;
-}
-
-/* ======================================================
-   BUTTONS
-====================================================== */
-
-.dp-section button
-{
-    padding: 10px;
-
-    background: var(--color-nav-bg);
-    color: var(--color-text-light);
-
-    border: none;
-    border-radius: 8px;
+    border-radius: 10px;
 
     cursor: pointer;
-    font-weight: bold;
+    user-select: none;
+
+    color: #e9e3f5;
+
+    background: linear-gradient(145deg, rgba(42,42,61,0.55), rgba(20,20,32,0.85));
+
+    border: 1px solid rgba(184,129,221,0.25);
+
+    position: relative;
+    overflow: hidden;
+
+    transition: all 0.2s ease;
 }
+
+/* active unified style */
+#add_ab:checked + label,
+#edit_ab:checked + label,
+#add_fd:checked + label,
+#edit_fd:checked + label
+{
+    background: linear-gradient(145deg, #7f6ac9, #5b2a86);
+
+    color: #f2ecff;
+
+    border-color: rgba(255,255,255,0.25);
+
+    box-shadow:
+        0 0 10px rgba(106,33,156,0.25),
+        inset 0 0 8px rgba(255,255,255,0.05);
+}
+
+
+/* ======================================================
+   ACTION BUTTONS
+====================================================== */
+.dp-section button
+{
+    padding: 12px;
+
+    border-radius: 14px;
+    border: none;
+
+    background: linear-gradient(135deg, #9A5AC6, #6A219C, #B881DD);
+    background-size: 200% 200%;
+
+    animation: buttonGlow 6s ease infinite;
+
+    color: var(--color-text-light);
+
+    cursor: pointer;
+}
+
+@keyframes buttonGlow
+{
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
 /* ======================================================
    TOAST
 ====================================================== */
-
 .toast
 {
     position: fixed;
-    top: 20px;
+    top: 120px;
     right: 20px;
 
     background: var(--color-nav-bg);
@@ -161,6 +403,7 @@
 
     opacity: 0;
     transform: translateY(-10px);
+
     transition: all 0.25s ease;
 
     z-index: 10000;
@@ -172,6 +415,10 @@
     transform: translateY(0);
 }
 
+
+/* ======================================================
+   UTILITIES
+====================================================== */
 .hidden
 {
     display: none;

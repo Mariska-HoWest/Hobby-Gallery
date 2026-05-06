@@ -67,12 +67,18 @@ function showAdd()
 {
     hideAll();
     document.getElementById("dp-add").classList.remove("hidden");
+
+    document.querySelectorAll(".dp-mode button").forEach(b => b.classList.remove("active"));
+    document.querySelector(".dp-mode button:nth-child(1)").classList.add("active");
 }
 
 function showEditSelect()
 {
     hideAll();
     document.getElementById("dp-edit-select").classList.remove("hidden");
+
+    document.querySelectorAll(".dp-mode button").forEach(b => b.classList.remove("active"));
+    document.querySelector(".dp-mode button:nth-child(2)").classList.add("active");
 }
 
 function loadPainting()
