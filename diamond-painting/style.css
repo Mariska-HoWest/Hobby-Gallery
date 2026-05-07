@@ -1,3 +1,24 @@
+/* ======================================================
+   GLOBAL
+====================================================== */
+*,
+*::before,
+*::after
+{
+    box-sizing: border-box;
+}
+
+#dp-add,
+#dp-edit,
+#dp-edit-select
+{
+    min-height: 340px;
+}
+
+
+/* ======================================================
+   DISPLAY GRID
+====================================================== */
 #display
 {
     grid-area: display;
@@ -7,32 +28,768 @@
     grid-template-columns: repeat(auto-fill, 10px);
     grid-auto-rows: 10px;
     grid-auto-flow: dense;
+
     gap: 10px;
     justify-content: start;
+
     overflow-x: hidden;
 }
 
+
+/* ======================================================
+   FLOATING ACTION BUTTON
+====================================================== */
 .editDPbtn
 {
-  position: fixed;
-  right: 0px;
-  top: 50%;
-  width: 40px;
-  height: 50px;
+    position: fixed;
+    right: 0;
+    top: 50%;
 
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  background-color: var(--color-nav-bg);
-  color: var(--color-text-light);
+    width: 40px;
+    height: 50px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 25px;
-  cursor: pointer;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(154,90,198,0.95),
+            rgba(106,33,156,0.95)
+        );
+
+    color: var(--color-text-light);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+
+    cursor: pointer;
+    z-index: 9999;
+
+    box-shadow:
+        0 0 20px rgba(184,129,221,0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.fa-plus
+.editDPbtn:hover
 {
-  cursor: pointer;
+    transform: translateX(-2px);
+
+    box-shadow:
+        0 0 28px rgba(184,129,221,0.4);
+}
+
+
+/* ======================================================
+   MODAL BACKDROP
+====================================================== */
+.dp-modal
+{
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at top, rgba(184,129,221,0.18), transparent 45%),
+        radial-gradient(circle at bottom, rgba(255,214,140,0.10), transparent 40%),
+        rgba(8, 6, 14, 0.82);
+
+    z-index: 9999;
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+
+    isolation: isolate;
+}
+
+.dp-modal:not(.hidden)
+{
+    display: flex;
+    animation: modalBackdropIn 0.35s ease-out forwards;
+}
+
+@keyframes modalBackdropIn
+{
+    from
+    {
+        opacity: 0;
+    }
+
+    to
+    {
+        opacity: 1;
+    }
+}
+
+
+/* ======================================================
+   MODAL BOX
+====================================================== */
+.dp-modal-box
+{
+    width: 560px;
+    padding: 32px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(42,32,56,0.96),
+            rgba(24,18,36,0.98)
+        );
+
+    border: 1px solid rgba(230,205,255,0.14);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.45),
+        0 0 35px rgba(184,129,221,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+
+    position: relative;
+    overflow: visible;
+
+    transform: scale(0.9) translateY(10px);
+    opacity: 0;
+
+    animation: modalBoxIn 0.35s ease-out forwards;
+}
+
+@keyframes modalBoxIn
+{
+    0%
+    {
+        transform: scale(0.75) translateY(40px);
+        opacity: 0;
+        filter: blur(6px);
+    }
+
+    100%
+    {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+.dp-modal-box::before
+{
+    content: "";
+
+    position: absolute;
+    inset: -1px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,220,160,0.18),
+            rgba(184,129,221,0.14),
+            rgba(255,220,160,0.10)
+        );
+
+    z-index: -1;
+
+    filter: blur(12px);
+}
+
+.dp-modal-box::after
+{
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.03), transparent 22%),
+        radial-gradient(circle at 80% 30%, rgba(255,220,160,0.04), transparent 18%);
+
+    pointer-events: none;
+
+    animation: shimmerFloat 8s ease-in-out infinite;
+}
+
+@keyframes shimmerFloat
+{
+    0%, 100%
+    {
+        transform: translateY(0px);
+    }
+
+    50%
+    {
+        transform: translateY(-4px);
+    }
+}
+
+
+/* ======================================================
+   MODAL HEADER
+====================================================== */
+.dp-modal-header
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dp-modal-header button
+{
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(184,129,221,0.22),
+            rgba(106,33,156,0.28)
+        );
+
+    color: white;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 12px rgba(184,129,221,0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dp-modal-header button:hover
+{
+    transform: scale(1.06);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(184,129,221,0.30),
+            rgba(106,33,156,0.38)
+        );
+
+    box-shadow:
+        0 14px 34px rgba(106,33,156,0.26),
+        0 0 18px rgba(184,129,221,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+.dp-title
+{
+    margin-bottom: 18px;
+
+    color: #fff7ea;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 10px rgba(184,129,221,0.18);
+}
+
+
+/* ======================================================
+   MODE NAV
+====================================================== */
+.dp-mode
+{
+    display: flex;
+
+    gap: 6px;
+
+    padding: 6px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.04),
+            rgba(184,129,221,0.06)
+        );
+
+    border: 1px solid rgba(255,255,255,0.05);
+
+    margin-bottom: 16px;
+}
+
+.dp-mode button
+{
+    flex: 1;
+
+    padding: 11px 0;
+
+    border: none;
+    border-radius: 14px;
+
+    background: transparent;
+
+    color: rgba(243,233,255,0.65);
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition:
+        transform 0.22s ease,
+        background 0.22s ease,
+        color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.dp-mode button:hover:not(.active)
+{
+    transform: translateY(-1px);
+
+    color: rgba(255,255,255,0.88);
+
+    background: rgba(255,255,255,0.03);
+}
+
+.dp-mode button.active
+{
+    color: #fff7ea;
+
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(184,129,221,0.24),
+            rgba(106,33,156,0.32)
+        );
+
+    box-shadow:
+        0 6px 18px rgba(106,33,156,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+
+/* ======================================================
+   FORM SECTIONS
+====================================================== */
+.dp-section
+{
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    animation: sectionFade 0.22s ease;
+}
+
+@keyframes sectionFade
+{
+    from
+    {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ======================================================
+   INPUTS
+====================================================== */
+.dp-section input,
+.dp-section select
+{
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.05),
+            rgba(184,129,221,0.08)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    color: #f8f1ff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.dp-section input::placeholder
+{
+    color: rgba(255,240,220,0.45);
+}
+
+.dp-section input:focus,
+.dp-section select:focus
+{
+    outline: none;
+
+    border-color: rgba(230,190,255,0.35);
+
+    box-shadow:
+        0 0 0 3px rgba(184,129,221,0.10),
+        0 0 18px rgba(184,129,221,0.18);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.07),
+            rgba(184,129,221,0.12)
+        );
+}
+
+
+/* ======================================================
+   OWNER DROPDOWN
+====================================================== */
+.ownerFilter
+{
+    position: relative;
+    width: 100%;
+}
+
+.ownerFilter input
+{
+    width: 100%;
+}
+
+.ownerFilter-list
+{
+    position: absolute;
+
+    top: calc(100% + 8px);
+    left: 0;
+
+    width: 100%;
+
+    padding: 8px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(82,62,112,0.98),
+            rgba(58,42,84,0.98)
+        );
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    box-shadow:
+        0 14px 32px rgba(0,0,0,0.25),
+        0 0 22px rgba(184,129,221,0.14);
+
+    backdrop-filter: blur(16px);
+
+    max-height: 220px;
+    overflow-y: auto;
+
+    z-index: 100;
+}
+
+.ownerFilter-list *
+{
+    color: #fff3e6 !important;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,0.04);
+}
+
+.ownerFilter-list div
+{
+    padding: 11px 14px;
+
+    border-radius: 12px;
+
+    background: transparent;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.ownerFilter-list div:hover
+{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(184,129,221,0.24),
+            rgba(255,214,140,0.10)
+        );
+
+    color: #ffffff !important;
+
+    transform: translateX(3px);
+
+    box-shadow:
+        0 0 12px rgba(184,129,221,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+
+/* ======================================================
+   ACTION BUTTONS
+====================================================== */
+.dp-section button
+{
+    margin-top: 15px;
+    width: 100%;
+    padding: 14px 16px;
+    min-height: 56px;
+    border-radius: 18px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(184,129,221,0.22),
+            rgba(106,33,156,0.28)
+        );
+
+    color: #fff7ea;
+
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    box-shadow:
+        0 10px 26px rgba(106,33,156,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.dp-section button:hover
+{
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(184,129,221,0.30),
+            rgba(106,33,156,0.38)
+        );
+
+    border-color: rgba(184,129,221,0.25);
+
+    box-shadow:
+        0 14px 34px rgba(106,33,156,0.26),
+        0 0 18px rgba(184,129,221,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+.dp-section button:active
+{
+    transform: translateY(-1px) scale(0.99);
+}
+
+/* ======================================================
+   NEON TOGGLE - MODAL OVERRIDE
+====================================================== */
+.dp-modal .abfdGroup
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 100%;
+
+    margin-top: 4px;
+}
+
+.dp-modal .neonToggle
+{
+    flex: 0 0 auto;
+
+    width: 110px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 18px;
+
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    border-radius: 16px;
+
+    color: #f6e9ff;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.05),
+            rgba(184,129,221,0.10)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 4px 14px rgba(106,33,156,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+
+    text-shadow:
+        0 0 6px rgba(184,129,221,0.22);
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.dp-modal .neonToggle:hover
+{
+    transform: translateY(-1px);
+
+    border-color: rgba(184,129,221,0.22);
+
+    box-shadow:
+        0 8px 20px rgba(106,33,156,0.16),
+        0 0 16px rgba(184,129,221,0.10);
+}
+
+.dp-modal .neonToggle.active
+{
+    color: #fff7ea;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(184,129,221,0.30),
+            rgba(106,33,156,0.38)
+        );
+
+    border-color: rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 8px 24px rgba(106,33,156,0.22),
+        0 0 22px rgba(184,129,221,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+
+    text-shadow:
+        0 0 2px rgba(255,255,255,0.45),
+        0 0 8px rgba(184,129,221,0.45),
+        0 0 18px rgba(106,33,156,0.35);
+
+    animation: modalNeonPulse 3s ease-in-out infinite;
+}
+
+.dp-modal .neonToggle::before
+{
+    opacity: 0.45;
+}
+
+@keyframes modalNeonPulse
+{
+    0%, 100%
+    {
+        filter: brightness(1);
+    }
+
+    50%
+    {
+        filter: brightness(1.06);
+    }
+}
+
+
+/* ======================================================
+   TOAST
+====================================================== */
+.toast
+{
+    position: fixed;
+    top: 120px;
+    right: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(42,32,56,0.96),
+            rgba(24,18,36,0.98)
+        );
+
+    color: #fff7ea;
+
+    padding: 12px 16px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.25),
+        0 0 16px rgba(184,129,221,0.12);
+
+    opacity: 0;
+    transform: translateY(-10px);
+
+    transition: all 0.25s ease;
+
+    z-index: 10000;
+}
+
+.toast.show
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ======================================================
+   UTILITIES
+====================================================== */
+.hidden
+{
+    display: none;
 }
