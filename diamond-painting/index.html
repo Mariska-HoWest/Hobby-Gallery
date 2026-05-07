@@ -124,19 +124,18 @@
       <button onclick="paintingAdd()">Save</button>
     </div>
 
-    <div id="dp-edit-select" class="dp-section hidden">
+<div id="dp-edit-select" class="dp-section hidden">
 
-    <select id="edit_select_dropdown">
-      <option value="">Select a painting...</option>
-    </select>
+    <div class="ownerFilter">
+        <input id="edit_select_input" placeholder="Select a painting..." readonly>
+        <div id="edit_select_list" class="ownerFilter-list hidden"></div>
+    </div>
 
     <button onclick="loadPainting()">Load</button>
 
-    </div>
+</div>
 
     <div id="dp-edit" class="dp-section hidden">
-
-      <h2>Edit Painting</h2>
 
       <input id="edit_name" placeholder="Name">
       <input id="edit_width" type="number" placeholder="Width">

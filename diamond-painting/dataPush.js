@@ -1,6 +1,7 @@
-// =======================
-// /Hobby-Gallery/diamond-painting/dataPush.js
-// =======================
+
+/* =======================
+   /Hobby-Gallery/diamond-painting/dataPush.js
+======================= */
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydoJrx-yyU52QAAUr-MFB38oNL8jslRgAtNwzohQ7vG6uM-gxzKMdW3xUJTrudxs3u/exec";
 
@@ -8,12 +9,15 @@ const modal = document.getElementById("dp-modal");
 
 let isSubmitting = false;
 
-//#region Init
+/* ======================================================
+   INIT
+====================================================== */
 window.addEventListener("load", () =>
 {
     initModalEvents();
     initDropdowns();
     initToggles();
+    initPaintingSelect();
 });
 
 function initModalEvents()
@@ -52,9 +56,61 @@ function initToggles()
         });
     });
 }
-//#endregion
 
-//#region Modal Control
+/* ======================================================
+   PAINTING SELECT DROPDOWN (CUSTOM)
+====================================================== */
+function initPaintingSelect()
+{
+    const input = document.getElementById("edit_select_input");
+    const list = document.getElementById("edit_select_list");
+
+    if (!input || !list) return;
+
+    function render()
+    {
+        list.innerHTML = "";
+
+        if (!Array.isArray(dpData)) return;
+
+        dpData.forEach(p =>
+        {
+            const item = document.createElement("div");
+
+            item.textContent = `${p.ID ?? ""} - ${p.Name ?? "Unnamed"}`;
+            item.dataset.id = p.ID ?? "";
+
+            item.addEventListener("click", () =>
+            {
+                input.value = p.Name ?? "";
+                input.dataset.value = String(p.ID ?? "");
+
+                list.classList.add("hidden");
+            });
+
+            list.appendChild(item);
+        });
+    }
+
+    input.addEventListener("click", () =>
+    {
+        list.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (e) =>
+    {
+        if (!input.contains(e.target) && !list.contains(e.target))
+        {
+            list.classList.add("hidden");
+        }
+    });
+
+    render();
+}
+
+/* ======================================================
+   MODAL CONTROL
+====================================================== */
 function openModal()
 {
     modal.classList.remove("hidden");
@@ -92,13 +148,21 @@ function showEditSelect()
     hideAll();
     document.getElementById("dp-edit-select").classList.remove("hidden");
 
+    const input = document.getElementById("edit_select_input");
+    const list = document.getElementById("edit_select_list");
+
+    input.value = "";
+    input.dataset.value = "";
+
+    list.classList.add("hidden");
+
     document.querySelectorAll(".dp-mode button").forEach(b => b.classList.remove("active"));
     document.querySelector(".dp-mode button:nth-child(2)").classList.add("active");
 }
 
 function loadPainting()
 {
-    const id = document.getElementById("edit_select_dropdown").value;
+    const id = document.getElementById("edit_select_input").dataset.value;
     if (!id) return;
 
     const dp = dpData.find(p => String(p.ID) === String(id));
@@ -118,9 +182,10 @@ function loadPainting()
     hideAll();
     document.getElementById("dp-edit").classList.remove("hidden");
 }
-//#endregion
 
-//#region Add Painting
+/* ======================================================
+   ADD PAINTING
+====================================================== */
 async function paintingAdd()
 {
     if (isSubmitting) return;
@@ -166,9 +231,10 @@ async function paintingAdd()
         unlockForm();
     }
 }
-//#endregion
 
-//#region Edit Painting
+/* ======================================================
+   EDIT PAINTING
+====================================================== */
 async function paintingEdit()
 {
     if (isSubmitting) return;
@@ -181,7 +247,7 @@ async function paintingEdit()
     const data =
     {
         action: "edit",
-        id: document.getElementById("edit_select_dropdown").value,
+        id: document.getElementById("edit_select_input").dataset.value,
         name: document.getElementById("edit_name").value,
         width: w,
         height: h,
@@ -214,9 +280,10 @@ async function paintingEdit()
         unlockForm();
     }
 }
-//#endregion
 
-//#region Toast
+/* ======================================================
+   TOAST
+====================================================== */
 function showToast(message)
 {
     const toast = document.getElementById("toast");
@@ -235,9 +302,10 @@ function showToast(message)
         }, 250);
     }, 2500);
 }
-//#endregion
 
-//#region Form Lock
+/* ======================================================
+   FORM LOCK
+====================================================== */
 function lockForm()
 {
     isSubmitting = true;
@@ -261,8 +329,10 @@ function unlockForm()
         el.style.pointerEvents = "auto";
     });
 }
-//#endregion
 
+/* ======================================================
+   TOGGLE HELPER
+====================================================== */
 function setToggle(id, state)
 {
     const el = document.getElementById(id);
