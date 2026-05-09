@@ -488,12 +488,12 @@ function updateDpDisplay()
 
         const placeholders = 
         [
-            "/Hobby-Gallery/Assets/DP_PlaceHolderPuzzle1.png",
-            "/Hobby-Gallery/Assets/DP_PlaceHolderPuzzle2.png",
-            "/Hobby-Gallery/Assets/DP_PlaceHolderPuzzle3.png",
-            "/Hobby-Gallery/Assets/DP_PlaceHolderPuzzle4.png",
-            "/Hobby-Gallery/Assets/DP_PlaceHolderPuzzle5.png",
-            "/Hobby-Gallery/Assets/DP_PlaceHolderPuzzle5.png"
+            "/Hobby-Gallery/assets/images/placeholders/DP1.png",
+            "/Hobby-Gallery/assets/images/placeholders/DP2.png",
+            "/Hobby-Gallery/assets/images/placeholders/DP3.png",
+            "/Hobby-Gallery/assets/images/placeholders/DP4.png",
+            "/Hobby-Gallery/assets/images/placeholders/DP5.png",
+            "/Hobby-Gallery/assets/images/placeholders/DP6.png"
         ];
 
         const randomIndex = Math.floor(Math.random() * placeholders.length);
