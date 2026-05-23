@@ -23,6 +23,8 @@ let currentFDFilter = false;
 //#region Init Flow
 function initManipulation(data) 
 {
+    console.log("dataManipulation.js loaded")
+
     dpData = Array.isArray(data) ? data : [];
     dpData.sort((a, b) =>
 {
