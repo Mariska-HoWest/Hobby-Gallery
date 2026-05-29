@@ -5,49 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diamond Painting</title>
 
-    <!-- CSS -->
+    <!-- Global CSS/JS -->
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/css/import.css">
+	<script type="module" src="/Hobby-Gallery/shared/js/import.js"></script>
+
+    <!-- Inject Layout -->
+    <script src="/Hobby-Gallery/shared/js/.core/layoutInjector.js" defer></script>
+
+	<!-- CSS Extras-->
     <script src="https://kit.fontawesome.com/e592878f22.js" crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/Hobby-Gallery/style.css">
-    <link rel="stylesheet" href="/Hobby-Gallery/diamond-painting/style.css">
+	<link rel="stylesheet" href="/Hobby-Gallery/diamond-painting/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- JS -->
-    <!-- Load GIS client -->
-    <script src="https://accounts.google.com/gsi/client" defer></script>
-
-    <!-- Load Google API client -->
-    <script src="https://apis.google.com/js/api.js" defer></script>
-
-    <!-- General app config -->
-    <script src="/Hobby-Gallery/app.js" defer></script>
-
-    <!-- Shared Sheets service -->
-    <script src="/Hobby-Gallery/sheetsService.js" defer></script>
-
-    <!-- Page-specific -->
-    <script src="/Hobby-Gallery/diamond-painting/dataFetch.js" defer></script>
+	<!-- Page Specific JS-->
+	<script src="/Hobby-Gallery/diamond-painting/dataFetch.js" defer></script>
     <script src="/Hobby-Gallery/diamond-painting/dataManipulation.js" defer></script>
     <script src="/Hobby-Gallery/diamond-painting/dataPush.js" defer></script>
+
 </head>
 
 <body>
-
     <div class="editDPbtn">
       <i class="fa-solid fa-plus" style="color: var(--color-main-bg);"></i>
     </div>
 
-    <div class="grid-container">
-    <nav class="navigation">
-      <ul>
-        <li><a href="/Hobby-Gallery/index.html">Main</a></li>
-        <li><a href="/Hobby-Gallery/diamond-painting/index.html">Diamond Painting</a></li>
-        <li><a href="/Hobby-Gallery/naaien/index.html">Naaien</a></li>
-        <li><a href="/Hobby-Gallery/geocachen/index.html">Geocachen</a></li>
-        <li><a href="/Hobby-Gallery/kaarsen/index.html">Kaarsen</a></li>
-      </ul>
-    </nav>
-      
-    <div id="filter-panel">
+	<div class="grid-container">
+
+	<div id="filter-panel">
 
       <label class="filterlbl">Show all info
           <input type="checkbox" id="infoToggle">
@@ -164,7 +148,7 @@
 
 <div id="toast" class="toast hidden"></div>
 
+
 </body>
 
-<footer> Project By Dee </footer>
 </html>
