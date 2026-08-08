@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Painting</title>
+
+    <!-- External -->
+    <script src="https://kit.fontawesome.com/e592878f22.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" defer></script>
+    <script src="https://apis.google.com/js/api.js" defer></script>
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/theme.css">
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/components/card.css">
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/components/filter.css">
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/components/toast.css">
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="/Hobby-Gallery/pages/diamond-painting/css/style.css">
+
+    <!-- Page entry -->
+    <script type="module" src="/Hobby-Gallery/pages/diamond-painting/main.js"></script>
+</head>
+
+<body>
+
+    <div class="editDPbtn">
+      <i class="fa-solid fa-plus" style="color: var(--color-main-bg);"></i>
+    </div>
+
+    <div class="grid-container">
+    <nav class="navigation"></nav>
+
+    <div id="filter-panel">
+
+      <label class="filterlbl">Show all info
+          <input type="checkbox" id="infoToggle">
+          <span class="toggle-info" title="Press to display all info cards!"></span>
+      </label>
+
+      <label class="filterlbl">Image State Toggle</label>
+      <div class="SwapPicBtn">
+          <button id="btnBefore">Show Before</button>
+          <button id="btnDefault">Default</button>
+          <button id="btnAfter">Show After</button>
+      </div>
+
+      <label class="filterlbl">Completeness Filter</label>
+      <div class="ToggleStateBtn">
+          <button id="btnUnFinished">WIP</button>
+          <button id="btnAll">Show All</button>
+          <button id="btnFinished">Complete</button>
+      </div>
+
+      <label class="filterlbl">Filter by Owner</label>
+        <div class="nameFilter">
+          <input type="text" class="nameFilter-input" placeholder="Select owner..." autocomplete="off">
+          <ul class="nameFilter-list hidden"></ul>
+        </div>
+
+      <div class="modifierFilters">
+        <div id="filterAB" class="modifier">AB</div>
+        <div id="filterFD" class="modifier">FD</div>
+      </div>
+
+    </div>
+
+    <div id="display"></div>
+    </div>
+
+<div id="dp-modal" class="dp-modal hidden">
+
+  <div class="dp-modal-box">
+
+    <div class="dp-modal-header">
+      <button>&#10006;</button>
+    </div>
+
+    <h2 class="dp-title">Diamond Painting Journal</h2>
+
+    <div class="dp-mode">
+      <button>&#10133; Add</button>
+      <button>&#9999;&#65039; Edit</button>
+    </div>
+
+    <div id="dp-add" class="dp-section hidden">
+
+      <input id="add_name" placeholder="Name">
+      <input id="add_width" type="number" placeholder="Width">
+      <input id="add_height" type="number" placeholder="Height">
+
+      <div class="ownerFilter">
+        <input type="text" id="owner_input" class="ownerFilter-input" placeholder="Owner..." autocomplete="off">
+        <ul id="owner_list" class="ownerFilter-list hidden"></ul>
+      </div>
+
+      <input id="add_comment" placeholder="Comment">
+      <input id="add_imgoriginal" placeholder="Original Image URL">
+      <input id="add_imgfinished" placeholder="Finished Image URL">
+
+      <div class="abfdGroup">
+        <div id="add_ab" class="neonToggle">AB</div>
+        <div id="add_fd" class="neonToggle">FD</div>
+      </div>
+
+      <button>Save</button>
+    </div>
+
+    <div id="dp-edit-select" class="dp-section hidden">
+
+        <div class="ownerFilter">
+            <input id="edit_select_input" placeholder="Select a painting..." readonly>
+            <div id="edit_select_list" class="ownerFilter-list hidden"></div>
+        </div>
+
+        <button>Load</button>
+
+    </div>
+
+    <div id="dp-edit" class="dp-section hidden">
+
+      <input id="edit_name" placeholder="Name">
+      <input id="edit_width" type="number" placeholder="Width">
+      <input id="edit_height" type="number" placeholder="Height">
+
+      <div class="ownerFilter">
+        <input type="text" id="edit_owner_input" class="ownerFilter-input" placeholder="Owner..." autocomplete="off">
+        <ul id="edit_owner_list" class="ownerFilter-list hidden"></ul>
+      </div>
+
+      <input id="edit_comment" placeholder="Comment">
+      <input id="edit_imgoriginal" placeholder="Original Image URL">
+      <input id="edit_imgfinished" placeholder="Finished Image URL">
+
+      <div class="abfdGroup">
+        <div id="edit_ab" class="neonToggle">AB</div>
+        <div id="edit_fd" class="neonToggle">FD</div>
+      </div>
+
+      <button>Save Changes</button>
+
+    </div>
+
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+</body>
+
+<footer> Project By Dee </footer>
+</html>
