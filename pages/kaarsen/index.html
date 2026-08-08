@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaarsen</title>
+
+    <!-- External -->
+    <script src="https://kit.fontawesome.com/e592878f22.js" crossorigin="anonymous"></script>
+    <script src="https://accounts.google.com/gsi/client" defer></script>
+    <script src="https://apis.google.com/js/api.js" defer></script>
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/theme.css">
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/components/card.css">
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/components/filter.css">
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="/Hobby-Gallery/pages/kaarsen/css/style.css">
+
+    <!-- Page entry -->
+    <script type="module" src="/Hobby-Gallery/pages/kaarsen/main.js"></script>
+</head>
+
+<body>
+  <div class="grid-container">
+    <nav class="navigation"></nav>
+
+    <div id="filter-panel">
+
+      <div class="Sorters">
+          <label for="sort-attribute">Sort by:</label>
+          <div id="sort-wrapper" class="sort-controls">
+
+            <div class="dropdown">
+                <select id="sort-attribute" class="sort-dropdown">
+                  <option value="default">Default</option>
+                  <option value="name">Name</option>
+                  <option value="weight">Weight</option>
+              </select>
+
+              <i class="fa-solid fa-angle-down"></i>
+            </div>
+
+
+            <button id="sort-direction" class="direction-btn" data-order="asc">
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+          </div>
+      </div>
+
+    </div>
+
+    <div id="display"></div>
+
+<!-- Candle Modal -->
+<div id="candleModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+
+  <div class="modal-content">
+
+    <!-- Close -->
+    <button id="modalClose" class="modal-close">&times;</button>
+
+    <!-- Arrows -->
+    <button id="modalPrev" class="modal-arrow left">&#10094;</button>
+    <button id="modalNext" class="modal-arrow right">&#10095;</button>
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h2 id="modalName">Candle Name</h2>
+      <span id="modalId" class="modal-id">#001</span>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <div class="modal-left">
+        <img id="modalImg" src="" alt="">
+      </div>
+
+      <div class="modal-right">
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Gewicht</span>
+            <span id="modalWeight" class="info-value"></span>
+          </div>
+        </div>
+
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Lont</span>
+            <span id="modalWick" class="info-value"></span>
+          </div>
+        </div>
+
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Grootte</span>
+            <span id="modalDimensions" class="info-value"></span>
+          </div>
+        </div>
+
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">Kost Materiaal</span>
+            <span id="modalCost" class="info-value"></span>
+          </div>
+        </div>
+
+        <div class="info-group">
+          <div class="info-row">
+            <span class="info-label">In Vooraad:</span>
+            <span id="modalStock" class="info-value">&mdash;</span>
+          </div>
+        </div>
+
+        <div class="modal-buttons">
+          <button id="addToSession" class="primary-btn">Naar Planning</button>
+          <button id="createNew" class="secondary-btn">Naar Voorraad</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+<footer> Project By Dee </footer>
+</body>
+</html>

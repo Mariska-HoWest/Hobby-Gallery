@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hobby Gallery</title>
 
-    <script src="https://apis.google.com/js/api.js"></script>
-
-    <!-- Global CSS/JS -->
-    <link rel="stylesheet" href="/Hobby-Gallery/shared/css/import.css">
-    <link rel="script" href="/Hobby-Gallery/shared/js/import.js">
-
-    <!-- Inject Layout -->
-    <script src="/Hobby-Gallery/shared/js/.core/layoutInjector.js" defer></script>
-
+    <link rel="stylesheet" href="/Hobby-Gallery/shared/theme.css">
+    <script type="module">
+        import { mountNav } from '/Hobby-Gallery/shared/nav.js';
+        mountNav();
+    </script>
 </head>
 
 <body>
-
-
+    <nav class="navigation"></nav>
 </body>
 
+<footer> Project By Dee </footer>
 </html>
